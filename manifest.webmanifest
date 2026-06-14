@@ -1,7 +1,7 @@
 {
-  "name":"解剖学クイズ 519",
+  "name":"解剖学クイズ 519 図入り版",
   "short_name":"解剖学クイズ",
-  "description":"全身解剖学519問を間隔反復で学習するアプリ",
+  "description":"全身解剖学519問を、元資料の対応図と間隔反復で学習するアプリ",
   "start_url":"./",
   "scope":"./",
   "display":"standalone",
