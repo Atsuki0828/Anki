@@ -1,0 +1,1 @@
+(()=>{const fix=()=>{document.querySelectorAll('.hero h1').forEach(h=>{if(h.innerHTML.includes('上肢121問'))h.innerHTML=`全${(window.QUESTION_BANK||[]).length}問を<br>定着させる`;});};new MutationObserver(fix).observe(document.getElementById('main'),{childList:true,subtree:true});fix();})();
