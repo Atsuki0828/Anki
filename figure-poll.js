@@ -8,6 +8,7 @@ setInterval(async()=>{
   try{
     await AnatomyFigureSession.importFiles(Array.from(input.files),text=>{if(status)status.textContent=text});
     if(status)status.textContent='図の読み込みが完了しました。';
+    document.dispatchEvent(new Event('anatomy-figures-loaded'));
   }catch(error){
     console.error(error);
     if(status)status.textContent='読み込みエラー: '+error.message;
