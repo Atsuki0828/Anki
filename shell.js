@@ -2,7 +2,7 @@ document.getElementById('app').outerHTML = `
 <div id="app" class="app-shell">
   <header class="topbar">
     <button class="icon-btn" id="homeBtn" aria-label="ホーム">⌂</button>
-    <div class="brand"><div class="brand-mark">UL</div><div><strong>上肢解剖クイズ</strong><span>121問・資料準拠</span></div></div>
+    <div class="brand"><div class="brand-mark">AN</div><div><strong>解剖学クイズ</strong><span>全519問・資料準拠</span></div></div>
     <button class="icon-btn" id="settingsBtn" aria-label="設定">⚙</button>
   </header>
   <main id="main"></main>
