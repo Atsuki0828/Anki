@@ -19,6 +19,12 @@ document.getElementById('app').outerHTML = `
     <label class="setting-row"><span>問題順</span><select id="orderSetting"><option value="smart">弱点優先</option><option value="random">ランダム</option><option value="number">番号順</option></select></label>
     <label class="setting-row"><span>入力欄を表示</span><input id="inputSetting" type="checkbox" checked></label>
     <label class="setting-row"><span>問題文を大きく</span><input id="largeTextSetting" type="checkbox"></label>
+    <section class="figure-import">
+      <h3>元資料の図</h3>
+      <p>GoodNotesファイルを読み込むと、答えと一緒に対応図を表示します。ページを閉じた後は再読込が必要です。</p>
+      <label class="figure-import-button">GoodNotesファイルを選択<input id="goodnotesImportInput" type="file" accept=".goodnotes,.zip,application/zip" multiple></label>
+      <div id="figureImportStatus" class="figure-import-status">まだ図を読み込んでいません。</div>
+    </section>
     <button type="button" class="danger-btn" id="resetBtn">学習履歴をすべて消去</button>
     <p class="fineprint">回答はアップロード資料の記載に準拠しています。授業資料との表現差や誤記が疑われる項目は「要確認」と表示します。</p>
   </form>
