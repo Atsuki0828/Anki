@@ -1,0 +1,1 @@
+['homeBtn','settingsBtn','settingsDialog','orderSetting','inputSetting','largeTextSetting','resetBtn','mode','count','cat','pool','work','show','ans','actions','next','again','back','search','rows'].forEach(id=>{try{Object.defineProperty(window,id,{configurable:true,get:()=>document.getElementById(id)})}catch{}});
