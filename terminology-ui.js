@@ -1,6 +1,7 @@
 (() => {
 'use strict';
 const DATA=window.ANATOMY_TRANSLATIONS||{};
+const BANK=window.QUESTION_BANK||[];
 function esc(value){return String(value??'').replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]))}
 function questionId(){
   const badge=[...document.querySelectorAll('.q-meta .badge')].find(element=>/^Q\d+$/.test(element.textContent.trim()));
@@ -8,6 +9,13 @@ function questionId(){
 }
 function languageSection(label,lang,items){
   return `<section class="terminology-language terminology-${lang}"><div class="terminology-heading"><span>${label}</span><small>${lang==='en'?'English':'Latina'}</small></div><ol>${items.map(item=>`<li>${esc(item)}</li>`).join('')}</ol></section>`;
+}
+function audit(){
+  const missing=BANK.filter(question=>!DATA[question.id]?.en?.length||!DATA[question.id]?.la?.length).map(question=>question.id);
+  const unbalanced=BANK.filter(question=>DATA[question.id]?.en?.length!==DATA[question.id]?.la?.length).map(question=>question.id);
+  window.ANATOMY_TRANSLATION_AUDIT={total:BANK.length,translated:BANK.length-missing.length,missing,unbalanced};
+  if(missing.length||unbalanced.length)console.error('Anatomical terminology audit failed',window.ANATOMY_TRANSLATION_AUDIT);
+  else console.info(`Anatomical terminology audit: ${BANK.length}/${BANK.length} questions complete`);
 }
 function render(){
   const answer=document.querySelector('.answer-box'),id=questionId();
@@ -24,6 +32,7 @@ function render(){
   const note=answer.querySelector('.source-note');
   note?answer.insertBefore(block,note):answer.appendChild(block);
 }
+audit();
 new MutationObserver(render).observe(document.documentElement,{childList:true,subtree:true});
 render();
 })();
