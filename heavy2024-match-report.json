@@ -1,0 +1,2444 @@
+{
+  "summary": {
+    "source": 332,
+    "bank": 519,
+    "likely": 83,
+    "mismatches": 45
+  },
+  "likely": [
+    {
+      "source_id": 11,
+      "source_question": "胸鎖関節の関節包を補強する靭帯",
+      "source_answer": "胸鎖靭帯、肋鎖靭帯、鎖骨間靭帯",
+      "best": {
+        "id": 2,
+        "question": "胸鎖関節関節包を補強する靭帯を3つ答えよ。",
+        "answer": "胸鎖靭帯／肋鎖靭帯／鎖骨間靭帯",
+        "score": 0.8223
+      },
+      "second": {
+        "id": 3,
+        "question": "肩鎖関節を補強する靭帯を2つ答えよ。",
+        "answer": "肩鎖靭帯／烏口鎖骨靭帯",
+        "score": 0.5867
+      },
+      "answer_same": true,
+      "margin": 0.2356
+    },
+    {
+      "source_id": 13,
+      "source_question": "肘関節をつくる3つの関節、関節包を補強する靭帯",
+      "source_answer": "腕尺関節、腕橈関節、上橈尺関節/内側側副靭帯、外側側副靭帯",
+      "best": {
+        "id": 2,
+        "question": "胸鎖関節関節包を補強する靭帯を3つ答えよ。",
+        "answer": "胸鎖靭帯／肋鎖靭帯／鎖骨間靭帯",
+        "score": 0.6672
+      },
+      "second": {
+        "id": 5,
+        "question": "肩関節を補強する靭帯を2つ答えよ。",
+        "answer": "烏口肩峰靭帯／烏口上腕靭帯",
+        "score": 0.4812
+      },
+      "answer_same": false,
+      "margin": 0.186
+    },
+    {
+      "source_id": 12,
+      "source_question": "回旋筋腱板",
+      "source_answer": "小円筋、棘上筋、棘下筋、肩甲下筋",
+      "best": {
+        "id": 6,
+        "question": "回旋筋腱板をなす筋を4つ答えよ。",
+        "answer": "肩甲下筋／棘上筋／棘下筋／小円筋",
+        "score": 0.6925
+      },
+      "second": {
+        "id": 57,
+        "question": "肘窩の正中部に触れる筋腱を答えよ。",
+        "answer": "上腕二頭筋腱",
+        "score": 0.1351
+      },
+      "answer_same": false,
+      "margin": 0.5574
+    },
+    {
+      "source_id": 23,
+      "source_question": "上肢体から上腕骨に至る筋",
+      "source_answer": "三角筋、烏口腕筋、大円筋、肩甲下筋、棘上筋、棘下筋、小円筋",
+      "best": {
+        "id": 18,
+        "question": "上肢帯から上腕骨に至る筋を7つ答えよ。",
+        "answer": "三角筋／烏口腕筋／大円筋／肩甲下筋／棘上筋／棘下筋／小円筋",
+        "score": 0.8958
+      },
+      "second": {
+        "id": 15,
+        "question": "体幹から起こり、上肢帯を越えて上腕骨に至る筋を背側と腹側に分けて、それぞれ答えよ。",
+        "answer": "背側：広背筋／腹側：大胸筋",
+        "score": 0.3983
+      },
+      "answer_same": true,
+      "margin": 0.4975
+    },
+    {
+      "source_id": 37,
+      "source_question": "母指球筋",
+      "source_answer": "（橈側）短母指外転筋、母指対立筋、短母指屈筋、母指内転筋（尺側）",
+      "best": {
+        "id": 79,
+        "question": "母指球筋を4つ答えよ。",
+        "answer": "短母指外転筋／母指対立筋／短母指屈筋／母指内転筋",
+        "score": 0.7267
+      },
+      "second": {
+        "id": 83,
+        "question": "小指球筋を3つ答えよ。",
+        "answer": "小指外転筋／小指対立筋／短小指屈筋",
+        "score": 0.5
+      },
+      "answer_same": false,
+      "margin": 0.2267
+    },
+    {
+      "source_id": 38,
+      "source_question": "小指球筋",
+      "source_answer": "（橈側）小指対立筋、短小指屈筋、小指外転筋（尺側）",
+      "best": {
+        "id": 83,
+        "question": "小指球筋を3つ答えよ。",
+        "answer": "小指外転筋／小指対立筋／短小指屈筋",
+        "score": 0.7267
+      },
+      "second": {
+        "id": 79,
+        "question": "母指球筋を4つ答えよ。",
+        "answer": "短母指外転筋／母指対立筋／短母指屈筋／母指内転筋",
+        "score": 0.5
+      },
+      "answer_same": false,
+      "margin": 0.2267
+    },
+    {
+      "source_id": 43,
+      "source_question": "肩甲骨の上方回旋",
+      "source_answer": "僧帽筋、前鋸筋",
+      "best": {
+        "id": 94,
+        "question": "肩甲骨の上方回旋にあずかる筋を2つ答えよ。",
+        "answer": "僧帽筋／前鋸筋",
+        "score": 0.59
+      },
+      "second": {
+        "id": 95,
+        "question": "肩甲骨の下方回旋にあずかる筋を5つ答えよ。",
+        "answer": "菱形筋／肩甲挙筋／大胸筋／小胸筋／広背筋",
+        "score": 0.4486
+      },
+      "answer_same": true,
+      "margin": 0.1414
+    },
+    {
+      "source_id": 44,
+      "source_question": "肩甲骨の下方回旋",
+      "source_answer": "大・小菱形筋、肩甲挙筋、大胸筋、小胸筋、広背筋",
+      "best": {
+        "id": 95,
+        "question": "肩甲骨の下方回旋にあずかる筋を5つ答えよ。",
+        "answer": "菱形筋／肩甲挙筋／大胸筋／小胸筋／広背筋",
+        "score": 0.59
+      },
+      "second": {
+        "id": 94,
+        "question": "肩甲骨の上方回旋にあずかる筋を2つ答えよ。",
+        "answer": "僧帽筋／前鋸筋",
+        "score": 0.4486
+      },
+      "answer_same": false,
+      "margin": 0.1414
+    },
+    {
+      "source_id": 62,
+      "source_question": "上腕動脈の枝",
+      "source_answer": "上腕深動脈、上尺側側副動脈、下尺側側副動脈、（肘関節動脈網）",
+      "best": {
+        "id": 111,
+        "question": "上腕動脈の枝を3つ答えよ。",
+        "answer": "上腕深動脈／上尺側側副動脈／下尺側側副動脈",
+        "score": 0.8042
+      },
+      "second": {
+        "id": 113,
+        "question": "橈骨動脈の枝を6つ答えよ。",
+        "answer": "橈側反回動脈／掌側手根枝／背側手根枝／浅掌枝／母指主動脈／深掌動脈弓",
+        "score": 0.5
+      },
+      "answer_same": false,
+      "margin": 0.3042
+    },
+    {
+      "source_id": 64,
+      "source_question": "橈骨動脈の枝",
+      "source_answer": "橈側反回動脈、掌側・背側手根枝、浅掌枝、母指主動脈、深掌動脈弓",
+      "best": {
+        "id": 113,
+        "question": "橈骨動脈の枝を6つ答えよ。",
+        "answer": "橈側反回動脈／掌側手根枝／背側手根枝／浅掌枝／母指主動脈／深掌動脈弓",
+        "score": 0.8042
+      },
+      "second": {
+        "id": 114,
+        "question": "尺骨動脈の枝を6つ答えよ。",
+        "answer": "尺側反回動脈／総骨間動脈／背側手根枝／掌側手根枝／深掌枝／浅掌動脈弓",
+        "score": 0.6521
+      },
+      "answer_same": false,
+      "margin": 0.1521
+    },
+    {
+      "source_id": 65,
+      "source_question": "尺骨動脈の枝",
+      "source_answer": "尺側反回動脈、総骨間動脈、背側・掌側手根枝、深掌枝、浅掌動脈弓",
+      "best": {
+        "id": 114,
+        "question": "尺骨動脈の枝を6つ答えよ。",
+        "answer": "尺側反回動脈／総骨間動脈／背側手根枝／掌側手根枝／深掌枝／浅掌動脈弓",
+        "score": 0.8042
+      },
+      "second": {
+        "id": 113,
+        "question": "橈骨動脈の枝を6つ答えよ。",
+        "answer": "橈側反回動脈／掌側手根枝／背側手根枝／浅掌枝／母指主動脈／深掌動脈弓",
+        "score": 0.6521
+      },
+      "answer_same": false,
+      "margin": 0.1521
+    },
+    {
+      "source_id": 73,
+      "source_question": "外側神経束から起こる枝",
+      "source_answer": "外側胸筋神経",
+      "best": {
+        "id": 119,
+        "question": "腕神経叢の外側神経束から起こる枝を答えよ。",
+        "answer": "外側胸筋神経",
+        "score": 0.7265
+      },
+      "second": {
+        "id": 120,
+        "question": "腕神経叢の内側神経束から起こる枝を3つ答えよ。",
+        "answer": "内側胸筋神経／内側上腕皮神経／内側前腕皮神経",
+        "score": 0.6278
+      },
+      "answer_same": true,
+      "margin": 0.0987
+    },
+    {
+      "source_id": 74,
+      "source_question": "内側神経束から起こる枝",
+      "source_answer": "内側胸筋神経、内側上腕皮神経、内側前腕皮神経",
+      "best": {
+        "id": 120,
+        "question": "腕神経叢の内側神経束から起こる枝を3つ答えよ。",
+        "answer": "内側胸筋神経／内側上腕皮神経／内側前腕皮神経",
+        "score": 0.6954
+      },
+      "second": {
+        "id": 119,
+        "question": "腕神経叢の外側神経束から起こる枝を答えよ。",
+        "answer": "外側胸筋神経",
+        "score": 0.6559
+      },
+      "answer_same": true,
+      "margin": 0.0395
+    },
+    {
+      "source_id": 75,
+      "source_question": "後神経束から起こる枝",
+      "source_answer": "肩甲下神経、胸背神経",
+      "best": {
+        "id": 121,
+        "question": "腕神経叢の後神経束から起こる枝を2つ答えよ。",
+        "answer": "肩甲下神経／胸背神経",
+        "score": 0.6739
+      },
+      "second": {
+        "id": 119,
+        "question": "腕神経叢の外側神経束から起こる枝を答えよ。",
+        "answer": "外側胸筋神経",
+        "score": 0.6013
+      },
+      "answer_same": true,
+      "margin": 0.0726
+    },
+    {
+      "source_id": 90,
+      "source_question": "脛骨と腓骨の連結",
+      "source_answer": "脛腓関節、脛腓靭帯結合、下腿骨間膜",
+      "best": {
+        "id": 124,
+        "question": "脛骨と腓骨の連結を3つ答えよ。",
+        "answer": "脛腓関節／脛腓靭帯結合／下腿骨間膜",
+        "score": 0.8487
+      },
+      "second": {
+        "id": 224,
+        "question": "脛骨の内旋にあずかる筋を5つ答えよ。",
+        "answer": "半膜様筋／膝窩筋／半腱様筋／薄筋／縫工筋",
+        "score": 0.1907
+      },
+      "answer_same": true,
+      "margin": 0.658
+    },
+    {
+      "source_id": 97,
+      "source_question": "内寛骨筋",
+      "source_answer": "腸腰筋、腸骨筋膜",
+      "best": {
+        "id": 141,
+        "question": "内寛骨筋を答えよ。",
+        "answer": "腸腰筋",
+        "score": 0.8371
+      },
+      "second": {
+        "id": 147,
+        "question": "外寛骨筋のうち浅層の殿筋群の筋を4つ答えよ。",
+        "answer": "大殿筋／大腿筋膜張筋／中殿筋／小殿筋",
+        "score": 0.1986
+      },
+      "answer_same": false,
+      "margin": 0.6385
+    },
+    {
+      "source_id": 98,
+      "source_question": "外寛骨筋",
+      "source_answer": "大殿筋、大腿筋膜張筋、中殿筋、小殿筋、梨状筋、内閉鎖筋、上双子筋、下双子筋、大腿方形筋、外閉鎖筋",
+      "best": {
+        "id": 141,
+        "question": "内寛骨筋を答えよ。",
+        "answer": "腸腰筋",
+        "score": 0.5814
+      },
+      "second": {
+        "id": 147,
+        "question": "外寛骨筋のうち浅層の殿筋群の筋を4つ答えよ。",
+        "answer": "大殿筋／大腿筋膜張筋／中殿筋／小殿筋",
+        "score": 0.3729
+      },
+      "answer_same": false,
+      "margin": 0.2085
+    },
+    {
+      "source_id": 138,
+      "source_question": "筋裂孔を通る筋、神経",
+      "source_answer": "腸腰筋、大腿神経",
+      "best": {
+        "id": 145,
+        "question": "筋裂孔を通る筋と神経を答えよ。",
+        "answer": "腸腰筋／大腿神経",
+        "score": 0.7919
+      },
+      "second": {
+        "id": 154,
+        "question": "梨状筋上孔を通る動静脈、神経を答えよ。",
+        "answer": "上殿動静脈／上殿神経",
+        "score": 0.3997
+      },
+      "answer_same": true,
+      "margin": 0.3922
+    },
+    {
+      "source_id": 99,
+      "source_question": "大腿四頭筋",
+      "source_answer": "大腿直筋、外側広筋、中間広筋、内側広筋",
+      "best": {
+        "id": 159,
+        "question": "大腿四頭筋を構成する筋を4つ答えよ。",
+        "answer": "大腿直筋／外側広筋／中間広筋／内側広筋",
+        "score": 0.6925
+      },
+      "second": {
+        "id": 160,
+        "question": "大腿四頭筋の支配神経を答えよ。",
+        "answer": "大腿神経",
+        "score": 0.5527
+      },
+      "answer_same": true,
+      "margin": 0.1398
+    },
+    {
+      "source_id": 107,
+      "source_question": "下腿三頭筋をつくる筋",
+      "source_answer": "腓腹筋、ヒラメ筋、足底筋",
+      "best": {
+        "id": 190,
+        "question": "下腿三頭筋をなす筋を3つ答えよ。",
+        "answer": "腓腹筋／ヒラメ筋／足底筋",
+        "score": 0.8042
+      },
+      "second": {
+        "id": 191,
+        "question": "下腿三頭筋の支配神経を答えよ。",
+        "answer": "脛骨神経",
+        "score": 0.5058
+      },
+      "answer_same": true,
+      "margin": 0.2984
+    },
+    {
+      "source_id": 112,
+      "source_question": "足底の筋について、第1層の筋",
+      "source_answer": "母趾外転筋、短趾屈筋、小趾外転筋",
+      "best": {
+        "id": 203,
+        "question": "足底の筋うち第1層の筋を3つ答えよ。",
+        "answer": "母趾外転筋／短趾屈筋／小趾外転筋",
+        "score": 0.6667
+      },
+      "second": {
+        "id": 207,
+        "question": "足底の筋のうち第2層の筋を2つ答えよ。",
+        "answer": "足底方形筋／虫様筋",
+        "score": 0.6259
+      },
+      "answer_same": true,
+      "margin": 0.0408
+    },
+    {
+      "source_id": 130,
+      "source_question": "大腿動脈の枝",
+      "source_answer": "浅腹壁動脈、浅腸骨回旋動脈、外陰部動脈、大腿深動脈、下行膝動脈",
+      "best": {
+        "id": 230,
+        "question": "大腿動脈の枝を5つ答えよ。",
+        "answer": "浅腹壁動脈／浅腸骨回旋動脈／外陰部動脈／大腿深動脈／下行膝動脈",
+        "score": 0.8042
+      },
+      "second": {
+        "id": 231,
+        "question": "大腿深動脈の枝を3つ答えよ。",
+        "answer": "内側大腿回旋動脈／外側大腿回旋動脈／貫通動脈",
+        "score": 0.6333
+      },
+      "answer_same": true,
+      "margin": 0.1709
+    },
+    {
+      "source_id": 131,
+      "source_question": "大腿深動脈の枝",
+      "source_answer": "内側大腿回旋動脈、外側大腿回旋動脈、貫通動脈",
+      "best": {
+        "id": 231,
+        "question": "大腿深動脈の枝を3つ答えよ。",
+        "answer": "内側大腿回旋動脈／外側大腿回旋動脈／貫通動脈",
+        "score": 0.8294
+      },
+      "second": {
+        "id": 230,
+        "question": "大腿動脈の枝を5つ答えよ。",
+        "answer": "浅腹壁動脈／浅腸骨回旋動脈／外陰部動脈／大腿深動脈／下行膝動脈",
+        "score": 0.6188
+      },
+      "answer_same": true,
+      "margin": 0.2106
+    },
+    {
+      "source_id": 134,
+      "source_question": "前脛骨動脈の枝",
+      "source_answer": "足背動脈、弓状動脈",
+      "best": {
+        "id": 232,
+        "question": "後脛骨動脈の枝を3つ答えよ。",
+        "answer": "腓骨動脈／内側足底動脈／外側足底動脈",
+        "score": 0.6976
+      },
+      "second": {
+        "id": 231,
+        "question": "大腿深動脈の枝を3つ答えよ。",
+        "answer": "内側大腿回旋動脈／外側大腿回旋動脈／貫通動脈",
+        "score": 0.4341
+      },
+      "answer_same": false,
+      "margin": 0.2635
+    },
+    {
+      "source_id": 135,
+      "source_question": "後脛骨動脈の枝",
+      "source_answer": "腓骨動脈、内側・外側足底動脈",
+      "best": {
+        "id": 232,
+        "question": "後脛骨動脈の枝を3つ答えよ。",
+        "answer": "腓骨動脈／内側足底動脈／外側足底動脈",
+        "score": 0.8294
+      },
+      "second": {
+        "id": 231,
+        "question": "大腿深動脈の枝を3つ答えよ。",
+        "answer": "内側大腿回旋動脈／外側大腿回旋動脈／貫通動脈",
+        "score": 0.4341
+      },
+      "answer_same": false,
+      "margin": 0.3953
+    },
+    {
+      "source_id": 140,
+      "source_question": "仙骨神経叢の4つの神経",
+      "source_answer": "上殿神経、下殿神経、後大腿皮神経、坐骨神経",
+      "best": {
+        "id": 238,
+        "question": "仙骨神経叢の枝を4つ答えよ。",
+        "answer": "上殿神経／下殿神経／後大腿皮神経／坐骨神経",
+        "score": 0.5924
+      },
+      "second": {
+        "id": 237,
+        "question": "腰神経叢の枝を6つ答えよ。",
+        "answer": "腸骨下腹神経／腸骨鼡径神経／陰部大腿神経／外側大腿皮神経／大腿神経／閉鎖神経",
+        "score": 0.3838
+      },
+      "answer_same": true,
+      "margin": 0.2086
+    },
+    {
+      "source_id": 141,
+      "source_question": "坐骨神経の枝",
+      "source_answer": "総腓骨神経、脛骨神経",
+      "best": {
+        "id": 239,
+        "question": "坐骨神経の枝を2つ答えよ。",
+        "answer": "総腓骨神経／脛骨神経",
+        "score": 0.8042
+      },
+      "second": {
+        "id": 241,
+        "question": "脛骨神経の枝を2つ答えよ。",
+        "answer": "内側足底神経／外側足底神経",
+        "score": 0.6521
+      },
+      "answer_same": true,
+      "margin": 0.1521
+    },
+    {
+      "source_id": 142,
+      "source_question": "総腓骨神経の枝",
+      "source_answer": "外側腓腹皮神経、浅腓骨神経、深腓骨神経",
+      "best": {
+        "id": 240,
+        "question": "総腓骨神経の枝を3つ答えよ。",
+        "answer": "外側腓腹皮神経／浅腓骨神経／深腓骨神経",
+        "score": 0.8294
+      },
+      "second": {
+        "id": 239,
+        "question": "坐骨神経の枝を2つ答えよ。",
+        "answer": "総腓骨神経／脛骨神経",
+        "score": 0.575
+      },
+      "answer_same": true,
+      "margin": 0.2544
+    },
+    {
+      "source_id": 149,
+      "source_question": "頭蓋と脊柱の連結",
+      "source_answer": "環椎後頭関節、環軸関節（正中環軸関節、外側環軸関節）、蓋膜、環椎十字靭帯（環椎横靭帯、縦束）、翼状靭帯、歯尖靭帯",
+      "best": {
+        "id": 247,
+        "question": "頭蓋と脊柱の連結をする靭帯を4つ答えよ。",
+        "answer": "蓋膜／環椎十字靭帯／翼状靭帯／歯尖靭帯",
+        "score": 0.62
+      },
+      "second": {
+        "id": 245,
+        "question": "頭蓋と脊柱連結をする関節を2つ答えよ。",
+        "answer": "環椎後頭関節／環軸関節",
+        "score": 0.475
+      },
+      "answer_same": false,
+      "margin": 0.145
+    },
+    {
+      "source_id": 156,
+      "source_question": "後頭下筋4つ",
+      "source_answer": "大後頭直筋、小後頭直筋、上頭斜筋、下頭斜筋",
+      "best": {
+        "id": 254,
+        "question": "後頭下筋を4つ答えよ。",
+        "answer": "大後頭直筋／小後頭直筋／上頭斜筋／下頭斜筋",
+        "score": 0.725
+      },
+      "second": {
+        "id": 255,
+        "question": "後頭下三角をつくる筋を3つ答えよ。",
+        "answer": "大後頭直筋／上頭斜筋／下頭斜筋",
+        "score": 0.4551
+      },
+      "answer_same": true,
+      "margin": 0.2699
+    },
+    {
+      "source_id": 157,
+      "source_question": "後頭下三角を構成する筋、ここを通る血管・神経",
+      "source_answer": "大後頭直筋、上頭斜筋、下頭斜筋/椎骨動脈、後頭下神経",
+      "best": {
+        "id": 255,
+        "question": "後頭下三角をつくる筋を3つ答えよ。",
+        "answer": "大後頭直筋／上頭斜筋／下頭斜筋",
+        "score": 0.6162
+      },
+      "second": {
+        "id": 256,
+        "question": "後頭下三角を通る動脈と神経を答えよ。",
+        "answer": "椎骨動脈／後頭下神経",
+        "score": 0.4705
+      },
+      "answer_same": false,
+      "margin": 0.1457
+    },
+    {
+      "source_id": 176,
+      "source_question": "心臓壁の3層",
+      "source_answer": "心内膜、心筋層、心外膜",
+      "best": {
+        "id": 300,
+        "question": "心臓壁の3層を答えよ。",
+        "answer": "心内膜／心筋層／心外膜",
+        "score": 0.8694
+      },
+      "second": {
+        "id": 336,
+        "question": "後腹壁の筋を3つ答えよ。",
+        "answer": "腸骨筋／大腰筋／腰方形筋",
+        "score": 0.23
+      },
+      "answer_same": true,
+      "margin": 0.6394
+    },
+    {
+      "source_id": 181,
+      "source_question": "冠状静脈洞に注ぐ静脈",
+      "source_answer": "大・中・小心臓動脈、左心室後静脈、左心房後静脈",
+      "best": {
+        "id": 303,
+        "question": "冠状静脈洞に注ぐ静脈を5つ答えよ。",
+        "answer": "大心臓静脈／中心臓静脈／小心臓静脈／左心室後静脈／左心房後静脈",
+        "score": 0.8767
+      },
+      "second": {
+        "id": 320,
+        "question": "奇静脈と半奇静脈に注ぐ静脈を6つ答えよ。",
+        "answer": "肋間静脈／食道静脈／気管支静脈／心膜静脈／縦隔静脈／上横隔静脈",
+        "score": 0.4226
+      },
+      "answer_same": false,
+      "margin": 0.4541
+    },
+    {
+      "source_id": 182,
+      "source_question": "直接心房又は心室の内腔に注ぐ小静脈",
+      "source_answer": "前心臓静脈、細小心臓静脈",
+      "best": {
+        "id": 304,
+        "question": "直接に心房また心室内腔に注ぐ小静脈を2つ答えよ。",
+        "answer": "前心臓静脈／細小心臓静脈",
+        "score": 0.6218
+      },
+      "second": {
+        "id": 303,
+        "question": "冠状静脈洞に注ぐ静脈を5つ答えよ。",
+        "answer": "大心臓静脈／中心臓静脈／小心臓静脈／左心室後静脈／左心房後静脈",
+        "score": 0.2062
+      },
+      "answer_same": true,
+      "margin": 0.4156
+    },
+    {
+      "source_id": 189,
+      "source_question": "大動脈弓の枝",
+      "source_answer": "腕頭動脈、左総頸動脈、左鎖骨下動脈",
+      "best": {
+        "id": 316,
+        "question": "大動脈弓の枝を3つ答えよ。",
+        "answer": "腕頭動脈／左総頚動脈／左鎖骨下動脈",
+        "score": 0.8042
+      },
+      "second": {
+        "id": 374,
+        "question": "脾動脈の枝を4つ答えよ。",
+        "answer": "左胃大網動脈／短胃動脈／膵枝／脾枝",
+        "score": 0.3864
+      },
+      "answer_same": false,
+      "margin": 0.4178
+    },
+    {
+      "source_id": 191,
+      "source_question": "奇静脈系",
+      "source_answer": "奇静脈、半奇静脈、副半奇静脈",
+      "best": {
+        "id": 319,
+        "question": "奇静脈系をなす静脈を3つ答えよ。",
+        "answer": "奇静脈／半奇静脈／副半奇静脈",
+        "score": 0.59
+      },
+      "second": {
+        "id": 320,
+        "question": "奇静脈と半奇静脈に注ぐ静脈を6つ答えよ。",
+        "answer": "肋間静脈／食道静脈／気管支静脈／心膜静脈／縦隔静脈／上横隔静脈",
+        "score": 0.2229
+      },
+      "answer_same": true,
+      "margin": 0.3671
+    },
+    {
+      "source_id": 192,
+      "source_question": "奇静脈、半奇静脈に注ぐ静脈",
+      "source_answer": "肋間静脈、食道静脈、気管支静脈、心膜静脈、縦隔静脈、上横隔静脈",
+      "best": {
+        "id": 320,
+        "question": "奇静脈と半奇静脈に注ぐ静脈を6つ答えよ。",
+        "answer": "肋間静脈／食道静脈／気管支静脈／心膜静脈／縦隔静脈／上横隔静脈",
+        "score": 0.8
+      },
+      "second": {
+        "id": 303,
+        "question": "冠状静脈洞に注ぐ静脈を5つ答えよ。",
+        "answer": "大心臓静脈／中心臓静脈／小心臓静脈／左心室後静脈／左心房後静脈",
+        "score": 0.4121
+      },
+      "answer_same": true,
+      "margin": 0.3879
+    },
+    {
+      "source_id": 195,
+      "source_question": "鼡径靭帯の内側端の近くで、靭帯の繊維の一部は後下方に向かって放散し恥骨上縁についた血管裂孔の内側端",
+      "source_answer": "裂孔靭帯",
+      "best": {
+        "id": 328,
+        "question": "鼡径靭帯の内側端の近くで、靭帯の線維の一部が後下方に向かって放散して恥骨上縁に付き、血管裂孔の内側縁をつくる靭帯をなんというか。",
+        "answer": "裂孔靱帯",
+        "score": 0.7187
+      },
+      "second": {
+        "id": 329,
+        "question": "鼡径靭帯の内側部から正中線上の白線に向かって斜め上方に弓状に走る靭帯をなんというか。",
+        "answer": "反転靱帯",
+        "score": 0.2814
+      },
+      "answer_same": false,
+      "margin": 0.4373
+    },
+    {
+      "source_id": 196,
+      "source_question": "鼡径靭帯の内側部から正中線上の白線に向かって斜め上方向に走る繊維束",
+      "source_answer": "反転靭帯",
+      "best": {
+        "id": 329,
+        "question": "鼡径靭帯の内側部から正中線上の白線に向かって斜め上方に弓状に走る靭帯をなんというか。",
+        "answer": "反転靱帯",
+        "score": 0.7351
+      },
+      "second": {
+        "id": 328,
+        "question": "鼡径靭帯の内側端の近くで、靭帯の線維の一部が後下方に向かって放散して恥骨上縁に付き、血管裂孔の内側縁をつくる靭帯をなんというか。",
+        "answer": "裂孔靱帯",
+        "score": 0.2398
+      },
+      "answer_same": false,
+      "margin": 0.4953
+    },
+    {
+      "source_id": 200,
+      "source_question": "後腹壁の筋",
+      "source_answer": "腸骨筋、大腰筋、腰方形筋",
+      "best": {
+        "id": 336,
+        "question": "後腹壁の筋を3つ答えよ。",
+        "answer": "腸骨筋／大腰筋／腰方形筋",
+        "score": 0.77
+      },
+      "second": {
+        "id": 326,
+        "question": "前腹壁および側腹壁の筋を5つ答えよ。",
+        "answer": "外腹斜筋／内腹斜筋／腹横筋／腹直筋／錐体筋",
+        "score": 0.44
+      },
+      "answer_same": true,
+      "margin": 0.33
+    },
+    {
+      "source_id": 215,
+      "source_question": "肝臓に血液を供給する血管",
+      "source_answer": "固有肝動脈、門脈",
+      "best": {
+        "id": 359,
+        "question": "肝臓に血液を供給する血管を2つ答えよ。",
+        "answer": "固有肝動脈／門脈",
+        "score": 0.8958
+      },
+      "second": {
+        "id": 360,
+        "question": "肝臓から出る唯一の血管を答えよ。",
+        "answer": "肝静脈",
+        "score": 0.2057
+      },
+      "answer_same": true,
+      "margin": 0.6901
+    },
+    {
+      "source_id": 218,
+      "source_question": "門脈と大静脈とを結ぶ側副血行路",
+      "source_answer": "門脈ー奇静脈ー上大静脈／門脈ー直腸静脈ー下大静脈／門脈ー臍傍静脈ー前腹壁の皮静脈ー大静脈／門脈ー腹膜後隙における静脈ー下大静脈",
+      "best": {
+        "id": 361,
+        "question": "門脈と大静脈とを結ぶ側副血行路を4つ答えよ。",
+        "answer": "①門脈ー奇静脈ー上大静脈／②門脈ー直腸静脈ー下大静脈／③門脈ー臍傍静脈ー前腹壁皮静脈ー大静脈／④門脈ー腹膜後隙における静脈ー下大静脈",
+        "score": 0.9155
+      },
+      "second": {
+        "id": 276,
+        "question": "大静脈裂孔を通るものを2つ答えよ。",
+        "answer": "下大静脈／右横隔神経の枝",
+        "score": 0.174
+      },
+      "answer_same": false,
+      "margin": 0.7415
+    },
+    {
+      "source_id": 179,
+      "source_question": "心臓に分布する動脈",
+      "source_answer": "右冠状動脈、左冠状動脈",
+      "best": {
+        "id": 363,
+        "question": "膵臓に分布する動脈を3つ答えよ。",
+        "answer": "上膵十二指腸動脈／下膵十二指腸動脈／脾動脈",
+        "score": 0.7601
+      },
+      "second": {
+        "id": 345,
+        "question": "胃に分布する動脈を5つ答えよ。",
+        "answer": "左胃動脈／右胃動脈／短胃動脈／左胃大網動脈／右胃大網動脈",
+        "score": 0.6688
+      },
+      "answer_same": false,
+      "margin": 0.0913
+    },
+    {
+      "source_id": 222,
+      "source_question": "膵臓に分布する動脈",
+      "source_answer": "上・下膵十二指腸動脈、脾動脈",
+      "best": {
+        "id": 363,
+        "question": "膵臓に分布する動脈を3つ答えよ。",
+        "answer": "上膵十二指腸動脈／下膵十二指腸動脈／脾動脈",
+        "score": 0.8641
+      },
+      "second": {
+        "id": 345,
+        "question": "胃に分布する動脈を5つ答えよ。",
+        "answer": "左胃動脈／右胃動脈／短胃動脈／左胃大網動脈／右胃大網動脈",
+        "score": 0.6688
+      },
+      "answer_same": false,
+      "margin": 0.1953
+    },
+    {
+      "source_id": 226,
+      "source_question": "前腹壁内面の下部に見られるくぼみ3つ",
+      "source_answer": "膀胱上窩、内側鼡径窩、外側鼡径窩",
+      "best": {
+        "id": 367,
+        "question": "前腹壁内面の下部で、前腹壁内側の腹膜ヒダと間に見られるくぼみを3つ答えよ。",
+        "answer": "膀胱上窩／内側鼡径窩／外側鼡径窩",
+        "score": 0.5876
+      },
+      "second": {
+        "id": 353,
+        "question": "肝臓の左側に見られる圧痕を2つ答えよ。",
+        "answer": "胃圧痕／食道圧痕",
+        "score": 0.3234
+      },
+      "answer_same": true,
+      "margin": 0.2642
+    },
+    {
+      "source_id": 231,
+      "source_question": "腹腔動脈の枝",
+      "source_answer": "左胃動脈、脾動脈、総肝動脈",
+      "best": {
+        "id": 373,
+        "question": "腹腔動脈の枝を3つ答えよ。",
+        "answer": "左胃動脈／脾動脈／総肝動脈",
+        "score": 0.8042
+      },
+      "second": {
+        "id": 374,
+        "question": "脾動脈の枝を4つ答えよ。",
+        "answer": "左胃大網動脈／短胃動脈／膵枝／脾枝",
+        "score": 0.5045
+      },
+      "answer_same": true,
+      "margin": 0.2997
+    },
+    {
+      "source_id": 232,
+      "source_question": "脾動脈の枝",
+      "source_answer": "左胃大網動脈、短胃動脈、膵枝、脾枝",
+      "best": {
+        "id": 374,
+        "question": "脾動脈の枝を4つ答えよ。",
+        "answer": "左胃大網動脈／短胃動脈／膵枝／脾枝",
+        "score": 0.77
+      },
+      "second": {
+        "id": 277,
+        "question": "内胸動脈の枝を3つ答えよ。",
+        "answer": "前肋間枝／上腹壁動脈／筋横隔動脈",
+        "score": 0.5295
+      },
+      "answer_same": true,
+      "margin": 0.2405
+    },
+    {
+      "source_id": 233,
+      "source_question": "総肝動脈の枝",
+      "source_answer": "固有肝動脈、右胃動脈、胃十二指腸動脈",
+      "best": {
+        "id": 375,
+        "question": "総肝動脈の枝を3つ答えよ。",
+        "answer": "固有肝動脈／右胃動脈／胃十二指腸動脈",
+        "score": 0.8042
+      },
+      "second": {
+        "id": 374,
+        "question": "脾動脈の枝を4つ答えよ。",
+        "answer": "左胃大網動脈／短胃動脈／膵枝／脾枝",
+        "score": 0.5045
+      },
+      "answer_same": true,
+      "margin": 0.2997
+    },
+    {
+      "source_id": 234,
+      "source_question": "胃十二指腸動脈の枝",
+      "source_answer": "右胃大網動脈、上膵十二指腸動脈",
+      "best": {
+        "id": 377,
+        "question": "胃十二指腸動脈の枝を2つ答えよ。",
+        "answer": "右胃大網動脈／上膵十二指腸動脈",
+        "score": 0.8641
+      },
+      "second": {
+        "id": 347,
+        "question": "十二指腸に分布する動脈を2つ答えよ。",
+        "answer": "上膵十二指腸動脈／下膵十二指腸動脈",
+        "score": 0.3946
+      },
+      "answer_same": true,
+      "margin": 0.4695
+    },
+    {
+      "source_id": 235,
+      "source_question": "上腸間膜動脈の枝",
+      "source_answer": "下膵十二指腸動脈、空腸・回腸動脈、中結腸動脈、右結腸動脈、回結腸動脈",
+      "best": {
+        "id": 378,
+        "question": "上腸間膜動脈の枝を6つ答えよ。",
+        "answer": "下膵十二指腸動脈／空腸動脈／回腸動脈／回結腸動脈／右結腸動脈／中結腸動脈",
+        "score": 0.8487
+      },
+      "second": {
+        "id": 379,
+        "question": "下腸間膜動脈の枝を3つ答えよ。",
+        "answer": "左結腸動脈／S状結腸動脈／上直腸動脈",
+        "score": 0.7325
+      },
+      "answer_same": false,
+      "margin": 0.1162
+    },
+    {
+      "source_id": 236,
+      "source_question": "下腸間膜動脈の枝",
+      "source_answer": "左結腸動脈、S状結腸動脈、上直腸動脈",
+      "best": {
+        "id": 379,
+        "question": "下腸間膜動脈の枝を3つ答えよ。",
+        "answer": "左結腸動脈／S状結腸動脈／上直腸動脈",
+        "score": 0.8487
+      },
+      "second": {
+        "id": 378,
+        "question": "上腸間膜動脈の枝を6つ答えよ。",
+        "answer": "下膵十二指腸動脈／空腸動脈／回腸動脈／回結腸動脈／右結腸動脈／中結腸動脈",
+        "score": 0.7325
+      },
+      "answer_same": true,
+      "margin": 0.1162
+    },
+    {
+      "source_id": 241,
+      "source_question": "恥骨結合を強化する靭帯",
+      "source_answer": "上恥骨靭帯、恥骨弓靭帯",
+      "best": {
+        "id": 385,
+        "question": "恥骨結合の上縁と下縁を強化する靭帯をそれぞれ答えよ。",
+        "answer": "上縁：上恥骨靭帯／下縁：恥骨弓靭帯",
+        "score": 0.6472
+      },
+      "second": {
+        "id": 386,
+        "question": "仙腸関節の関節包を強化する靭帯を3つ答えよ。",
+        "answer": "骨間仙腸靭帯／前仙腸靭帯／後仙腸靭帯",
+        "score": 0.4441
+      },
+      "answer_same": false,
+      "margin": 0.2031
+    },
+    {
+      "source_id": 242,
+      "source_question": "仙腸関節を強化する靭帯",
+      "source_answer": "骨間仙腸靭帯、前仙腸靭帯、後仙腸靭帯",
+      "best": {
+        "id": 386,
+        "question": "仙腸関節の関節包を強化する靭帯を3つ答えよ。",
+        "answer": "骨間仙腸靭帯／前仙腸靭帯／後仙腸靭帯",
+        "score": 0.6765
+      },
+      "second": {
+        "id": 385,
+        "question": "恥骨結合の上縁と下縁を強化する靭帯をそれぞれ答えよ。",
+        "answer": "上縁：上恥骨靭帯／下縁：恥骨弓靭帯",
+        "score": 0.425
+      },
+      "answer_same": true,
+      "margin": 0.2515
+    },
+    {
+      "source_id": 244,
+      "source_question": "小坐骨孔を通る血管、神経",
+      "source_answer": "内陰部動静脈、陰部神経",
+      "best": {
+        "id": 390,
+        "question": "小坐骨孔を通るものを3つ答えよ。",
+        "answer": "内閉鎖筋腱／内陰部動静脈／陰部神経",
+        "score": 0.6127
+      },
+      "second": {
+        "id": 389,
+        "question": "小坐骨孔を囲む構造物を3つ答えよ。",
+        "answer": "小坐骨切痕／仙棘靭帯／仙結節靭帯",
+        "score": 0.3935
+      },
+      "answer_same": false,
+      "margin": 0.2192
+    },
+    {
+      "source_id": 248,
+      "source_question": "膀胱を固定する靭帯",
+      "source_answer": "恥骨膀胱靭帯、恥骨前立腺［膀胱］内側靭帯",
+      "best": {
+        "id": 393,
+        "question": "膀胱を固定する靭帯を2つ答えよ。",
+        "answer": "恥骨膀胱靭帯／恥骨前立腺内側靭帯／[女性：恥骨膀胱内側靭帯]",
+        "score": 0.8641
+      },
+      "second": {
+        "id": 405,
+        "question": "卵巣を固定する線維索を2つ答えよ。",
+        "answer": "卵巣提索／固有卵巣索",
+        "score": 0.4195
+      },
+      "answer_same": false,
+      "margin": 0.4446
+    },
+    {
+      "source_id": 255,
+      "source_question": "精巣と精索の被膜（浅い順）",
+      "source_answer": "外精筋膜、精巣挙筋膜、内精筋膜、精巣鞘膜",
+      "best": {
+        "id": 402,
+        "question": "精巣と精索の被膜を4つ答えよ。",
+        "answer": "外精筋膜／精巣挙筋膜（挙睾筋膜）／内精筋膜／精巣鞘膜",
+        "score": 0.7335
+      },
+      "second": {
+        "id": 401,
+        "question": "精索をなす構造物を5つ答えよ。",
+        "answer": "精管／精巣動脈／蔓状静脈叢／リンパ系／神経",
+        "score": 0.1449
+      },
+      "answer_same": false,
+      "margin": 0.5886
+    },
+    {
+      "source_id": 259,
+      "source_question": "女性生殖器近傍に見られる胎生期の遺残",
+      "source_answer": "卵巣上体、卵巣傍体、ガートナー管",
+      "best": {
+        "id": 406,
+        "question": "女性生殖器近傍に見られる3つの胎生期の遺残組織と、それらがなんの遺残かをそれぞれ答えよ。",
+        "answer": "①卵巣上体：中腎管（ウォルフ管）／②卵巣傍体：中腎細管尾側部／③ガートナー管：中腎管",
+        "score": 0.6013
+      },
+      "second": {
+        "id": 400,
+        "question": "精巣・精巣上体に見られる、3つの胎生期遺残組織と、それらがなんの遺残かをそれぞれ答えよ。",
+        "answer": "①精巣垂：中腎傍管（ミュラー管）／②精巣上体垂：中腎管（ウォルフ管）／③精巣傍体：中腎管",
+        "score": 0.326
+      },
+      "answer_same": false,
+      "margin": 0.2753
+    },
+    {
+      "source_id": 260,
+      "source_question": "子宮を支持・固定する筋、靭帯",
+      "source_answer": "肛門挙筋、恥骨頸靭帯、子宮頸横靭帯、子宮仙骨靭帯、子宮円索",
+      "best": {
+        "id": 407,
+        "question": "子宮を支持する筋を1つと、靭帯を4つ答えよ。",
+        "answer": "肛門挙筋／恥骨頚靭帯／子宮頚横靭帯（基靭帯）／子宮仙骨靭帯／子宮円索",
+        "score": 0.5507
+      },
+      "second": {
+        "id": 393,
+        "question": "膀胱を固定する靭帯を2つ答えよ。",
+        "answer": "恥骨膀胱靭帯／恥骨前立腺内側靭帯／[女性：恥骨膀胱内側靭帯]",
+        "score": 0.3935
+      },
+      "answer_same": false,
+      "margin": 0.1572
+    },
+    {
+      "source_id": 262,
+      "source_question": "肛門挙筋",
+      "source_answer": "恥骨尾骨筋、腸骨尾骨筋",
+      "best": {
+        "id": 411,
+        "question": "肛門挙筋を3つ答えよ。",
+        "answer": "腸骨尾骨筋／恥骨尾骨筋／恥骨直腸筋",
+        "score": 0.7267
+      },
+      "second": {
+        "id": 415,
+        "question": "肛門三角をなす構造を答えよ。",
+        "answer": "頂点：尾骨／両側：仙結節靭帯／底辺：坐骨結節を結ぶ線",
+        "score": 0.2444
+      },
+      "answer_same": false,
+      "margin": 0.4823
+    },
+    {
+      "source_id": 270,
+      "source_question": "内陰部動脈の枝",
+      "source_answer": "［共通］下直腸動脈、会陰動脈、尿道動脈／［男性］尿道球動脈、陰茎背動脈、陰茎深動脈／［女性］膣前庭球動脈、陰核背動脈、陰核深動脈",
+      "best": {
+        "id": 420,
+        "question": "内陰部動脈の枝を6つ答えよ。",
+        "answer": "下直腸動脈／会陰動脈／尿道球[膣前庭球]動脈／尿道動脈／陰茎深[陰核深]動脈／陰茎背[陰核背]動脈",
+        "score": 0.8294
+      },
+      "second": {
+        "id": 422,
+        "question": "臍動脈の枝を2つ答えよ。",
+        "answer": "上膀胱動脈／精管動脈",
+        "score": 0.425
+      },
+      "answer_same": false,
+      "margin": 0.4044
+    },
+    {
+      "source_id": 271,
+      "source_question": "臍動脈の枝",
+      "source_answer": "上膀胱動脈、精管動脈",
+      "best": {
+        "id": 422,
+        "question": "臍動脈の枝を2つ答えよ。",
+        "answer": "上膀胱動脈／精管動脈",
+        "score": 0.77
+      },
+      "second": {
+        "id": 420,
+        "question": "内陰部動脈の枝を6つ答えよ。",
+        "answer": "下直腸動脈／会陰動脈／尿道球[膣前庭球]動脈／尿道動脈／陰茎深[陰核深]動脈／陰茎背[陰核背]動脈",
+        "score": 0.4806
+      },
+      "answer_same": true,
+      "margin": 0.2894
+    },
+    {
+      "source_id": 274,
+      "source_question": "骨盤臓器と会陰に分布する神経",
+      "source_answer": "陰部神経、骨盤内臓神経",
+      "best": {
+        "id": 425,
+        "question": "仙骨神経叢のうち、骨盤臓器と会陰に分布する神経を2つ答えよ。",
+        "answer": "陰部神経／骨盤内臓神経／（勃起神経）",
+        "score": 0.6736
+      },
+      "second": {
+        "id": 424,
+        "question": "仙骨神経叢のうち、殿部・下肢に分布する神経を4つ答えよ。",
+        "answer": "坐骨神経／上殿神経／下殿神経／後大腿皮神経",
+        "score": 0.3697
+      },
+      "answer_same": false,
+      "margin": 0.3039
+    },
+    {
+      "source_id": 275,
+      "source_question": "陰部神経の枝",
+      "source_answer": "下直腸神経、会陰神経、陰茎［陰核］背神経",
+      "best": {
+        "id": 426,
+        "question": "陰部神経の枝を3つ答えよ。",
+        "answer": "下直腸神経／会陰神経／陰茎背[陰核背]神経",
+        "score": 0.8042
+      },
+      "second": {
+        "id": 420,
+        "question": "内陰部動脈の枝を6つ答えよ。",
+        "answer": "下直腸動脈／会陰動脈／尿道球[膣前庭球]動脈／尿道動脈／陰茎深[陰核深]動脈／陰茎背[陰核背]動脈",
+        "score": 0.3556
+      },
+      "answer_same": false,
+      "margin": 0.4486
+    },
+    {
+      "source_id": 292,
+      "source_question": "顎関節を補強する靭帯",
+      "source_answer": "外側靭帯、蝶下顎靭帯、茎突下顎靭帯",
+      "best": {
+        "id": 427,
+        "question": "顎関節の外側と内側を補強する靭帯をそれぞれ答えよ。",
+        "answer": "外側：外側靭帯／内側：蝶下顎靭帯／茎突下顎靭帯",
+        "score": 0.6219
+      },
+      "second": {
+        "id": 474,
+        "question": "眼球を保持する靭帯を3つ答えよ。",
+        "answer": "眼球提靭帯（ロックウッド靭帯）／内側直筋制御靭帯／外側直筋制御靭帯",
+        "score": 0.3325
+      },
+      "answer_same": false,
+      "margin": 0.2894
+    },
+    {
+      "source_id": 294,
+      "source_question": "咀嚼筋4つ",
+      "source_answer": "咬筋、側頭筋、内側翼突筋、外側翼突筋",
+      "best": {
+        "id": 432,
+        "question": "咀嚼筋を4つ答えよ。",
+        "answer": "咬筋／側頭筋／外側翼突筋／内側翼突筋",
+        "score": 0.6514
+      },
+      "second": {
+        "id": 433,
+        "question": "浅頚筋を2つ答えよ。",
+        "answer": "広頚筋／胸鎖乳突筋",
+        "score": 0.14
+      },
+      "answer_same": false,
+      "margin": 0.5114
+    },
+    {
+      "source_id": 302,
+      "source_question": "舌骨上筋",
+      "source_answer": "顎二腹筋（前腹・後腹）、茎突舌骨筋、顎舌骨筋、オトガイ舌骨筋、",
+      "best": {
+        "id": 436,
+        "question": "舌骨上筋を4つ答えよ。",
+        "answer": "顎二腹筋／顎舌骨筋／茎突舌骨筋／オトガイ舌骨筋",
+        "score": 0.7267
+      },
+      "second": {
+        "id": 440,
+        "question": "舌骨下筋を4つ答えよ。",
+        "answer": "胸骨舌骨筋／肩甲舌骨筋／胸骨甲状筋／甲状舌骨筋",
+        "score": 0.3375
+      },
+      "answer_same": false,
+      "margin": 0.3892
+    },
+    {
+      "source_id": 303,
+      "source_question": "舌骨下筋",
+      "source_answer": "胸骨舌骨筋、肩甲舌骨筋、胸骨甲状筋、甲状舌骨筋",
+      "best": {
+        "id": 440,
+        "question": "舌骨下筋を4つ答えよ。",
+        "answer": "胸骨舌骨筋／肩甲舌骨筋／胸骨甲状筋／甲状舌骨筋",
+        "score": 0.7267
+      },
+      "second": {
+        "id": 436,
+        "question": "舌骨上筋を4つ答えよ。",
+        "answer": "顎二腹筋／顎舌骨筋／茎突舌骨筋／オトガイ舌骨筋",
+        "score": 0.3375
+      },
+      "answer_same": true,
+      "margin": 0.3892
+    },
+    {
+      "source_id": 304,
+      "source_question": "椎前筋4つ",
+      "source_answer": "頸長筋、頭長筋、前頭直筋、外側頭直筋",
+      "best": {
+        "id": 442,
+        "question": "椎前筋を4つ答えよ。",
+        "answer": "頚長筋／頭長筋／前頭直筋／外側頭直筋",
+        "score": 0.6514
+      },
+      "second": {
+        "id": 432,
+        "question": "咀嚼筋を4つ答えよ。",
+        "answer": "咬筋／側頭筋／外側翼突筋／内側翼突筋",
+        "score": 0.14
+      },
+      "answer_same": false,
+      "margin": 0.5114
+    },
+    {
+      "source_id": 309,
+      "source_question": "オトガイ下三角を構成する筋、及びここを通るもの",
+      "source_answer": "舌骨体、顎二腹筋前腹、正中線/オトガイ下リンパ節",
+      "best": {
+        "id": 452,
+        "question": "オトガイ下三角にあるものを答えよ。",
+        "answer": "オトガイ下リンパ節",
+        "score": 0.6756
+      },
+      "second": {
+        "id": 451,
+        "question": "オトガイ下三角を囲む構造を答えよ。",
+        "answer": "舌骨体／顎二腹筋（前腹）／正中線",
+        "score": 0.5599
+      },
+      "answer_same": false,
+      "margin": 0.1157
+    },
+    {
+      "source_id": 312,
+      "source_question": "頭皮に分布する動脈5つ",
+      "source_answer": "滑車上動脈、眼窩上動脈、浅側頭動脈、後耳介動脈、後頭動脈",
+      "best": {
+        "id": 461,
+        "question": "頭皮に分布する動脈を5つ答えよ。",
+        "answer": "滑車上動脈／眼窩上動脈／浅側頭動脈／後耳介動脈／後頭動脈",
+        "score": 0.8656
+      },
+      "second": {
+        "id": 464,
+        "question": "頭皮に分布する神経を8つ答えよ。",
+        "answer": "滑車上神経／眼窩上神経／頬骨神経／耳介側頭神経／大耳介神経／小後頭神経／大後頭神経／第三後頭神経",
+        "score": 0.6651
+      },
+      "answer_same": true,
+      "margin": 0.2005
+    },
+    {
+      "source_id": 331,
+      "source_question": "喉頭に分布する動脈",
+      "source_answer": "上喉頭動脈、下喉頭動脈",
+      "best": {
+        "id": 461,
+        "question": "頭皮に分布する動脈を5つ答えよ。",
+        "answer": "滑車上動脈／眼窩上動脈／浅側頭動脈／後耳介動脈／後頭動脈",
+        "score": 0.6561
+      },
+      "second": {
+        "id": 486,
+        "question": "咽頭に分布する主な動脈を2つ答えよ。",
+        "answer": "上行咽頭動脈／下甲状腺動脈",
+        "score": 0.6054
+      },
+      "answer_same": false,
+      "margin": 0.0507
+    },
+    {
+      "source_id": 315,
+      "source_question": "口蓋筋5つ",
+      "source_answer": "口蓋帆挙筋、口蓋帆張筋、口蓋垂筋、口蓋舌筋、口蓋咽頭筋",
+      "best": {
+        "id": 478,
+        "question": "口蓋筋を5つ答えよ。",
+        "answer": "口蓋帆挙筋／口蓋帆張筋／口蓋垂筋／口蓋舌筋／口蓋咽頭筋",
+        "score": 0.6514
+      },
+      "second": {
+        "id": 432,
+        "question": "咀嚼筋を4つ答えよ。",
+        "answer": "咬筋／側頭筋／外側翼突筋／内側翼突筋",
+        "score": 0.14
+      },
+      "answer_same": true,
+      "margin": 0.5114
+    },
+    {
+      "source_id": 320,
+      "source_question": "舌乳頭4つ",
+      "source_answer": "糸状乳頭、茸状乳頭、有郭乳頭、葉状乳頭",
+      "best": {
+        "id": 479,
+        "question": "舌乳頭を4つ答えよ。",
+        "answer": "糸状乳頭／茸状乳頭／有郭乳頭／葉状乳頭",
+        "score": 0.6514
+      },
+      "second": {
+        "id": 481,
+        "question": "内舌筋を4つ答えよ。",
+        "answer": "上縦舌筋／下縦舌筋／横舌筋／垂直舌筋",
+        "score": 0.14
+      },
+      "answer_same": true,
+      "margin": 0.5114
+    },
+    {
+      "source_id": 321,
+      "source_question": "内舌筋4つ",
+      "source_answer": "上・下縦舌筋、垂直舌筋、横舌筋",
+      "best": {
+        "id": 481,
+        "question": "内舌筋を4つ答えよ。",
+        "answer": "上縦舌筋／下縦舌筋／横舌筋／垂直舌筋",
+        "score": 0.6514
+      },
+      "second": {
+        "id": 482,
+        "question": "外舌筋を3つ答えよ。",
+        "answer": "オトガイ舌筋／舌骨舌筋／茎突舌筋",
+        "score": 0.3957
+      },
+      "answer_same": false,
+      "margin": 0.2557
+    },
+    {
+      "source_id": 322,
+      "source_question": "外舌筋3つ",
+      "source_answer": "オトガイ舌筋、舌骨舌筋、茎突舌筋",
+      "best": {
+        "id": 482,
+        "question": "外舌筋を3つ答えよ。",
+        "answer": "オトガイ舌筋／舌骨舌筋／茎突舌筋",
+        "score": 0.6514
+      },
+      "second": {
+        "id": 481,
+        "question": "内舌筋を4つ答えよ。",
+        "answer": "上縦舌筋／下縦舌筋／横舌筋／垂直舌筋",
+        "score": 0.3957
+      },
+      "answer_same": true,
+      "margin": 0.2557
+    },
+    {
+      "source_id": 327,
+      "source_question": "咽頭に分布する動脈",
+      "source_answer": "上行咽頭動脈、下甲状腺動脈、舌動脈・顎動脈の枝",
+      "best": {
+        "id": 486,
+        "question": "咽頭に分布する主な動脈を2つ答えよ。",
+        "answer": "上行咽頭動脈／下甲状腺動脈",
+        "score": 0.6973
+      },
+      "second": {
+        "id": 461,
+        "question": "頭皮に分布する動脈を5つ答えよ。",
+        "answer": "滑車上動脈／眼窩上動脈／浅側頭動脈／後耳介動脈／後頭動脈",
+        "score": 0.6561
+      },
+      "answer_same": false,
+      "margin": 0.0412
+    },
+    {
+      "source_id": 328,
+      "source_question": "喉頭軟骨6つ",
+      "source_answer": "甲状軟骨、輪状軟骨、披裂軟骨、小角軟骨、楔状軟骨、喉頭蓋軟骨",
+      "best": {
+        "id": 487,
+        "question": "喉頭軟骨を6つ答えよ。",
+        "answer": "甲状軟骨／輪状軟骨／披裂軟骨／小角軟骨／楔状軟骨／喉頭蓋軟骨",
+        "score": 0.725
+      },
+      "second": {
+        "id": 489,
+        "question": "喉頭軟骨間の連結を2つ答えよ。",
+        "answer": "正中輪状甲状靭帯／喉頭弾性膜",
+        "score": 0.475
+      },
+      "answer_same": true,
+      "margin": 0.25
+    },
+    {
+      "source_id": 329,
+      "source_question": "咽頭軟骨に見られる関節",
+      "source_answer": "輪状披裂関節、輪状甲状関節",
+      "best": {
+        "id": 490,
+        "question": "喉頭軟骨にみられる関節を2つ答えよ。",
+        "answer": "輪状披裂関節／輪状甲状関節",
+        "score": 0.6559
+      },
+      "second": {
+        "id": 487,
+        "question": "喉頭軟骨を6つ答えよ。",
+        "answer": "甲状軟骨／輪状軟骨／披裂軟骨／小角軟骨／楔状軟骨／喉頭蓋軟骨",
+        "score": 0.2688
+      },
+      "answer_same": true,
+      "margin": 0.3871
+    },
+    {
+      "source_id": 333,
+      "source_question": "鎖骨下動脈の枝",
+      "source_answer": "椎骨動脈、内胸動脈、甲状頸動脈、肋頸動脈",
+      "best": {
+        "id": 496,
+        "question": "鎖骨下動脈の枝を4つ答えよ。",
+        "answer": "椎骨動脈／内胸動脈／甲状頚動脈／肋頚動脈",
+        "score": 0.8294
+      },
+      "second": {
+        "id": 497,
+        "question": "甲状頚動脈の枝を3つ答えよ。",
+        "answer": "下甲状腺動脈／頚横動脈／肩甲上動脈",
+        "score": 0.4341
+      },
+      "answer_same": false,
+      "margin": 0.3953
+    },
+    {
+      "source_id": 334,
+      "source_question": "甲状頸動脈の枝",
+      "source_answer": "下甲状腺動脈、頸横動脈、肩甲上動脈",
+      "best": {
+        "id": 497,
+        "question": "甲状頚動脈の枝を3つ答えよ。",
+        "answer": "下甲状腺動脈／頚横動脈／肩甲上動脈",
+        "score": 0.6048
+      },
+      "second": {
+        "id": 496,
+        "question": "鎖骨下動脈の枝を4つ答えよ。",
+        "answer": "椎骨動脈／内胸動脈／甲状頚動脈／肋頚動脈",
+        "score": 0.4341
+      },
+      "answer_same": false,
+      "margin": 0.1707
+    },
+    {
+      "source_id": 341,
+      "source_question": "顔面動脈の枝",
+      "source_answer": "上行口蓋動脈、オトガイ下動脈、上・下唇動脈、眼角動脈",
+      "best": {
+        "id": 500,
+        "question": "顔面動脈の枝を5つ答えよ。",
+        "answer": "上行口蓋動脈／オトガイ下動脈／下唇動脈／上唇動脈／眼角動脈",
+        "score": 0.8042
+      },
+      "second": {
+        "id": 465,
+        "question": "眼動脈の枝を10個答えよ。",
+        "answer": "網膜中心動脈／涙腺動脈、筋枝／前篩骨動脈、後篩骨動脈／眼窩上動脈／毛様体動脈／滑車上動脈、内側眼瞼動脈、鼻背動脈",
+        "score": 0.5045
+      },
+      "answer_same": false,
+      "margin": 0.2997
+    },
+    {
+      "source_id": 345,
+      "source_question": "頸神経叢の皮枝",
+      "source_answer": "小後頭神経、大耳介神経、頸横神経、鎖骨上神経",
+      "best": {
+        "id": 509,
+        "question": "頚神経叢の皮枝を4つ答えよ。",
+        "answer": "小後頭神経／大耳介神経／頚横神経／鎖骨上神経",
+        "score": 0.6976
+      },
+      "second": {
+        "id": 510,
+        "question": "頚神経叢の筋枝を2つ答えよ。",
+        "answer": "頚神経ワナ／横隔神経",
+        "score": 0.473
+      },
+      "answer_same": false,
+      "margin": 0.2246
+    },
+    {
+      "source_id": 346,
+      "source_question": "頸神経叢の筋枝",
+      "source_answer": "頸神経ワナ、横隔神経",
+      "best": {
+        "id": 510,
+        "question": "頚神経叢の筋枝を2つ答えよ。",
+        "answer": "頚神経ワナ／横隔神経",
+        "score": 0.6976
+      },
+      "second": {
+        "id": 509,
+        "question": "頚神経叢の皮枝を4つ答えよ。",
+        "answer": "小後頭神経／大耳介神経／頚横神経／鎖骨上神経",
+        "score": 0.473
+      },
+      "answer_same": false,
+      "margin": 0.2246
+    }
+  ],
+  "mismatches": [
+    {
+      "source_id": 13,
+      "source_question": "肘関節をつくる3つの関節、関節包を補強する靭帯",
+      "source_answer": "腕尺関節、腕橈関節、上橈尺関節/内側側副靭帯、外側側副靭帯",
+      "best": {
+        "id": 2,
+        "question": "胸鎖関節関節包を補強する靭帯を3つ答えよ。",
+        "answer": "胸鎖靭帯／肋鎖靭帯／鎖骨間靭帯",
+        "score": 0.6672
+      },
+      "second": {
+        "id": 5,
+        "question": "肩関節を補強する靭帯を2つ答えよ。",
+        "answer": "烏口肩峰靭帯／烏口上腕靭帯",
+        "score": 0.4812
+      },
+      "answer_same": false,
+      "margin": 0.186
+    },
+    {
+      "source_id": 12,
+      "source_question": "回旋筋腱板",
+      "source_answer": "小円筋、棘上筋、棘下筋、肩甲下筋",
+      "best": {
+        "id": 6,
+        "question": "回旋筋腱板をなす筋を4つ答えよ。",
+        "answer": "肩甲下筋／棘上筋／棘下筋／小円筋",
+        "score": 0.6925
+      },
+      "second": {
+        "id": 57,
+        "question": "肘窩の正中部に触れる筋腱を答えよ。",
+        "answer": "上腕二頭筋腱",
+        "score": 0.1351
+      },
+      "answer_same": false,
+      "margin": 0.5574
+    },
+    {
+      "source_id": 37,
+      "source_question": "母指球筋",
+      "source_answer": "（橈側）短母指外転筋、母指対立筋、短母指屈筋、母指内転筋（尺側）",
+      "best": {
+        "id": 79,
+        "question": "母指球筋を4つ答えよ。",
+        "answer": "短母指外転筋／母指対立筋／短母指屈筋／母指内転筋",
+        "score": 0.7267
+      },
+      "second": {
+        "id": 83,
+        "question": "小指球筋を3つ答えよ。",
+        "answer": "小指外転筋／小指対立筋／短小指屈筋",
+        "score": 0.5
+      },
+      "answer_same": false,
+      "margin": 0.2267
+    },
+    {
+      "source_id": 38,
+      "source_question": "小指球筋",
+      "source_answer": "（橈側）小指対立筋、短小指屈筋、小指外転筋（尺側）",
+      "best": {
+        "id": 83,
+        "question": "小指球筋を3つ答えよ。",
+        "answer": "小指外転筋／小指対立筋／短小指屈筋",
+        "score": 0.7267
+      },
+      "second": {
+        "id": 79,
+        "question": "母指球筋を4つ答えよ。",
+        "answer": "短母指外転筋／母指対立筋／短母指屈筋／母指内転筋",
+        "score": 0.5
+      },
+      "answer_same": false,
+      "margin": 0.2267
+    },
+    {
+      "source_id": 44,
+      "source_question": "肩甲骨の下方回旋",
+      "source_answer": "大・小菱形筋、肩甲挙筋、大胸筋、小胸筋、広背筋",
+      "best": {
+        "id": 95,
+        "question": "肩甲骨の下方回旋にあずかる筋を5つ答えよ。",
+        "answer": "菱形筋／肩甲挙筋／大胸筋／小胸筋／広背筋",
+        "score": 0.59
+      },
+      "second": {
+        "id": 94,
+        "question": "肩甲骨の上方回旋にあずかる筋を2つ答えよ。",
+        "answer": "僧帽筋／前鋸筋",
+        "score": 0.4486
+      },
+      "answer_same": false,
+      "margin": 0.1414
+    },
+    {
+      "source_id": 62,
+      "source_question": "上腕動脈の枝",
+      "source_answer": "上腕深動脈、上尺側側副動脈、下尺側側副動脈、（肘関節動脈網）",
+      "best": {
+        "id": 111,
+        "question": "上腕動脈の枝を3つ答えよ。",
+        "answer": "上腕深動脈／上尺側側副動脈／下尺側側副動脈",
+        "score": 0.8042
+      },
+      "second": {
+        "id": 113,
+        "question": "橈骨動脈の枝を6つ答えよ。",
+        "answer": "橈側反回動脈／掌側手根枝／背側手根枝／浅掌枝／母指主動脈／深掌動脈弓",
+        "score": 0.5
+      },
+      "answer_same": false,
+      "margin": 0.3042
+    },
+    {
+      "source_id": 64,
+      "source_question": "橈骨動脈の枝",
+      "source_answer": "橈側反回動脈、掌側・背側手根枝、浅掌枝、母指主動脈、深掌動脈弓",
+      "best": {
+        "id": 113,
+        "question": "橈骨動脈の枝を6つ答えよ。",
+        "answer": "橈側反回動脈／掌側手根枝／背側手根枝／浅掌枝／母指主動脈／深掌動脈弓",
+        "score": 0.8042
+      },
+      "second": {
+        "id": 114,
+        "question": "尺骨動脈の枝を6つ答えよ。",
+        "answer": "尺側反回動脈／総骨間動脈／背側手根枝／掌側手根枝／深掌枝／浅掌動脈弓",
+        "score": 0.6521
+      },
+      "answer_same": false,
+      "margin": 0.1521
+    },
+    {
+      "source_id": 65,
+      "source_question": "尺骨動脈の枝",
+      "source_answer": "尺側反回動脈、総骨間動脈、背側・掌側手根枝、深掌枝、浅掌動脈弓",
+      "best": {
+        "id": 114,
+        "question": "尺骨動脈の枝を6つ答えよ。",
+        "answer": "尺側反回動脈／総骨間動脈／背側手根枝／掌側手根枝／深掌枝／浅掌動脈弓",
+        "score": 0.8042
+      },
+      "second": {
+        "id": 113,
+        "question": "橈骨動脈の枝を6つ答えよ。",
+        "answer": "橈側反回動脈／掌側手根枝／背側手根枝／浅掌枝／母指主動脈／深掌動脈弓",
+        "score": 0.6521
+      },
+      "answer_same": false,
+      "margin": 0.1521
+    },
+    {
+      "source_id": 97,
+      "source_question": "内寛骨筋",
+      "source_answer": "腸腰筋、腸骨筋膜",
+      "best": {
+        "id": 141,
+        "question": "内寛骨筋を答えよ。",
+        "answer": "腸腰筋",
+        "score": 0.8371
+      },
+      "second": {
+        "id": 147,
+        "question": "外寛骨筋のうち浅層の殿筋群の筋を4つ答えよ。",
+        "answer": "大殿筋／大腿筋膜張筋／中殿筋／小殿筋",
+        "score": 0.1986
+      },
+      "answer_same": false,
+      "margin": 0.6385
+    },
+    {
+      "source_id": 98,
+      "source_question": "外寛骨筋",
+      "source_answer": "大殿筋、大腿筋膜張筋、中殿筋、小殿筋、梨状筋、内閉鎖筋、上双子筋、下双子筋、大腿方形筋、外閉鎖筋",
+      "best": {
+        "id": 141,
+        "question": "内寛骨筋を答えよ。",
+        "answer": "腸腰筋",
+        "score": 0.5814
+      },
+      "second": {
+        "id": 147,
+        "question": "外寛骨筋のうち浅層の殿筋群の筋を4つ答えよ。",
+        "answer": "大殿筋／大腿筋膜張筋／中殿筋／小殿筋",
+        "score": 0.3729
+      },
+      "answer_same": false,
+      "margin": 0.2085
+    },
+    {
+      "source_id": 134,
+      "source_question": "前脛骨動脈の枝",
+      "source_answer": "足背動脈、弓状動脈",
+      "best": {
+        "id": 232,
+        "question": "後脛骨動脈の枝を3つ答えよ。",
+        "answer": "腓骨動脈／内側足底動脈／外側足底動脈",
+        "score": 0.6976
+      },
+      "second": {
+        "id": 231,
+        "question": "大腿深動脈の枝を3つ答えよ。",
+        "answer": "内側大腿回旋動脈／外側大腿回旋動脈／貫通動脈",
+        "score": 0.4341
+      },
+      "answer_same": false,
+      "margin": 0.2635
+    },
+    {
+      "source_id": 135,
+      "source_question": "後脛骨動脈の枝",
+      "source_answer": "腓骨動脈、内側・外側足底動脈",
+      "best": {
+        "id": 232,
+        "question": "後脛骨動脈の枝を3つ答えよ。",
+        "answer": "腓骨動脈／内側足底動脈／外側足底動脈",
+        "score": 0.8294
+      },
+      "second": {
+        "id": 231,
+        "question": "大腿深動脈の枝を3つ答えよ。",
+        "answer": "内側大腿回旋動脈／外側大腿回旋動脈／貫通動脈",
+        "score": 0.4341
+      },
+      "answer_same": false,
+      "margin": 0.3953
+    },
+    {
+      "source_id": 149,
+      "source_question": "頭蓋と脊柱の連結",
+      "source_answer": "環椎後頭関節、環軸関節（正中環軸関節、外側環軸関節）、蓋膜、環椎十字靭帯（環椎横靭帯、縦束）、翼状靭帯、歯尖靭帯",
+      "best": {
+        "id": 247,
+        "question": "頭蓋と脊柱の連結をする靭帯を4つ答えよ。",
+        "answer": "蓋膜／環椎十字靭帯／翼状靭帯／歯尖靭帯",
+        "score": 0.62
+      },
+      "second": {
+        "id": 245,
+        "question": "頭蓋と脊柱連結をする関節を2つ答えよ。",
+        "answer": "環椎後頭関節／環軸関節",
+        "score": 0.475
+      },
+      "answer_same": false,
+      "margin": 0.145
+    },
+    {
+      "source_id": 157,
+      "source_question": "後頭下三角を構成する筋、ここを通る血管・神経",
+      "source_answer": "大後頭直筋、上頭斜筋、下頭斜筋/椎骨動脈、後頭下神経",
+      "best": {
+        "id": 255,
+        "question": "後頭下三角をつくる筋を3つ答えよ。",
+        "answer": "大後頭直筋／上頭斜筋／下頭斜筋",
+        "score": 0.6162
+      },
+      "second": {
+        "id": 256,
+        "question": "後頭下三角を通る動脈と神経を答えよ。",
+        "answer": "椎骨動脈／後頭下神経",
+        "score": 0.4705
+      },
+      "answer_same": false,
+      "margin": 0.1457
+    },
+    {
+      "source_id": 181,
+      "source_question": "冠状静脈洞に注ぐ静脈",
+      "source_answer": "大・中・小心臓動脈、左心室後静脈、左心房後静脈",
+      "best": {
+        "id": 303,
+        "question": "冠状静脈洞に注ぐ静脈を5つ答えよ。",
+        "answer": "大心臓静脈／中心臓静脈／小心臓静脈／左心室後静脈／左心房後静脈",
+        "score": 0.8767
+      },
+      "second": {
+        "id": 320,
+        "question": "奇静脈と半奇静脈に注ぐ静脈を6つ答えよ。",
+        "answer": "肋間静脈／食道静脈／気管支静脈／心膜静脈／縦隔静脈／上横隔静脈",
+        "score": 0.4226
+      },
+      "answer_same": false,
+      "margin": 0.4541
+    },
+    {
+      "source_id": 189,
+      "source_question": "大動脈弓の枝",
+      "source_answer": "腕頭動脈、左総頸動脈、左鎖骨下動脈",
+      "best": {
+        "id": 316,
+        "question": "大動脈弓の枝を3つ答えよ。",
+        "answer": "腕頭動脈／左総頚動脈／左鎖骨下動脈",
+        "score": 0.8042
+      },
+      "second": {
+        "id": 374,
+        "question": "脾動脈の枝を4つ答えよ。",
+        "answer": "左胃大網動脈／短胃動脈／膵枝／脾枝",
+        "score": 0.3864
+      },
+      "answer_same": false,
+      "margin": 0.4178
+    },
+    {
+      "source_id": 195,
+      "source_question": "鼡径靭帯の内側端の近くで、靭帯の繊維の一部は後下方に向かって放散し恥骨上縁についた血管裂孔の内側端",
+      "source_answer": "裂孔靭帯",
+      "best": {
+        "id": 328,
+        "question": "鼡径靭帯の内側端の近くで、靭帯の線維の一部が後下方に向かって放散して恥骨上縁に付き、血管裂孔の内側縁をつくる靭帯をなんというか。",
+        "answer": "裂孔靱帯",
+        "score": 0.7187
+      },
+      "second": {
+        "id": 329,
+        "question": "鼡径靭帯の内側部から正中線上の白線に向かって斜め上方に弓状に走る靭帯をなんというか。",
+        "answer": "反転靱帯",
+        "score": 0.2814
+      },
+      "answer_same": false,
+      "margin": 0.4373
+    },
+    {
+      "source_id": 196,
+      "source_question": "鼡径靭帯の内側部から正中線上の白線に向かって斜め上方向に走る繊維束",
+      "source_answer": "反転靭帯",
+      "best": {
+        "id": 329,
+        "question": "鼡径靭帯の内側部から正中線上の白線に向かって斜め上方に弓状に走る靭帯をなんというか。",
+        "answer": "反転靱帯",
+        "score": 0.7351
+      },
+      "second": {
+        "id": 328,
+        "question": "鼡径靭帯の内側端の近くで、靭帯の線維の一部が後下方に向かって放散して恥骨上縁に付き、血管裂孔の内側縁をつくる靭帯をなんというか。",
+        "answer": "裂孔靱帯",
+        "score": 0.2398
+      },
+      "answer_same": false,
+      "margin": 0.4953
+    },
+    {
+      "source_id": 218,
+      "source_question": "門脈と大静脈とを結ぶ側副血行路",
+      "source_answer": "門脈ー奇静脈ー上大静脈／門脈ー直腸静脈ー下大静脈／門脈ー臍傍静脈ー前腹壁の皮静脈ー大静脈／門脈ー腹膜後隙における静脈ー下大静脈",
+      "best": {
+        "id": 361,
+        "question": "門脈と大静脈とを結ぶ側副血行路を4つ答えよ。",
+        "answer": "①門脈ー奇静脈ー上大静脈／②門脈ー直腸静脈ー下大静脈／③門脈ー臍傍静脈ー前腹壁皮静脈ー大静脈／④門脈ー腹膜後隙における静脈ー下大静脈",
+        "score": 0.9155
+      },
+      "second": {
+        "id": 276,
+        "question": "大静脈裂孔を通るものを2つ答えよ。",
+        "answer": "下大静脈／右横隔神経の枝",
+        "score": 0.174
+      },
+      "answer_same": false,
+      "margin": 0.7415
+    },
+    {
+      "source_id": 179,
+      "source_question": "心臓に分布する動脈",
+      "source_answer": "右冠状動脈、左冠状動脈",
+      "best": {
+        "id": 363,
+        "question": "膵臓に分布する動脈を3つ答えよ。",
+        "answer": "上膵十二指腸動脈／下膵十二指腸動脈／脾動脈",
+        "score": 0.7601
+      },
+      "second": {
+        "id": 345,
+        "question": "胃に分布する動脈を5つ答えよ。",
+        "answer": "左胃動脈／右胃動脈／短胃動脈／左胃大網動脈／右胃大網動脈",
+        "score": 0.6688
+      },
+      "answer_same": false,
+      "margin": 0.0913
+    },
+    {
+      "source_id": 222,
+      "source_question": "膵臓に分布する動脈",
+      "source_answer": "上・下膵十二指腸動脈、脾動脈",
+      "best": {
+        "id": 363,
+        "question": "膵臓に分布する動脈を3つ答えよ。",
+        "answer": "上膵十二指腸動脈／下膵十二指腸動脈／脾動脈",
+        "score": 0.8641
+      },
+      "second": {
+        "id": 345,
+        "question": "胃に分布する動脈を5つ答えよ。",
+        "answer": "左胃動脈／右胃動脈／短胃動脈／左胃大網動脈／右胃大網動脈",
+        "score": 0.6688
+      },
+      "answer_same": false,
+      "margin": 0.1953
+    },
+    {
+      "source_id": 235,
+      "source_question": "上腸間膜動脈の枝",
+      "source_answer": "下膵十二指腸動脈、空腸・回腸動脈、中結腸動脈、右結腸動脈、回結腸動脈",
+      "best": {
+        "id": 378,
+        "question": "上腸間膜動脈の枝を6つ答えよ。",
+        "answer": "下膵十二指腸動脈／空腸動脈／回腸動脈／回結腸動脈／右結腸動脈／中結腸動脈",
+        "score": 0.8487
+      },
+      "second": {
+        "id": 379,
+        "question": "下腸間膜動脈の枝を3つ答えよ。",
+        "answer": "左結腸動脈／S状結腸動脈／上直腸動脈",
+        "score": 0.7325
+      },
+      "answer_same": false,
+      "margin": 0.1162
+    },
+    {
+      "source_id": 241,
+      "source_question": "恥骨結合を強化する靭帯",
+      "source_answer": "上恥骨靭帯、恥骨弓靭帯",
+      "best": {
+        "id": 385,
+        "question": "恥骨結合の上縁と下縁を強化する靭帯をそれぞれ答えよ。",
+        "answer": "上縁：上恥骨靭帯／下縁：恥骨弓靭帯",
+        "score": 0.6472
+      },
+      "second": {
+        "id": 386,
+        "question": "仙腸関節の関節包を強化する靭帯を3つ答えよ。",
+        "answer": "骨間仙腸靭帯／前仙腸靭帯／後仙腸靭帯",
+        "score": 0.4441
+      },
+      "answer_same": false,
+      "margin": 0.2031
+    },
+    {
+      "source_id": 244,
+      "source_question": "小坐骨孔を通る血管、神経",
+      "source_answer": "内陰部動静脈、陰部神経",
+      "best": {
+        "id": 390,
+        "question": "小坐骨孔を通るものを3つ答えよ。",
+        "answer": "内閉鎖筋腱／内陰部動静脈／陰部神経",
+        "score": 0.6127
+      },
+      "second": {
+        "id": 389,
+        "question": "小坐骨孔を囲む構造物を3つ答えよ。",
+        "answer": "小坐骨切痕／仙棘靭帯／仙結節靭帯",
+        "score": 0.3935
+      },
+      "answer_same": false,
+      "margin": 0.2192
+    },
+    {
+      "source_id": 248,
+      "source_question": "膀胱を固定する靭帯",
+      "source_answer": "恥骨膀胱靭帯、恥骨前立腺［膀胱］内側靭帯",
+      "best": {
+        "id": 393,
+        "question": "膀胱を固定する靭帯を2つ答えよ。",
+        "answer": "恥骨膀胱靭帯／恥骨前立腺内側靭帯／[女性：恥骨膀胱内側靭帯]",
+        "score": 0.8641
+      },
+      "second": {
+        "id": 405,
+        "question": "卵巣を固定する線維索を2つ答えよ。",
+        "answer": "卵巣提索／固有卵巣索",
+        "score": 0.4195
+      },
+      "answer_same": false,
+      "margin": 0.4446
+    },
+    {
+      "source_id": 255,
+      "source_question": "精巣と精索の被膜（浅い順）",
+      "source_answer": "外精筋膜、精巣挙筋膜、内精筋膜、精巣鞘膜",
+      "best": {
+        "id": 402,
+        "question": "精巣と精索の被膜を4つ答えよ。",
+        "answer": "外精筋膜／精巣挙筋膜（挙睾筋膜）／内精筋膜／精巣鞘膜",
+        "score": 0.7335
+      },
+      "second": {
+        "id": 401,
+        "question": "精索をなす構造物を5つ答えよ。",
+        "answer": "精管／精巣動脈／蔓状静脈叢／リンパ系／神経",
+        "score": 0.1449
+      },
+      "answer_same": false,
+      "margin": 0.5886
+    },
+    {
+      "source_id": 259,
+      "source_question": "女性生殖器近傍に見られる胎生期の遺残",
+      "source_answer": "卵巣上体、卵巣傍体、ガートナー管",
+      "best": {
+        "id": 406,
+        "question": "女性生殖器近傍に見られる3つの胎生期の遺残組織と、それらがなんの遺残かをそれぞれ答えよ。",
+        "answer": "①卵巣上体：中腎管（ウォルフ管）／②卵巣傍体：中腎細管尾側部／③ガートナー管：中腎管",
+        "score": 0.6013
+      },
+      "second": {
+        "id": 400,
+        "question": "精巣・精巣上体に見られる、3つの胎生期遺残組織と、それらがなんの遺残かをそれぞれ答えよ。",
+        "answer": "①精巣垂：中腎傍管（ミュラー管）／②精巣上体垂：中腎管（ウォルフ管）／③精巣傍体：中腎管",
+        "score": 0.326
+      },
+      "answer_same": false,
+      "margin": 0.2753
+    },
+    {
+      "source_id": 260,
+      "source_question": "子宮を支持・固定する筋、靭帯",
+      "source_answer": "肛門挙筋、恥骨頸靭帯、子宮頸横靭帯、子宮仙骨靭帯、子宮円索",
+      "best": {
+        "id": 407,
+        "question": "子宮を支持する筋を1つと、靭帯を4つ答えよ。",
+        "answer": "肛門挙筋／恥骨頚靭帯／子宮頚横靭帯（基靭帯）／子宮仙骨靭帯／子宮円索",
+        "score": 0.5507
+      },
+      "second": {
+        "id": 393,
+        "question": "膀胱を固定する靭帯を2つ答えよ。",
+        "answer": "恥骨膀胱靭帯／恥骨前立腺内側靭帯／[女性：恥骨膀胱内側靭帯]",
+        "score": 0.3935
+      },
+      "answer_same": false,
+      "margin": 0.1572
+    },
+    {
+      "source_id": 262,
+      "source_question": "肛門挙筋",
+      "source_answer": "恥骨尾骨筋、腸骨尾骨筋",
+      "best": {
+        "id": 411,
+        "question": "肛門挙筋を3つ答えよ。",
+        "answer": "腸骨尾骨筋／恥骨尾骨筋／恥骨直腸筋",
+        "score": 0.7267
+      },
+      "second": {
+        "id": 415,
+        "question": "肛門三角をなす構造を答えよ。",
+        "answer": "頂点：尾骨／両側：仙結節靭帯／底辺：坐骨結節を結ぶ線",
+        "score": 0.2444
+      },
+      "answer_same": false,
+      "margin": 0.4823
+    },
+    {
+      "source_id": 270,
+      "source_question": "内陰部動脈の枝",
+      "source_answer": "［共通］下直腸動脈、会陰動脈、尿道動脈／［男性］尿道球動脈、陰茎背動脈、陰茎深動脈／［女性］膣前庭球動脈、陰核背動脈、陰核深動脈",
+      "best": {
+        "id": 420,
+        "question": "内陰部動脈の枝を6つ答えよ。",
+        "answer": "下直腸動脈／会陰動脈／尿道球[膣前庭球]動脈／尿道動脈／陰茎深[陰核深]動脈／陰茎背[陰核背]動脈",
+        "score": 0.8294
+      },
+      "second": {
+        "id": 422,
+        "question": "臍動脈の枝を2つ答えよ。",
+        "answer": "上膀胱動脈／精管動脈",
+        "score": 0.425
+      },
+      "answer_same": false,
+      "margin": 0.4044
+    },
+    {
+      "source_id": 274,
+      "source_question": "骨盤臓器と会陰に分布する神経",
+      "source_answer": "陰部神経、骨盤内臓神経",
+      "best": {
+        "id": 425,
+        "question": "仙骨神経叢のうち、骨盤臓器と会陰に分布する神経を2つ答えよ。",
+        "answer": "陰部神経／骨盤内臓神経／（勃起神経）",
+        "score": 0.6736
+      },
+      "second": {
+        "id": 424,
+        "question": "仙骨神経叢のうち、殿部・下肢に分布する神経を4つ答えよ。",
+        "answer": "坐骨神経／上殿神経／下殿神経／後大腿皮神経",
+        "score": 0.3697
+      },
+      "answer_same": false,
+      "margin": 0.3039
+    },
+    {
+      "source_id": 275,
+      "source_question": "陰部神経の枝",
+      "source_answer": "下直腸神経、会陰神経、陰茎［陰核］背神経",
+      "best": {
+        "id": 426,
+        "question": "陰部神経の枝を3つ答えよ。",
+        "answer": "下直腸神経／会陰神経／陰茎背[陰核背]神経",
+        "score": 0.8042
+      },
+      "second": {
+        "id": 420,
+        "question": "内陰部動脈の枝を6つ答えよ。",
+        "answer": "下直腸動脈／会陰動脈／尿道球[膣前庭球]動脈／尿道動脈／陰茎深[陰核深]動脈／陰茎背[陰核背]動脈",
+        "score": 0.3556
+      },
+      "answer_same": false,
+      "margin": 0.4486
+    },
+    {
+      "source_id": 292,
+      "source_question": "顎関節を補強する靭帯",
+      "source_answer": "外側靭帯、蝶下顎靭帯、茎突下顎靭帯",
+      "best": {
+        "id": 427,
+        "question": "顎関節の外側と内側を補強する靭帯をそれぞれ答えよ。",
+        "answer": "外側：外側靭帯／内側：蝶下顎靭帯／茎突下顎靭帯",
+        "score": 0.6219
+      },
+      "second": {
+        "id": 474,
+        "question": "眼球を保持する靭帯を3つ答えよ。",
+        "answer": "眼球提靭帯（ロックウッド靭帯）／内側直筋制御靭帯／外側直筋制御靭帯",
+        "score": 0.3325
+      },
+      "answer_same": false,
+      "margin": 0.2894
+    },
+    {
+      "source_id": 294,
+      "source_question": "咀嚼筋4つ",
+      "source_answer": "咬筋、側頭筋、内側翼突筋、外側翼突筋",
+      "best": {
+        "id": 432,
+        "question": "咀嚼筋を4つ答えよ。",
+        "answer": "咬筋／側頭筋／外側翼突筋／内側翼突筋",
+        "score": 0.6514
+      },
+      "second": {
+        "id": 433,
+        "question": "浅頚筋を2つ答えよ。",
+        "answer": "広頚筋／胸鎖乳突筋",
+        "score": 0.14
+      },
+      "answer_same": false,
+      "margin": 0.5114
+    },
+    {
+      "source_id": 302,
+      "source_question": "舌骨上筋",
+      "source_answer": "顎二腹筋（前腹・後腹）、茎突舌骨筋、顎舌骨筋、オトガイ舌骨筋、",
+      "best": {
+        "id": 436,
+        "question": "舌骨上筋を4つ答えよ。",
+        "answer": "顎二腹筋／顎舌骨筋／茎突舌骨筋／オトガイ舌骨筋",
+        "score": 0.7267
+      },
+      "second": {
+        "id": 440,
+        "question": "舌骨下筋を4つ答えよ。",
+        "answer": "胸骨舌骨筋／肩甲舌骨筋／胸骨甲状筋／甲状舌骨筋",
+        "score": 0.3375
+      },
+      "answer_same": false,
+      "margin": 0.3892
+    },
+    {
+      "source_id": 304,
+      "source_question": "椎前筋4つ",
+      "source_answer": "頸長筋、頭長筋、前頭直筋、外側頭直筋",
+      "best": {
+        "id": 442,
+        "question": "椎前筋を4つ答えよ。",
+        "answer": "頚長筋／頭長筋／前頭直筋／外側頭直筋",
+        "score": 0.6514
+      },
+      "second": {
+        "id": 432,
+        "question": "咀嚼筋を4つ答えよ。",
+        "answer": "咬筋／側頭筋／外側翼突筋／内側翼突筋",
+        "score": 0.14
+      },
+      "answer_same": false,
+      "margin": 0.5114
+    },
+    {
+      "source_id": 309,
+      "source_question": "オトガイ下三角を構成する筋、及びここを通るもの",
+      "source_answer": "舌骨体、顎二腹筋前腹、正中線/オトガイ下リンパ節",
+      "best": {
+        "id": 452,
+        "question": "オトガイ下三角にあるものを答えよ。",
+        "answer": "オトガイ下リンパ節",
+        "score": 0.6756
+      },
+      "second": {
+        "id": 451,
+        "question": "オトガイ下三角を囲む構造を答えよ。",
+        "answer": "舌骨体／顎二腹筋（前腹）／正中線",
+        "score": 0.5599
+      },
+      "answer_same": false,
+      "margin": 0.1157
+    },
+    {
+      "source_id": 331,
+      "source_question": "喉頭に分布する動脈",
+      "source_answer": "上喉頭動脈、下喉頭動脈",
+      "best": {
+        "id": 461,
+        "question": "頭皮に分布する動脈を5つ答えよ。",
+        "answer": "滑車上動脈／眼窩上動脈／浅側頭動脈／後耳介動脈／後頭動脈",
+        "score": 0.6561
+      },
+      "second": {
+        "id": 486,
+        "question": "咽頭に分布する主な動脈を2つ答えよ。",
+        "answer": "上行咽頭動脈／下甲状腺動脈",
+        "score": 0.6054
+      },
+      "answer_same": false,
+      "margin": 0.0507
+    },
+    {
+      "source_id": 321,
+      "source_question": "内舌筋4つ",
+      "source_answer": "上・下縦舌筋、垂直舌筋、横舌筋",
+      "best": {
+        "id": 481,
+        "question": "内舌筋を4つ答えよ。",
+        "answer": "上縦舌筋／下縦舌筋／横舌筋／垂直舌筋",
+        "score": 0.6514
+      },
+      "second": {
+        "id": 482,
+        "question": "外舌筋を3つ答えよ。",
+        "answer": "オトガイ舌筋／舌骨舌筋／茎突舌筋",
+        "score": 0.3957
+      },
+      "answer_same": false,
+      "margin": 0.2557
+    },
+    {
+      "source_id": 327,
+      "source_question": "咽頭に分布する動脈",
+      "source_answer": "上行咽頭動脈、下甲状腺動脈、舌動脈・顎動脈の枝",
+      "best": {
+        "id": 486,
+        "question": "咽頭に分布する主な動脈を2つ答えよ。",
+        "answer": "上行咽頭動脈／下甲状腺動脈",
+        "score": 0.6973
+      },
+      "second": {
+        "id": 461,
+        "question": "頭皮に分布する動脈を5つ答えよ。",
+        "answer": "滑車上動脈／眼窩上動脈／浅側頭動脈／後耳介動脈／後頭動脈",
+        "score": 0.6561
+      },
+      "answer_same": false,
+      "margin": 0.0412
+    },
+    {
+      "source_id": 333,
+      "source_question": "鎖骨下動脈の枝",
+      "source_answer": "椎骨動脈、内胸動脈、甲状頸動脈、肋頸動脈",
+      "best": {
+        "id": 496,
+        "question": "鎖骨下動脈の枝を4つ答えよ。",
+        "answer": "椎骨動脈／内胸動脈／甲状頚動脈／肋頚動脈",
+        "score": 0.8294
+      },
+      "second": {
+        "id": 497,
+        "question": "甲状頚動脈の枝を3つ答えよ。",
+        "answer": "下甲状腺動脈／頚横動脈／肩甲上動脈",
+        "score": 0.4341
+      },
+      "answer_same": false,
+      "margin": 0.3953
+    },
+    {
+      "source_id": 334,
+      "source_question": "甲状頸動脈の枝",
+      "source_answer": "下甲状腺動脈、頸横動脈、肩甲上動脈",
+      "best": {
+        "id": 497,
+        "question": "甲状頚動脈の枝を3つ答えよ。",
+        "answer": "下甲状腺動脈／頚横動脈／肩甲上動脈",
+        "score": 0.6048
+      },
+      "second": {
+        "id": 496,
+        "question": "鎖骨下動脈の枝を4つ答えよ。",
+        "answer": "椎骨動脈／内胸動脈／甲状頚動脈／肋頚動脈",
+        "score": 0.4341
+      },
+      "answer_same": false,
+      "margin": 0.1707
+    },
+    {
+      "source_id": 341,
+      "source_question": "顔面動脈の枝",
+      "source_answer": "上行口蓋動脈、オトガイ下動脈、上・下唇動脈、眼角動脈",
+      "best": {
+        "id": 500,
+        "question": "顔面動脈の枝を5つ答えよ。",
+        "answer": "上行口蓋動脈／オトガイ下動脈／下唇動脈／上唇動脈／眼角動脈",
+        "score": 0.8042
+      },
+      "second": {
+        "id": 465,
+        "question": "眼動脈の枝を10個答えよ。",
+        "answer": "網膜中心動脈／涙腺動脈、筋枝／前篩骨動脈、後篩骨動脈／眼窩上動脈／毛様体動脈／滑車上動脈、内側眼瞼動脈、鼻背動脈",
+        "score": 0.5045
+      },
+      "answer_same": false,
+      "margin": 0.2997
+    },
+    {
+      "source_id": 345,
+      "source_question": "頸神経叢の皮枝",
+      "source_answer": "小後頭神経、大耳介神経、頸横神経、鎖骨上神経",
+      "best": {
+        "id": 509,
+        "question": "頚神経叢の皮枝を4つ答えよ。",
+        "answer": "小後頭神経／大耳介神経／頚横神経／鎖骨上神経",
+        "score": 0.6976
+      },
+      "second": {
+        "id": 510,
+        "question": "頚神経叢の筋枝を2つ答えよ。",
+        "answer": "頚神経ワナ／横隔神経",
+        "score": 0.473
+      },
+      "answer_same": false,
+      "margin": 0.2246
+    },
+    {
+      "source_id": 346,
+      "source_question": "頸神経叢の筋枝",
+      "source_answer": "頸神経ワナ、横隔神経",
+      "best": {
+        "id": 510,
+        "question": "頚神経叢の筋枝を2つ答えよ。",
+        "answer": "頚神経ワナ／横隔神経",
+        "score": 0.6976
+      },
+      "second": {
+        "id": 509,
+        "question": "頚神経叢の皮枝を4つ答えよ。",
+        "answer": "小後頭神経／大耳介神経／頚横神経／鎖骨上神経",
+        "score": 0.473
+      },
+      "answer_same": false,
+      "margin": 0.2246
+    }
+  ]
+}
