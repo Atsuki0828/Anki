@@ -3,7 +3,7 @@
     "source": 332,
     "bank": 519,
     "likely": 83,
-    "mismatches": 45
+    "mismatches": 43
   },
   "likely": [
     {
@@ -132,8 +132,8 @@
       },
       "second": {
         "id": 95,
-        "question": "肩甲骨の下方回旋にあずかる筋を5つ答えよ。",
-        "answer": "菱形筋／肩甲挙筋／大胸筋／小胸筋／広背筋",
+        "question": "肩甲骨の下方回旋にあずかる筋を6つ答えよ。",
+        "answer": "大菱形筋／小菱形筋／肩甲挙筋／大胸筋／小胸筋／広背筋",
         "score": 0.4486
       },
       "answer_same": true,
@@ -145,8 +145,8 @@
       "source_answer": "大・小菱形筋、肩甲挙筋、大胸筋、小胸筋、広背筋",
       "best": {
         "id": 95,
-        "question": "肩甲骨の下方回旋にあずかる筋を5つ答えよ。",
-        "answer": "菱形筋／肩甲挙筋／大胸筋／小胸筋／広背筋",
+        "question": "肩甲骨の下方回旋にあずかる筋を6つ答えよ。",
+        "answer": "大菱形筋／小菱形筋／肩甲挙筋／大胸筋／小胸筋／広背筋",
         "score": 0.59
       },
       "second": {
@@ -1114,9 +1114,9 @@
       "source_answer": "恥骨尾骨筋、腸骨尾骨筋",
       "best": {
         "id": 411,
-        "question": "肛門挙筋を3つ答えよ。",
-        "answer": "腸骨尾骨筋／恥骨尾骨筋／恥骨直腸筋",
-        "score": 0.7267
+        "question": "肛門挙筋を構成する筋を2つ答えよ。",
+        "answer": "恥骨尾骨筋／腸骨尾骨筋",
+        "score": 0.6486
       },
       "second": {
         "id": 415,
@@ -1124,8 +1124,8 @@
         "answer": "頂点：尾骨／両側：仙結節靭帯／底辺：坐骨結節を結ぶ線",
         "score": 0.2444
       },
-      "answer_same": false,
-      "margin": 0.4823
+      "answer_same": true,
+      "margin": 0.4042
     },
     {
       "source_id": 270,
@@ -1172,7 +1172,7 @@
       "best": {
         "id": 425,
         "question": "仙骨神経叢のうち、骨盤臓器と会陰に分布する神経を2つ答えよ。",
-        "answer": "陰部神経／骨盤内臓神経／（勃起神経）",
+        "answer": "陰部神経／骨盤内臓神経",
         "score": 0.6736
       },
       "second": {
@@ -1181,7 +1181,7 @@
         "answer": "坐骨神経／上殿神経／下殿神経／後大腿皮神経",
         "score": 0.3697
       },
-      "answer_same": false,
+      "answer_same": true,
       "margin": 0.3039
     },
     {
@@ -1337,25 +1337,6 @@
       "margin": 0.2005
     },
     {
-      "source_id": 331,
-      "source_question": "喉頭に分布する動脈",
-      "source_answer": "上喉頭動脈、下喉頭動脈",
-      "best": {
-        "id": 461,
-        "question": "頭皮に分布する動脈を5つ答えよ。",
-        "answer": "滑車上動脈／眼窩上動脈／浅側頭動脈／後耳介動脈／後頭動脈",
-        "score": 0.6561
-      },
-      "second": {
-        "id": 486,
-        "question": "咽頭に分布する主な動脈を2つ答えよ。",
-        "answer": "上行咽頭動脈／下甲状腺動脈",
-        "score": 0.6054
-      },
-      "answer_same": false,
-      "margin": 0.0507
-    },
-    {
       "source_id": 315,
       "source_question": "口蓋筋5つ",
       "source_answer": "口蓋帆挙筋、口蓋帆張筋、口蓋垂筋、口蓋舌筋、口蓋咽頭筋",
@@ -1437,9 +1418,9 @@
       "source_answer": "上行咽頭動脈、下甲状腺動脈、舌動脈・顎動脈の枝",
       "best": {
         "id": 486,
-        "question": "咽頭に分布する主な動脈を2つ答えよ。",
-        "answer": "上行咽頭動脈／下甲状腺動脈",
-        "score": 0.6973
+        "question": "咽頭に分布する動脈を4系統答えよ。",
+        "answer": "上行咽頭動脈／下甲状腺動脈／舌動脈の枝／顎動脈の枝",
+        "score": 0.8099
       },
       "second": {
         "id": 461,
@@ -1448,7 +1429,26 @@
         "score": 0.6561
       },
       "answer_same": false,
-      "margin": 0.0412
+      "margin": 0.1538
+    },
+    {
+      "source_id": 331,
+      "source_question": "喉頭に分布する動脈",
+      "source_answer": "上喉頭動脈、下喉頭動脈",
+      "best": {
+        "id": 486,
+        "question": "咽頭に分布する動脈を4系統答えよ。",
+        "answer": "上行咽頭動脈／下甲状腺動脈／舌動脈の枝／顎動脈の枝",
+        "score": 0.7123
+      },
+      "second": {
+        "id": 461,
+        "question": "頭皮に分布する動脈を5つ答えよ。",
+        "answer": "滑車上動脈／眼窩上動脈／浅側頭動脈／後耳介動脈／後頭動脈",
+        "score": 0.6561
+      },
+      "answer_same": false,
+      "margin": 0.0562
     },
     {
       "source_id": 328,
@@ -1667,8 +1667,8 @@
       "source_answer": "大・小菱形筋、肩甲挙筋、大胸筋、小胸筋、広背筋",
       "best": {
         "id": 95,
-        "question": "肩甲骨の下方回旋にあずかる筋を5つ答えよ。",
-        "answer": "菱形筋／肩甲挙筋／大胸筋／小胸筋／広背筋",
+        "question": "肩甲骨の下方回旋にあずかる筋を6つ答えよ。",
+        "answer": "大菱形筋／小菱形筋／肩甲挙筋／大胸筋／小胸筋／広背筋",
         "score": 0.59
       },
       "second": {
@@ -2118,25 +2118,6 @@
       "margin": 0.1572
     },
     {
-      "source_id": 262,
-      "source_question": "肛門挙筋",
-      "source_answer": "恥骨尾骨筋、腸骨尾骨筋",
-      "best": {
-        "id": 411,
-        "question": "肛門挙筋を3つ答えよ。",
-        "answer": "腸骨尾骨筋／恥骨尾骨筋／恥骨直腸筋",
-        "score": 0.7267
-      },
-      "second": {
-        "id": 415,
-        "question": "肛門三角をなす構造を答えよ。",
-        "answer": "頂点：尾骨／両側：仙結節靭帯／底辺：坐骨結節を結ぶ線",
-        "score": 0.2444
-      },
-      "answer_same": false,
-      "margin": 0.4823
-    },
-    {
       "source_id": 270,
       "source_question": "内陰部動脈の枝",
       "source_answer": "［共通］下直腸動脈、会陰動脈、尿道動脈／［男性］尿道球動脈、陰茎背動脈、陰茎深動脈／［女性］膣前庭球動脈、陰核背動脈、陰核深動脈",
@@ -2154,25 +2135,6 @@
       },
       "answer_same": false,
       "margin": 0.4044
-    },
-    {
-      "source_id": 274,
-      "source_question": "骨盤臓器と会陰に分布する神経",
-      "source_answer": "陰部神経、骨盤内臓神経",
-      "best": {
-        "id": 425,
-        "question": "仙骨神経叢のうち、骨盤臓器と会陰に分布する神経を2つ答えよ。",
-        "answer": "陰部神経／骨盤内臓神経／（勃起神経）",
-        "score": 0.6736
-      },
-      "second": {
-        "id": 424,
-        "question": "仙骨神経叢のうち、殿部・下肢に分布する神経を4つ答えよ。",
-        "answer": "坐骨神経／上殿神経／下殿神経／後大腿皮神経",
-        "score": 0.3697
-      },
-      "answer_same": false,
-      "margin": 0.3039
     },
     {
       "source_id": 275,
@@ -2289,25 +2251,6 @@
       "margin": 0.1157
     },
     {
-      "source_id": 331,
-      "source_question": "喉頭に分布する動脈",
-      "source_answer": "上喉頭動脈、下喉頭動脈",
-      "best": {
-        "id": 461,
-        "question": "頭皮に分布する動脈を5つ答えよ。",
-        "answer": "滑車上動脈／眼窩上動脈／浅側頭動脈／後耳介動脈／後頭動脈",
-        "score": 0.6561
-      },
-      "second": {
-        "id": 486,
-        "question": "咽頭に分布する主な動脈を2つ答えよ。",
-        "answer": "上行咽頭動脈／下甲状腺動脈",
-        "score": 0.6054
-      },
-      "answer_same": false,
-      "margin": 0.0507
-    },
-    {
       "source_id": 321,
       "source_question": "内舌筋4つ",
       "source_answer": "上・下縦舌筋、垂直舌筋、横舌筋",
@@ -2332,9 +2275,9 @@
       "source_answer": "上行咽頭動脈、下甲状腺動脈、舌動脈・顎動脈の枝",
       "best": {
         "id": 486,
-        "question": "咽頭に分布する主な動脈を2つ答えよ。",
-        "answer": "上行咽頭動脈／下甲状腺動脈",
-        "score": 0.6973
+        "question": "咽頭に分布する動脈を4系統答えよ。",
+        "answer": "上行咽頭動脈／下甲状腺動脈／舌動脈の枝／顎動脈の枝",
+        "score": 0.8099
       },
       "second": {
         "id": 461,
@@ -2343,7 +2286,26 @@
         "score": 0.6561
       },
       "answer_same": false,
-      "margin": 0.0412
+      "margin": 0.1538
+    },
+    {
+      "source_id": 331,
+      "source_question": "喉頭に分布する動脈",
+      "source_answer": "上喉頭動脈、下喉頭動脈",
+      "best": {
+        "id": 486,
+        "question": "咽頭に分布する動脈を4系統答えよ。",
+        "answer": "上行咽頭動脈／下甲状腺動脈／舌動脈の枝／顎動脈の枝",
+        "score": 0.7123
+      },
+      "second": {
+        "id": 461,
+        "question": "頭皮に分布する動脈を5つ答えよ。",
+        "answer": "滑車上動脈／眼窩上動脈／浅側頭動脈／後耳介動脈／後頭動脈",
+        "score": 0.6561
+      },
+      "answer_same": false,
+      "margin": 0.0562
     },
     {
       "source_id": 333,
