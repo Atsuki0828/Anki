@@ -20,11 +20,12 @@ jobs:
       - run: node generate-heavy2024-authority.mjs
       - run: node compare-heavy2024.mjs
       - run: node summarize-heavy2024-report.mjs
+      - run: node review-heavy2024-pairs.mjs
       - name: Commit generated verification data
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add question-bank-export.json heavy2024-authoritative.json heavy2024-match-report.json heavy2024-mismatches.tsv
+          git add question-bank-export.json heavy2024-authoritative.json heavy2024-match-report.json heavy2024-mismatches.tsv heavy2024-reviewed-pairs.tsv
           if git diff --cached --quiet; then exit 0; fi
           git commit -m "資料準拠修正: 重問2024との差分を更新"
           git push
