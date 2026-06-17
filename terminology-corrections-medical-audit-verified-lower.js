@@ -1,0 +1,21 @@
+window.ANATOMY_TRANSLATIONS=Object.assign(window.ANATOMY_TRANSLATIONS||{}, {
+155:{en:['Inferior gluteal vessels','Internal pudendal vessels','Sciatic nerve','Posterior femoral cutaneous nerve','Inferior gluteal nerve','Pudendal nerve','Nerve to obturator internus','Nerve to quadratus femoris'],la:['Vasa glutea inferiora','Vasa pudenda interna','Nervus ischiadicus','Nervus cutaneus femoris posterior','Nervus gluteus inferior','Nervus pudendus','Nervus musculi obturatorii interni','Nervus musculi quadrati femoris']},
+167:{en:['Superior: inguinal ligament','Lateral: medial border of sartorius muscle','Medial: medial border of adductor longus muscle'],la:['Superior: ligamentum inguinale','Lateraliter: margo medialis musculi sartorii','Medialiter: margo medialis musculi adductoris longi']},
+171:{en:['Long head: tibial division of sciatic nerve','Short head: common fibular division of sciatic nerve'],la:['Caput longum: divisio tibialis nervi ischiadici','Caput breve: divisio fibularis communis nervi ischiadici']},
+172:{en:['Tibial division of sciatic nerve'],la:['Divisio tibialis nervi ischiadici']},
+173:{en:['Tibial division of sciatic nerve'],la:['Divisio tibialis nervi ischiadici']},
+177:{en:['Inferomedial border: medial head of gastrocnemius','Inferolateral border: lateral head of gastrocnemius'],la:['Margo inferomedialis: caput mediale musculi gastrocnemii','Margo inferolateralis: caput laterale musculi gastrocnemii']},
+219:{en:['Gluteus medius muscle','Gluteus minimus muscle','Tensor fasciae latae muscle'],la:['Musculus gluteus medius','Musculus gluteus minimus','Musculus tensor fasciae latae']},
+220:{en:['Adductor magnus muscle','Adductor longus muscle','Adductor brevis muscle','Gracilis muscle','Pectineus muscle'],la:['Musculus adductor magnus','Musculus adductor longus','Musculus adductor brevis','Musculus gracilis','Musculus pectineus']},
+221:{en:['Anterior part of gluteus medius','Anterior part of gluteus minimus','Tensor fasciae latae muscle'],la:['Pars anterior musculi glutei medii','Pars anterior musculi glutei minimi','Musculus tensor fasciae latae']},
+261:{en:['Twelfth thoracic vertebra','Eleventh and twelfth ribs','Costal margin','Xiphisternal joint'],la:['Vertebra thoracica XII','Costae XI et XII','Arcus costalis','Articulatio xiphisternalis']},
+270:{en:['Medial arcuate ligament: psoas major muscle','Lateral arcuate ligament: quadratus lumborum muscle'],la:['Ligamentum arcuatum mediale: musculus psoas major','Ligamentum arcuatum laterale: musculus quadratus lumborum']},
+275:{en:['Esophagus','Anterior vagal trunk','Posterior vagal trunk','Esophageal branches of left gastric vessels','Lymphatic vessels'],la:['Oesophagus','Truncus vagalis anterior','Truncus vagalis posterior','Rami oesophageales vasorum gastricorum sinistrorum','Vasa lymphatica']},
+285:{en:['Cervical part: inferior thyroid artery','Thoracic part: bronchial arteries'],la:['Pars cervicalis: arteria thyroidea inferior','Pars thoracica: arteriae bronchiales']},
+286:{en:['Inferior thyroid veins','Bronchial veins and azygos system'],la:['Venae thyroideae inferiores','Venae bronchiales et systema azygos']},
+288:{en:['Vagus nerve through pulmonary plexuses and bronchial branches','Sympathetic nerves'],la:['Nervus vagus per plexus pulmonales et ramos bronchiales','Nervi sympathici']},
+292:{en:['Costal pleura','Mediastinal pleura','Diaphragmatic pleura','Cervical pleura'],la:['Pleura costalis','Pleura mediastinalis','Pleura diaphragmatica','Pleura cervicalis']},
+323:{en:['Pulmonary lymph nodes','Bronchopulmonary lymph nodes','Tracheobronchial lymph nodes','Paratracheal lymph nodes'],la:['Nodi lymphoidei pulmonales','Nodi lymphoidei bronchopulmonales','Nodi lymphoidei tracheobronchiales','Nodi lymphoidei paratracheales']},
+349:{en:['Ileocolic artery','Anterior cecal artery','Posterior cecal artery','Appendicular artery'],la:['Arteria ileocolica','Arteria caecalis anterior','Arteria caecalis posterior','Arteria appendicularis']},
+381:{en:['Lumbar veins','Right testicular or ovarian vein','Renal veins','Right suprarenal vein','Inferior phrenic veins','Hepatic veins'],la:['Venae lumbales','Vena testicularis dextra vel vena ovarica dextra','Venae renales','Vena suprarenalis dextra','Venae phrenicae inferiores','Venae hepaticae']}
+});
