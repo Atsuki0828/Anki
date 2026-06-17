@@ -1,0 +1,15 @@
+import fs from'node:fs';
+const q=['questions-corrections-medical-audit-2-01.js','questions-corrections-medical-audit-2-02.js','questions-corrections-medical-audit-2-03.js','questions-corrections-medical-audit-verified-upper-extra.js','questions-corrections-medical-audit-verified-lower.js','questions-corrections-medical-audit-2-08a.js','questions-corrections-medical-audit-verified-pelvis-small.js','questions-corrections-medical-audit-2-09a.js','questions-corrections-medical-audit-verified-eye.js','questions-corrections-medical-audit-2-09c.js','questions-corrections-medical-audit-2-09b.js','questions-corrections-medical-audit-verified-q489.js','questions-corrections-medical-audit-2-09e.js','questions-corrections-medical-audit-2-09g.js','questions-corrections-medical-audit-verified-maxillary.js','questions-corrections-medical-audit-verified-q511.js','questions-corrections-medical-audit-verified-q518.js'];
+const t=['terminology-corrections-medical-audit-verified-upper.js','terminology-corrections-medical-audit-verified-lower.js','terminology-corrections-medical-audit-verified-head.js'];
+const tag=f=>`<script src="${f}"></script>`;
+let i=fs.readFileSync('index.html','utf8');
+i=i.split('\n').filter(x=>!/questions-corrections-medical-audit-(2-|verified-)/.test(x)&&!/terminology-corrections-medical-audit-(2-|verified-)/.test(x)).join('\n');
+i=i.replace(tag('questions-corrections-medical-audit.js'),[tag('questions-corrections-medical-audit.js'),...q.map(tag)].join('\n'));
+i=i.replace(tag('terminology-corrections-medical-audit.js'),[tag('terminology-corrections-medical-audit.js'),...t.map(tag)].join('\n'));
+fs.writeFileSync('index.html',i);
+let s=fs.readFileSync('sw.js','utf8').replace(/const CACHE='[^']+';/,"const CACHE='anatomy-quiz-medical-audit-v23';");
+const m=s.match(/const CORE=\[(.*?)\];/s);let a=[...m[1].matchAll(/'([^']+)'/g)].map(x=>x[1]);
+a=a.filter(x=>!/questions-corrections-medical-audit-(2-|verified-)/.test(x)&&!/terminology-corrections-medical-audit-(2-|verified-)/.test(x));
+const add=[...q,...t].map(x=>'./'+x),p=a.indexOf('./manifest.webmanifest');a.splice(p<0?a.length:p,0,...add);a=[...new Set(a)];
+s=s.replace(/const CORE=\[(.*?)\];/s,`const CORE=[${a.map(x=>`'${x}'`).join(',')}];`);fs.writeFileSync('sw.js',s);
+for(const f of[...q,...t])if(!fs.existsSync(f))throw Error('missing '+f);
