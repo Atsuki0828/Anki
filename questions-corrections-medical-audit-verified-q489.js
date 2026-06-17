@@ -1,0 +1,1 @@
+(()=>{const q=(window.QUESTION_BANK||[]).find(x=>x.id===489);if(q)Object.assign(q,{question:'喉頭の線維弾性膜を2つ答えよ。',answer:'四角膜／弾性円錐',keywords:['四角膜','弾性円錐'],expected:2,note:'正中輪状甲状靭帯は弾性円錐の一部である。'});})();
