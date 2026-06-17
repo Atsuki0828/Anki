@@ -1,0 +1,71 @@
+name: Apply second medical audit
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Connect audit files
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          question_files = [
+            'questions-corrections-medical-audit-2-01.js',
+            'questions-corrections-medical-audit-2-02.js',
+            'questions-corrections-medical-audit-2-03.js',
+            'questions-corrections-medical-audit-2-04.js',
+            'questions-corrections-medical-audit-2-05.js',
+            'questions-corrections-medical-audit-2-06.js',
+            'questions-corrections-medical-audit-2-07.js',
+            'questions-corrections-medical-audit-2-08a.js',
+            'questions-corrections-medical-audit-2-09a.js',
+            'questions-corrections-medical-audit-2-09b.js',
+            'questions-corrections-medical-audit-2-09c.js',
+            'questions-corrections-medical-audit-2-09d.js',
+            'questions-corrections-medical-audit-2-09f.js',
+            'questions-corrections-medical-audit-2-09g.js'
+          ]
+          terminology_files = ['terminology-corrections-medical-audit-2-upper-a.js']
+          index = Path('index.html')
+          text = index.read_text()
+          marker = '<script src="questions-corrections-medical-audit.js"></script>'
+          tags = '\n'.join(f'<script src="{name}"></script>' for name in question_files)
+          if question_files[0] not in text:
+              text = text.replace(marker, marker + '\n' + tags)
+          marker = '<script src="terminology-corrections-medical-audit.js"></script>'
+          tags = '\n'.join(f'<script src="{name}"></script>' for name in terminology_files)
+          if terminology_files[0] not in text:
+              text = text.replace(marker, marker + '\n' + tags)
+          index.write_text(text)
+          sw = Path('sw.js')
+          cache = sw.read_text()
+          import re
+          cache = re.sub(r"const CACHE='[^']+';", "const CACHE='anatomy-quiz-medical-audit-v21';", cache)
+          for name in question_files + terminology_files:
+              token = f"'./{name}'"
+              if token not in cache:
+                  cache = cache.replace("'./manifest.webmanifest'", token + ",'./manifest.webmanifest'")
+          sw.write_text(cache)
+          PY
+      - name: Validate JavaScript
+        run: |
+          for f in questions-corrections-medical-audit-2-*.js terminology-corrections-medical-audit-2-*.js; do node --check "$f"; done
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html sw.js
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "医学資料精査: 第2巡修正を公開版へ接続"
+          git push
