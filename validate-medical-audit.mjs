@@ -1,6 +1,6 @@
 import fs from'node:fs';import vm from'node:vm';
 const html=fs.readFileSync('index.html','utf8');
-const files=[...html.matchAll(/<script src="([^"]+\.js)"/g)].map(m=>m[1]).filter(f=>!f.startsWith('https://')&&(/^(questions-|terminology-)/.test(f)));
+const files=[...html.matchAll(/<script src="([^"]+\.js)"/g)].map(m=>m[1]).filter(f=>!f.startsWith('https://')&&f!=='terminology-ui.js'&&(/^(questions-|terminology-)/.test(f)));
 const c={window:{},console,TextDecoder,Uint8Array,atob:v=>Buffer.from(v,'base64').toString('binary')};c.window=c;vm.createContext(c);
 for(const f of files){if(!fs.existsSync(f))throw Error('missing '+f);new vm.Script(fs.readFileSync(f,'utf8'),{filename:f});vm.runInContext(fs.readFileSync(f,'utf8'),c,{filename:f});}
 const bank=c.QUESTION_BANK||[],tr=c.ANATOMY_TRANSLATIONS||{},ids=bank.map(q=>Number(q.id));
