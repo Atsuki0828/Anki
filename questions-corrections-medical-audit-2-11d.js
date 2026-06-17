@@ -1,0 +1,1 @@
+(()=>{const q=(window.QUESTION_BANK||[]).find(x=>x.id===518);if(q)Object.assign(q,{question:'脳底静脈の形成に関与する主な静脈を3群答えよ。',answer:'前大脳静脈／深中大脳静脈／線条体静脈',keywords:['前大脳静脈','深中大脳静脈','線条体静脈'],expected:3,note:'線条体静脈を追加した。'});})();
