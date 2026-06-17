@@ -53,7 +53,33 @@ function persistentSkip(){
   reloadWithoutStaleSave();
 }
 
-function enhanceSkip(){
+function persistentUndo(){
+  const session=readJson(SESSION_KEY,null);
+  if(!session||!Array.isArray(session.history)||!session.history.length)return;
+  const previous=session.history.pop();
+  const state=readJson(STATE_KEY,{items:{},answered:0,correct:0,streak:0,last:''});
+  state.items=state.items||{};
+
+  if(previous.item===null||previous.item===undefined)delete state.items[previous.qid];
+  else state.items[previous.qid]={...previous.item};
+  state.answered=Number(previous.answered)||0;
+  state.correct=Number(previous.correct)||0;
+  state.streak=Number(previous.streak)||0;
+  state.last=previous.last||'';
+
+  session.score=Number(previous.score)||0;
+  session.i=Math.max(0,Number(previous.i)||0);
+  session.stage=previous.stage||'question';
+  session.draft=previous.draft||'';
+  session.choiceResult=previous.choiceResult||null;
+  session.updatedAt=Date.now();
+
+  localStorage.setItem(STATE_KEY,JSON.stringify(state));
+  localStorage.setItem(SESSION_KEY,JSON.stringify(session));
+  reloadWithoutStaleSave();
+}
+
+function enhanceNavigation(){
   const head=document.querySelector('.study-head');
   if(!head)return;
 
@@ -69,12 +95,27 @@ function enhanceSkip(){
     skip.addEventListener('click',persistentSkip);
     head.prepend(skip);
   }
+
+  const session=readJson(SESSION_KEY,null);
+  const hasHistory=Boolean(session&&Array.isArray(session.history)&&session.history.length);
+  if(hasHistory&&!document.getElementById('undoQuestion')){
+    let undo=document.getElementById('undoQuestionFallback');
+    if(!undo){
+      undo=document.createElement('button');
+      undo.id='undoQuestionFallback';
+      undo.type='button';
+      undo.className='study-undo-btn';
+      undo.textContent='↶ 1問戻る';
+      undo.addEventListener('click',persistentUndo);
+      head.appendChild(undo);
+    }
+  }
 }
 
 function schedule(){
   if(scheduled)return;
   scheduled=true;
-  requestAnimationFrame(()=>{scheduled=false;enhanceSkip();});
+  requestAnimationFrame(()=>{scheduled=false;enhanceNavigation();});
 }
 
 new MutationObserver(schedule).observe(document.documentElement,{childList:true,subtree:true});
