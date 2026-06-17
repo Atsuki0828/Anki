@@ -98,18 +98,25 @@ function enhanceNavigation(){
 
   const session=readJson(SESSION_KEY,null);
   const hasHistory=Boolean(session&&Array.isArray(session.history)&&session.history.length);
-  if(hasHistory&&!document.getElementById('undoQuestion')){
-    let undo=document.getElementById('undoQuestionFallback');
-    if(!undo){
-      undo=document.createElement('button');
-      undo.id='undoQuestionFallback';
-      undo.type='button';
-      undo.className='study-undo-btn';
-      undo.textContent='↶ 1問戻る';
-      undo.addEventListener('click',persistentUndo);
-      head.appendChild(undo);
-    }
+  const nativeUndo=document.getElementById('undoQuestion');
+  let fallback=document.getElementById('undoQuestionFallback');
+
+  if(nativeUndo){
+    fallback?.remove();
+    return;
   }
+
+  if(!fallback){
+    fallback=document.createElement('button');
+    fallback.id='undoQuestionFallback';
+    fallback.type='button';
+    fallback.className='study-undo-btn';
+    fallback.textContent='↶ 1問戻る';
+    fallback.addEventListener('click',persistentUndo);
+    head.appendChild(fallback);
+  }
+  fallback.disabled=!hasHistory;
+  fallback.setAttribute('aria-disabled',String(!hasHistory));
 }
 
 function schedule(){
