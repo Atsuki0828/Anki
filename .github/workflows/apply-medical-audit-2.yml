@@ -33,6 +33,7 @@ jobs:
             'questions-corrections-medical-audit-2-09b.js',
             'questions-corrections-medical-audit-2-09c.js',
             'questions-corrections-medical-audit-2-09d.js',
+            'questions-corrections-medical-audit-2-09e.js',
             'questions-corrections-medical-audit-2-09f.js',
             'questions-corrections-medical-audit-2-09g.js'
           ]
@@ -43,6 +44,8 @@ jobs:
           tags = '\n'.join(f'<script src="{name}"></script>' for name in question_files)
           if question_files[0] not in text:
               text = text.replace(marker, marker + '\n' + tags)
+          elif question_files[-3] not in text:
+              text = text.replace('<script src="questions-corrections-medical-audit-2-09f.js"></script>', '<script src="questions-corrections-medical-audit-2-09e.js"></script>\n<script src="questions-corrections-medical-audit-2-09f.js"></script>')
           marker = '<script src="terminology-corrections-medical-audit.js"></script>'
           tags = '\n'.join(f'<script src="{name}"></script>' for name in terminology_files)
           if terminology_files[0] not in text:
@@ -51,7 +54,7 @@ jobs:
           sw = Path('sw.js')
           cache = sw.read_text()
           import re
-          cache = re.sub(r"const CACHE='[^']+';", "const CACHE='anatomy-quiz-medical-audit-v21';", cache)
+          cache = re.sub(r"const CACHE='[^']+';", "const CACHE='anatomy-quiz-medical-audit-v22';", cache)
           for name in question_files + terminology_files:
               token = f"'./{name}'"
               if token not in cache:
