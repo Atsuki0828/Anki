@@ -1,0 +1,1 @@
+(()=>{'use strict';const c={116:{question:'上肢の主な所属リンパ節を2群答えよ。',answer:'肘リンパ節（滑車上リンパ節）／腋窩リンパ節',keywords:['肘リンパ節','滑車上リンパ節','腋窩リンパ節'],expected:2,note:'「深リンパ節」は特定の固有リンパ節名ではないため解答から除外した。'}};for(const q of window.QUESTION_BANK||[]){if(c[q.id])Object.assign(q,c[q.id]);}})();
