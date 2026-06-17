@@ -1,0 +1,1 @@
+(()=>{'use strict';const c={"483":{"question":"舌粘膜の一般知覚と味覚を部位別に4群答えよ。","answer":"前2/3の一般知覚：舌神経／前2/3の味覚：鼓索神経／後1/3の一般知覚・味覚：舌咽神経／喉頭蓋付近の一般知覚・味覚：上喉頭神経内枝","keywords":["舌神経","鼓索神経","舌咽神経","上喉頭神経内枝"],"expected":4,"note":"前2/3では一般知覚と味覚の神経が異なる。"}};for(const q of window.QUESTION_BANK||[]){if(c[q.id])Object.assign(q,c[q.id]);}})();
