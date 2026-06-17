@@ -1,0 +1,1 @@
+(()=>{'use strict';const c={"404":{"answer":"上方：外腸骨動静脈／後方：内腸骨動静脈・尿管／底：閉鎖神経・閉鎖動静脈","keywords":["外腸骨動静脈","内腸骨動静脈","尿管","閉鎖神経","閉鎖動静脈"],"expected":5,"note":"卵巣窩の底には閉鎖神経だけでなく閉鎖動静脈も走る。"}};for(const q of window.QUESTION_BANK||[]){if(c[q.id])Object.assign(q,c[q.id]);}})();
