@@ -54,9 +54,25 @@ function pick(o){
   if(cfg.order==='number')a.sort((x,y)=>x.id-y.id);else if(cfg.order==='random')a.sort(()=>Math.random()-.5);else a.sort((x,y)=>score(y)-score(x));
   return a.slice(0,o.count==='all'?a.length:+o.count);
 }
-function start(o){const queue=pick(o);if(!queue.length){alert('条件に合う問題がありません');return}sess={queue,i:0,mode:o.mode||'recall',score:0,options:{...o}};question();}
-function question(){const q=sess.queue[sess.i],m=meta(q);main.innerHTML=`<div class="study-head"><div class="progress-track"><i style="width:${sess.i/sess.queue.length*100}%"></i></div><span>${sess.i+1}/${sess.queue.length}</span></div><section class="question-card"><div class="q-meta"><span class="badge">Q${q.id}</span><span class="badge major-badge">${esc(m.major)}</span><span class="badge sub-badge">${esc(m.sub)}</span>${q.note?'<span class="badge warn">要確認</span>':''}</div><div class="question-text">${esc(q.question)}</div><div id="work"></div></section>`;sess.mode==='choice'?choices(q):recall(q);}
-function recall(q){const workEl=document.getElementById('work');workEl.innerHTML=`${cfg.showInput?`<textarea class="answer-input" placeholder="答えを書き出す"></textarea><div class="hint-text">目安：${q.expected}項目</div>`:''}<div id="ans"></div><div class="question-actions" id="actions"><button class="primary-btn" id="show">答えを表示</button></div>`;document.getElementById('show').onclick=()=>{document.getElementById('ans').innerHTML=answerBox(q);document.getElementById('actions').innerHTML=`<div class="grade-grid"><button class="grade-btn grade-again" data-g="again"><b>不正解</b><small>すぐ</small></button><button class="grade-btn grade-hard" data-g="hard"><b>曖昧</b><small>明日</small></button><button class="grade-btn grade-good" data-g="good"><b>正解</b><small>数日後</small></button><button class="grade-btn grade-easy" data-g="easy"><b>余裕</b><small>長め</small></button></div>`;document.querySelectorAll('[data-g]').forEach(b=>b.onclick=()=>grade(q,b.dataset.g));};}
+function start(o){const queue=pick(o);if(!queue.length){alert('条件に合う問題がありません');return}sess={queue,i:0,mode:o.mode||'recall',score:0,options:{...o},history:[]};question();}
+function canUndo(){return Boolean(sess?.history?.length)}
+function question(){
+  sess.history=sess.history||[];
+  const q=sess.queue[sess.i],m=meta(q);
+  main.innerHTML=`<div class="study-head"><div class="progress-track"><i style="width:${sess.i/sess.queue.length*100}%"></i></div><span>${sess.i+1}/${sess.queue.length}</span>${canUndo()?'<button class="study-undo-btn" id="undoQuestion" type="button">↶ 1問戻る</button>':''}</div><section class="question-card"><div class="q-meta"><span class="badge">Q${q.id}</span><span class="badge major-badge">${esc(m.major)}</span><span class="badge sub-badge">${esc(m.sub)}</span>${q.note?'<span class="badge warn">要確認</span>':''}</div><div class="question-text">${esc(q.question)}</div><div id="work"></div></section>`;
+  const undo=document.getElementById('undoQuestion');if(undo)undo.onclick=undoLast;
+  sess.mode==='choice'?choices(q):recall(q);
+}
+function recall(q){
+  const workEl=document.getElementById('work');
+  workEl.innerHTML=`${cfg.showInput?`<textarea class="answer-input" placeholder="答えを書き出す"></textarea><div class="hint-text">目安：${q.expected}項目</div>`:''}<div id="ans"></div><div class="question-actions" id="actions"><button class="primary-btn" id="show">答えを表示</button></div>`;
+  document.getElementById('show').onclick=()=>{
+    document.getElementById('ans').innerHTML=answerBox(q);
+    document.getElementById('actions').innerHTML=`<div class="grade-grid"><button class="grade-btn grade-skip" id="skipQuestion"><b>スキップ</b><small>記録しない</small></button><button class="grade-btn grade-again" data-g="again"><b>不正解</b><small>すぐ</small></button><button class="grade-btn grade-hard" data-g="hard"><b>曖昧</b><small>明日</small></button><button class="grade-btn grade-good" data-g="good"><b>正解</b><small>数日後</small></button><button class="grade-btn grade-easy" data-g="easy"><b>余裕</b><small>長め</small></button></div>`;
+    document.getElementById('skipQuestion').onclick=skipCurrent;
+    document.querySelectorAll('[data-g]').forEach(b=>b.onclick=()=>grade(q,b.dataset.g));
+  };
+}
 function answerBox(q){return`<div class="answer-box"><div class="answer-label">資料の回答</div><div class="answer-text">${esc(q.answer).replaceAll('／','<br>')}</div>${q.note?`<div class="source-note">${esc(q.note)}</div>`:''}</div>`;}
 function choices(q){
   const m=meta(q);let candidates=Q.filter(x=>x.id!==q.id&&meta(x).sub===m.sub&&meta(x).majorId===m.majorId);
@@ -64,17 +80,41 @@ function choices(q){
   if(candidates.length<3)candidates=Q.filter(x=>x.id!==q.id);
   let answers=candidates.sort(()=>Math.random()-.5).slice(0,3).map(x=>x.answer);answers=[q.answer,...answers].sort(()=>Math.random()-.5);
   document.getElementById('work').innerHTML=`<div class="choice-list">${answers.map(x=>`<button class="choice-btn" data-v="${encodeURIComponent(x)}">${esc(x)}</button>`).join('')}</div><div id="ans"></div>`;
-  document.querySelectorAll('[data-v]').forEach(b=>b.onclick=()=>{const ok=decodeURIComponent(b.dataset.v)===q.answer;document.querySelectorAll('[data-v]').forEach(x=>{x.disabled=true;const right=decodeURIComponent(x.dataset.v)===q.answer;x.classList.toggle('correct',right);if(x===b&&!ok)x.classList.add('wrong')});document.getElementById('ans').innerHTML=answerBox(q)+`<div class="question-actions"><button class="primary-btn" id="next">次へ</button></div>`;record(q,ok?'good':'again');if(ok)sess.score++;document.getElementById('next').onclick=advance;});
+  document.querySelectorAll('[data-v]').forEach(b=>b.onclick=()=>{
+    const ok=decodeURIComponent(b.dataset.v)===q.answer;
+    document.querySelectorAll('[data-v]').forEach(x=>{x.disabled=true;const right=decodeURIComponent(x.dataset.v)===q.answer;x.classList.toggle('correct',right);if(x===b&&!ok)x.classList.add('wrong')});
+    pushHistory(q);
+    document.getElementById('ans').innerHTML=answerBox(q)+`<div class="question-actions"><button class="primary-btn" id="next">次へ</button></div>`;
+    record(q,ok?'good':'again');if(ok)sess.score++;
+    document.getElementById('next').onclick=advance;
+  });
 }
-function grade(q,g){record(q,g);if(g==='good'||g==='easy')sess.score++;advance()}
+function snapshotItem(id){return st.items[id]?{...st.items[id]}:null}
+function pushHistory(q){
+  sess.history=sess.history||[];
+  sess.history.push({i:sess.i,qid:q.id,item:snapshotItem(q.id),answered:st.answered,correct:st.correct,streak:st.streak,last:st.last,score:sess.score});
+}
+function grade(q,g){pushHistory(q);record(q,g);if(g==='good'||g==='easy')sess.score++;advance()}
+function skipCurrent(){const q=sess.queue[sess.i];pushHistory(q);advance()}
+function undoLast(){
+  const previous=sess?.history?.pop();if(!previous)return;
+  if(previous.item===null)delete st.items[previous.qid];else st.items[previous.qid]={...previous.item};
+  st.answered=previous.answered;st.correct=previous.correct;st.streak=previous.streak;st.last=previous.last;
+  sess.score=previous.score;sess.i=previous.i;save();question();
+}
 function record(q,g){const s=item(q.id),now=Date.now();s.seen++;st.answered++;if(g==='again'){s.level=Math.max(0,s.level-1);s.ng++;s.due=now+300000}if(g==='hard'){s.ng++;s.due=now+86400000}if(g==='good'){s.level=Math.min(5,s.level+1);s.ok++;st.correct++;s.due=now+[1,2,4,8,16,30][s.level]*86400000}if(g==='easy'){s.level=Math.min(5,s.level+2);s.ok++;st.correct++;s.due=now+[2,4,8,16,30,60][s.level]*86400000}touchStreak();save()}
 function advance(){sess.i++;if(sess.i<sess.queue.length)question();else finish()}
-function finish(){const opts={...sess.options,count:10};main.innerHTML=`<section class="hero"><div class="hero-kicker">SESSION COMPLETE</div><h1>${sess.queue.length}問 完了</h1><p>正解・余裕：${sess.score}問</p><div class="hero-actions"><button class="primary-btn" id="again">同じ分野を10問</button><button class="secondary-btn" id="back">ホームへ</button></div></section>`;document.getElementById('again').onclick=()=>start(opts);document.getElementById('back').onclick=()=>go('home')}
+function finish(){
+  const opts={...sess.options,count:10};
+  main.innerHTML=`<section class="hero"><div class="hero-kicker">SESSION COMPLETE</div><h1>${sess.queue.length}問 完了</h1><p>正解・余裕：${sess.score}問</p><div class="hero-actions">${canUndo()?'<button class="secondary-btn" id="undoFinished">1問戻る</button>':''}<button class="primary-btn" id="again">同じ分野を10問</button><button class="secondary-btn" id="back">ホームへ</button></div></section>`;
+  const undo=document.getElementById('undoFinished');if(undo)undo.onclick=undoLast;
+  document.getElementById('again').onclick=()=>start(opts);document.getElementById('back').onclick=()=>go('home');
+}
 function list(){
   main.innerHTML=`<div class="list-toolbar"><input id="search" class="searchbox" placeholder="問題・回答を検索"><div class="list-selects"><select id="listMajor"><option value="all">全大分類</option>${groups.map(g=>`<option value="${g.id}">${esc(g.name)}</option>`).join('')}</select><select id="listSub"><option value="all">全小分類</option></select></div><div class="filter-row"><button class="chip active" data-status="all">すべて</button><button class="chip" data-status="weak">弱点</button><button class="chip" data-status="mastered">定着</button><button class="chip" data-status="unseen">未学習</button></div></div><div id="rows" class="question-list"></div>`;
   const searchEl=document.getElementById('search'),majorEl=document.getElementById('listMajor'),subEl=document.getElementById('listSub'),rowsEl=document.getElementById('rows');
   const updateSubs=()=>{subEl.innerHTML=subOptions(majorEl.value,listFilter.sub);if(![...subEl.options].some(o=>o.value===listFilter.sub))listFilter.sub='all';subEl.value=listFilter.sub};
-  const draw=()=>{const text=searchEl.value.toLowerCase();let a=filtered(listFilter).filter(q=>(q.question+' '+q.answer).toLowerCase().includes(text));if(listFilter.status==='weak')a=a.filter(q=>(st.items[q.id]?.ng||0)>0);if(listFilter.status==='mastered')a=a.filter(q=>(st.items[q.id]?.level||0)>=4);if(listFilter.status==='unseen')a=a.filter(q=>!(st.items[q.id]?.seen));rowsEl.innerHTML=a.length?a.map(q=>{const m=meta(q);return`<button class="question-row" data-id="${q.id}"><strong>Q${q.id} ・ ${esc(m.major)}</strong><small>${esc(m.sub)}</small><p>${esc(q.question)}</p></button>`}).join(''):'<div class="empty">該当する問題がありません</div>';document.querySelectorAll('[data-id]').forEach(b=>b.onclick=()=>{sess={queue:[Q.find(q=>q.id==b.dataset.id)],i:0,mode:'recall',score:0,options:{major:'all',sub:'all',pool:'all',count:1}};question()})};
+  const draw=()=>{const text=searchEl.value.toLowerCase();let a=filtered(listFilter).filter(q=>(q.question+' '+q.answer).toLowerCase().includes(text));if(listFilter.status==='weak')a=a.filter(q=>(st.items[q.id]?.ng||0)>0);if(listFilter.status==='mastered')a=a.filter(q=>(st.items[q.id]?.level||0)>=4);if(listFilter.status==='unseen')a=a.filter(q=>!(st.items[q.id]?.seen));rowsEl.innerHTML=a.length?a.map(q=>{const m=meta(q);return`<button class="question-row" data-id="${q.id}"><strong>Q${q.id} ・ ${esc(m.major)}</strong><small>${esc(m.sub)}</small><p>${esc(q.question)}</p></button>`}).join(''):'<div class="empty">該当する問題がありません</div>';document.querySelectorAll('[data-id]').forEach(b=>b.onclick=()=>{sess={queue:[Q.find(q=>q.id==b.dataset.id)],i:0,mode:'recall',score:0,options:{major:'all',sub:'all',pool:'all',count:1},history:[]};question()})};
   majorEl.value=listFilter.major;updateSubs();searchEl.oninput=draw;majorEl.onchange=()=>{listFilter.major=majorEl.value;listFilter.sub='all';updateSubs();draw()};subEl.onchange=()=>{listFilter.sub=subEl.value;draw()};document.querySelectorAll('[data-status]').forEach(b=>{b.classList.toggle('active',b.dataset.status===listFilter.status);b.onclick=()=>{listFilter.status=b.dataset.status;document.querySelectorAll('[data-status]').forEach(x=>x.classList.toggle('active',x===b));draw()}});draw();
 }
 function stats(){
