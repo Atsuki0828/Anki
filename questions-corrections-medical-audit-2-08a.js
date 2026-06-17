@@ -1,0 +1,1 @@
+(()=>{'use strict';const c={"388":{"question":"大坐骨孔を囲む構造を3つ答えよ。","answer":"大坐骨切痕／仙棘靭帯／仙結節靭帯","keywords":["大坐骨切痕","仙棘靭帯","仙結節靭帯"],"expected":3,"note":"仙結節靭帯も大坐骨孔の形成に関与する。"}};for(const q of window.QUESTION_BANK||[]){if(c[q.id])Object.assign(q,c[q.id]);}})();
