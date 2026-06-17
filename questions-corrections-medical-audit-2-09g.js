@@ -1,0 +1,1 @@
+(()=>{'use strict';const c={"501":{"question":"顎動脈第1部（下顎部）の主な枝を5つ答えよ。","answer":"深耳介動脈／前鼓室動脈／中硬膜動脈／副硬膜動脈／下歯槽動脈","keywords":["深耳介動脈","前鼓室動脈","中硬膜動脈","副硬膜動脈","下歯槽動脈"],"expected":5,"note":"第1部の枝を漏れなく整理した。"}};for(const q of window.QUESTION_BANK||[]){if(c[q.id])Object.assign(q,c[q.id]);}})();
