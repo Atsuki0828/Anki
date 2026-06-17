@@ -57,7 +57,7 @@ function installRepeatHandler(){
   const again=document.getElementById('again');
   if(!again||again.dataset.sequenceReady)return;
   again.addEventListener('click',()=>{
-    if(sessionStorage.getItem(ACTIVE_KEY)==='1')temporarilyUseNumberOrder();
+    if(sessionStorage.getItem(ACTIVE_KEY)==='1'||preferred())temporarilyUseNumberOrder();
   },true);
   again.dataset.sequenceReady='1';
 }
