@@ -1,0 +1,10 @@
+import fs from 'node:fs';
+import vm from 'node:vm';
+const html=fs.readFileSync('index.html','utf8');
+const scripts=[...html.matchAll(/<script src="([^"]+)"/g)].map(m=>m[1]).filter(p=>/^questions-.*\.js$/.test(p));
+const context={window:{},console,TextDecoder,Uint8Array,atob:v=>Buffer.from(v,'base64').toString('binary')};
+context.window=context;vm.createContext(context);
+for(const file of scripts)vm.runInContext(fs.readFileSync(file,'utf8'),context,{filename:file});
+const rows=(context.QUESTION_BANK||[]).map(q=>[q.id,q.question,q.answer,q.expected,q.note||''].map(v=>String(v??'').replace(/[\t\r\n]+/g,' ')).join('\t'));
+fs.writeFileSync('current-question-bank.tsv',rows.join('\n')+'\n');
+console.log(`Exported ${rows.length} questions.`);
