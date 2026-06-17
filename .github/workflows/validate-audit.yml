@@ -9,7 +9,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
-      - run: node validate-medical-audit.mjs
+      - run: node validate-medical-audit-safe.mjs
       - run: |
           git config user.name audit-bot
           git config user.email audit@example.com
