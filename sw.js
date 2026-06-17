@@ -1,4 +1,4 @@
-const CACHE='anatomy-quiz-study-navigation-v13';
+const CACHE='anatomy-quiz-session-persistence-v14';
 const CORE=['./','./index.html','./styles.css','./image-styles.css','./learning-status.css','./terminology.css','./study-order.css','./study-navigation.css','./shell.js','./compat.js','./goodnotes-parser.js','./figure-session-import.js','./figure-poll.js','./figure-render.js','./taxonomy.js','./app.js','./study-order.js','./learning-status.js','./terminology-ui.js','./questions-corrections-heavy2024.js','./terminology-upper.js','./terminology-lower.js','./terminology-trunk-1.js','./terminology-trunk-2.js','./terminology-pelvis.js','./terminology-headneck-1.js','./terminology-headneck-2.js','./terminology-cns.js','./terminology-corrections-heavy2024.js','./manifest.webmanifest'];
 self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(CORE)).then(()=>self.skipWaiting())));
 self.addEventListener('activate',e=>e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim())));
