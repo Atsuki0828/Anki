@@ -1,1 +1,0 @@
-Terminology validation passed: 519/519 questions, 519 translation records.
