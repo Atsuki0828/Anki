@@ -1,0 +1,4 @@
+{
+  "passed": false,
+  "executionError": "terminology-ui.js:36\nnew MutationObserver(render).observe(document.documentElement,{childList:true,subtree:true});\n^\n\nReferenceError: MutationObserver is not defined\n    at terminology-ui.js:36:1\n    at terminology-ui.js:38:3\n    at Script.runInContext (node:vm:149:12)\n    at Object.runInContext (node:vm:301:6)\n    at file:///home/runner/work/Anki/Anki/validate-medical-audit.mjs:5:127\n    at ModuleJob.run (node:internal/modules/esm/module_job:343:25)\n    at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:681:26)\n    at async file:///home/runner/work/Anki/Anki/validate-medical-audit-safe.mjs:2:5"
+}
