@@ -1,0 +1,1 @@
+(()=>{'use strict';const c={"500":{"question":"顔面動脈の主な枝を7つ答えよ。","answer":"上行口蓋動脈／扁桃枝／オトガイ下動脈／下唇動脈／上唇動脈／外側鼻動脈／眼角動脈","keywords":["上行口蓋動脈","扁桃枝","オトガイ下動脈","下唇動脈","上唇動脈","外側鼻動脈","眼角動脈"],"expected":7,"note":"扁桃枝と外側鼻動脈を追加した。"}};for(const q of window.QUESTION_BANK||[]){if(c[q.id])Object.assign(q,c[q.id]);}})();
