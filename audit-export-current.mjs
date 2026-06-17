@@ -1,0 +1,12 @@
+import fs from 'node:fs';
+import vm from 'node:vm';
+const html=fs.readFileSync('index.html','utf8');
+const scripts=[...html.matchAll(/<script src="([^"]+)"/g)].map(x=>x[1]).filter(x=>/^questions-.*\.js$/.test(x)||(/^terminology-.*\.js$/.test(x)&&x!=='terminology-ui.js'));
+const c={console,TextDecoder,Uint8Array,atob:x=>Buffer.from(x,'base64').toString('binary')};c.window=c;vm.createContext(c);
+for(const file of scripts)vm.runInContext(fs.readFileSync(file,'utf8'),c,{filename:file});
+const tr=c.ANATOMY_TRANSLATIONS||{};
+const clean=x=>String(x??'').replace(/[\t\r\n]+/g,' ').trim();
+const lines=['id\tquestion\tanswer\texpected\tnote\tenglish\tlatin'];
+for(const q of (c.QUESTION_BANK||[]).sort((a,b)=>a.id-b.id))lines.push([q.id,q.question,q.answer,q.expected,q.note||'',(tr[q.id]?.en||[]).join(' | '),(tr[q.id]?.la||[]).join(' | ')].map(clean).join('\t'));
+fs.writeFileSync('audit-current.tsv',lines.join('\n')+'\n');
+console.log(`Exported ${lines.length-1} questions.`);
