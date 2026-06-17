@@ -9,6 +9,13 @@ function readJson(key,fallback){
   catch{return fallback;}
 }
 
+function reloadWithoutStaleSave(){
+  const stop=event=>event.stopImmediatePropagation();
+  window.addEventListener('pagehide',stop,{capture:true,once:true});
+  document.addEventListener('visibilitychange',stop,{capture:true,once:true});
+  location.reload();
+}
+
 function persistentSkip(){
   const session=readJson(SESSION_KEY,null);
   if(!session||!Array.isArray(session.queueIds)||!session.queueIds.length)return;
@@ -20,9 +27,7 @@ function persistentSkip(){
 
   session.history=Array.isArray(session.history)?session.history:[];
   session.history.push({
-    i:index,
-    qid,
-    item:savedItem,
+    i:index,qid,item:savedItem,
     answered:Number(state.answered)||0,
     correct:Number(state.correct)||0,
     streak:Number(state.streak)||0,
@@ -42,17 +47,17 @@ function persistentSkip(){
     session.i=index;
     session.stage='finished';
   }
+
   session.updatedAt=Date.now();
   localStorage.setItem(SESSION_KEY,JSON.stringify(session));
-  location.reload();
+  reloadWithoutStaleSave();
 }
 
 function enhanceSkip(){
   const head=document.querySelector('.study-head');
   if(!head)return;
 
-  const oldSkip=document.getElementById('skipQuestion');
-  if(oldSkip)oldSkip.remove();
+  document.getElementById('skipQuestion')?.remove();
 
   let skip=document.getElementById('skipQuestionTop');
   if(!skip){
@@ -61,7 +66,7 @@ function enhanceSkip(){
     skip.type='button';
     skip.className='study-skip-btn';
     skip.textContent='スキップ';
-    skip.onclick=persistentSkip;
+    skip.addEventListener('click',persistentSkip);
     head.prepend(skip);
   }
 }
@@ -69,10 +74,7 @@ function enhanceSkip(){
 function schedule(){
   if(scheduled)return;
   scheduled=true;
-  requestAnimationFrame(()=>{
-    scheduled=false;
-    enhanceSkip();
-  });
+  requestAnimationFrame(()=>{scheduled=false;enhanceSkip();});
 }
 
 new MutationObserver(schedule).observe(document.documentElement,{childList:true,subtree:true});
