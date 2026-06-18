@@ -16,6 +16,15 @@ document.getElementById('app').outerHTML = `
 <dialog id="settingsDialog" class="sheet">
   <form method="dialog">
     <div class="sheet-head"><h2>設定</h2><button class="icon-btn">×</button></div>
+    <section class="cloud-sync-panel">
+      <div class="cloud-sync-head"><div><h3>Googleアカウント同期</h3><p id="cloudSyncUser">未ログイン・端末保存のみ</p></div><span id="cloudSyncStatus" data-state="idle">端末保存のみ</span></div>
+      <p>ログインすると、学習状況・設定・進行中のクイズを端末間で同期します。元資料の図は端末内保存のままです。</p>
+      <div class="cloud-sync-actions">
+        <button type="button" class="google-login-btn" id="cloudLoginBtn">Googleでログイン</button>
+        <button type="button" class="secondary-btn" id="cloudSyncNowBtn" hidden>今すぐ同期</button>
+        <button type="button" class="text-btn" id="cloudLogoutBtn" hidden>ログアウト</button>
+      </div>
+    </section>
     <label class="setting-row"><span>問題順</span><select id="orderSetting"><option value="smart">弱点優先</option><option value="random">ランダム</option><option value="number">番号順</option></select></label>
     <label class="setting-row"><span>入力欄を表示</span><input id="inputSetting" type="checkbox" checked></label>
     <label class="setting-row"><span>問題文を大きく</span><input id="largeTextSetting" type="checkbox"></label>
