@@ -13,11 +13,17 @@
 <link rel="stylesheet" href="terminology.css">
 <link rel="stylesheet" href="study-order.css">
 <link rel="stylesheet" href="study-navigation.css">
+<link rel="stylesheet" href="cloud-sync.css">
 <title>解剖学クイズ</title>
 </head>
 <body>
 <div id="app"></div>
 <script src="shell.js"></script>
+<script src="https://www.gstatic.com/firebasejs/12.15.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/12.15.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore-compat.js"></script>
+<script src="firebase-config.js"></script>
+<script src="cloud-sync.js"></script>
 <script src="compat.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
 <script src="goodnotes-parser.js"></script>
@@ -80,20 +86,6 @@
 <script src="questions-corrections-medical-audit-verified-maxillary.js"></script>
 <script src="questions-corrections-medical-audit-verified-q511.js"></script>
 <script src="questions-corrections-medical-audit-verified-q518.js"></script>
-<script src="questions-corrections-medical-audit-2-04.js"></script>
-<script src="questions-corrections-medical-audit-2-05.js"></script>
-<script src="questions-corrections-medical-audit-2-06.js"></script>
-<script src="questions-corrections-medical-audit-2-07.js"></script>
-<script src="questions-corrections-medical-audit-2-08b.js"></script>
-<script src="questions-corrections-medical-audit-2-09d.js"></script>
-<script src="questions-corrections-medical-audit-2-09f.js"></script>
-<script src="questions-corrections-medical-audit-2-10.js"></script>
-<script src="questions-corrections-medical-audit-2-10a.js"></script>
-<script src="questions-corrections-medical-audit-2-10b.js"></script>
-<script src="questions-corrections-medical-audit-2-11a.js"></script>
-<script src="questions-corrections-medical-audit-2-11b.js"></script>
-<script src="questions-corrections-medical-audit-2-11d.js"></script>
-<script src="questions-corrections-medical-audit-2-11e.js"></script>
 <script src="terminology-upper.js"></script>
 <script src="terminology-lower.js"></script>
 <script src="terminology-trunk-1.js"></script>
@@ -107,10 +99,6 @@
 <script src="terminology-corrections-medical-audit-verified-upper.js"></script>
 <script src="terminology-corrections-medical-audit-verified-lower.js"></script>
 <script src="terminology-corrections-medical-audit-verified-head.js"></script>
-<script src="terminology-corrections-medical-audit-2-lower-a.js"></script>
-<script src="terminology-corrections-medical-audit-2-lower-b.js"></script>
-<script src="terminology-corrections-medical-audit-2-lower-c.js"></script>
-<script src="terminology-corrections-medical-audit-2-upper-a.js"></script>
 <script src="taxonomy.js"></script>
 <script src="app.js"></script>
 <script src="skip-position.js"></script>
