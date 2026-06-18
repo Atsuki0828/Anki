@@ -24,6 +24,15 @@ document.getElementById('app').outerHTML = `
         <button type="button" class="secondary-btn" id="cloudSyncNowBtn" hidden>今すぐ同期</button>
         <button type="button" class="text-btn" id="cloudLogoutBtn" hidden>ログアウト</button>
       </div>
+      <details class="cloud-setup" id="cloudSetupDetails">
+        <summary>Firebase接続設定</summary>
+        <p>FirebaseコンソールのWebアプリ設定に表示される <code>firebaseConfig</code> だけを貼り付けます。サービスアカウント秘密鍵は貼り付けないでください。</p>
+        <textarea id="cloudConfigInput" rows="8" spellcheck="false" placeholder="const firebaseConfig = { apiKey: '...', authDomain: '...', projectId: '...', appId: '...' };"></textarea>
+        <div class="cloud-setup-actions">
+          <button type="button" class="secondary-btn" id="cloudSaveConfigBtn">接続設定を保存</button>
+          <button type="button" class="text-btn" id="cloudClearConfigBtn">端末設定を削除</button>
+        </div>
+      </details>
     </section>
     <label class="setting-row"><span>問題順</span><select id="orderSetting"><option value="smart">弱点優先</option><option value="random">ランダム</option><option value="number">番号順</option></select></label>
     <label class="setting-row"><span>入力欄を表示</span><input id="inputSetting" type="checkbox" checked></label>
