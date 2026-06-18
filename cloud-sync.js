@@ -119,16 +119,27 @@ async function synchronize({manual=false}={}){
     const now=Date.now(),meta=loadMeta();meta.lastSuccessfulSyncAt=now;saveMeta(meta);message(`同期済み ${new Date(now).toLocaleTimeString('ja-JP',{hour:'2-digit',minute:'2-digit'})}`,'ok');
   }catch(error){console.error(error);message(friendlyError(error),'error')}finally{syncing=false;if(syncAgain){syncAgain=false;setTimeout(()=>synchronize(),100)}}
 }
-function friendlyError(error){const code=String(error?.code||'');if(code.includes('unauthorized-domain'))return'Firebaseの承認済みドメインに atsuki0828.github.io を追加してください';if(code.includes('operation-not-allowed'))return'FirebaseでGoogleログインを有効にしてください';if(code.includes('permission-denied'))return'Firestoreルールを確認してください';if(code.includes('network-request-failed')||!navigator.onLine)return'オフラインです。オンライン復帰後に同期します';if(code.includes('popup-closed-by-user'))return'ログイン画面が閉じられました';if(code.includes('popup-blocked'))return'ポップアップがブロックされました';return`同期に失敗：${error?.message||error}`}
+function friendlyError(error){const code=String(error?.code||'');if(code.includes('unauthorized-domain'))return'Firebaseの承認済みドメインに atsuki0828.github.io を追加してください';if(code.includes('operation-not-allowed'))return'FirebaseでGoogleログインを有効にしてください';if(code.includes('permission-denied'))return'Firestoreルールを確認してください';if(code.includes('network-request-failed')||!navigator.onLine)return'オフラインです。オンライン復帰後に同期します';if(code.includes('popup-closed-by-user'))return'ログイン画面が閉じられました';if(code.includes('popup-blocked'))return'ポップアップがブロックされました。Safariのポップアップブロックを一時的に解除してください';return`同期に失敗：${error?.message||error}`}
 function scheduleSync(){if(!user)return;clearTimeout(syncTimer);message('未同期の変更あり','working');syncTimer=setTimeout(()=>synchronize(),1400)}
-function shouldUseRedirect(){return /Android|iPhone|iPad|iPod/i.test(navigator.userAgent||'')||(typeof window.matchMedia==='function'&&window.matchMedia('(pointer: coarse)').matches)}
-async function signIn(){const provider=new firebase.auth.GoogleAuthProvider();provider.setCustomParameters({prompt:'select_account'});message('Googleログインを開いています…','working');try{if(shouldUseRedirect()){await auth.signInWithRedirect(provider);return}await auth.signInWithPopup(provider)}catch(error){if(error?.code==='auth/popup-blocked'||error?.code==='auth/web-storage-unsupported'){await auth.signInWithRedirect(provider);return}message(friendlyError(error),'error')}}
+async function signIn(){
+  const provider=new firebase.auth.GoogleAuthProvider();
+  provider.setCustomParameters({prompt:'select_account'});
+  message('Googleログインを開いています…','working');
+  try{
+    const result=await auth.signInWithPopup(provider);
+    user=result.user;
+    render(user);
+    await synchronize({manual:true});
+  }catch(error){
+    message(friendlyError(error),'error');
+  }
+}
 async function signOut(){try{if(user)await synchronize({manual:true});await auth.signOut();render(null);message('端末保存のみ','idle')}catch(error){message(friendlyError(error),'error')}}
 
 async function init(){
   configureUi();const config=getConfig();if(!config){render(null);message('Firebase接続設定が必要です','setup');if(login)login.disabled=true;return}
   if(!window.firebase){message('Firebase SDKの読込に失敗しました','error');return}
-  try{if(!firebase.apps.length)firebase.initializeApp(config);auth=firebase.auth();db=firebase.firestore();auth.useDeviceLanguage();await auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);login?.addEventListener('click',signIn);logout?.addEventListener('click',signOut);syncNow?.addEventListener('click',()=>synchronize({manual:true}));auth.onAuthStateChanged(async current=>{render(current);if(current)await synchronize();else message('端末保存のみ','idle')});auth.getRedirectResult().catch(error=>message(friendlyError(error),'error'));window.addEventListener('online',()=>user&&synchronize());window.addEventListener('storage',event=>SYNC_KEYS.has(event.key)&&user&&synchronize());document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&user)synchronize()});window.AnatomyCloudSync={sync:()=>synchronize({manual:true}),getUser:()=>user}}catch(error){console.error(error);message(`Firebase初期化エラー：${error.message||error}`,'error')}
+  try{if(!firebase.apps.length)firebase.initializeApp(config);auth=firebase.auth();db=firebase.firestore();auth.useDeviceLanguage();await auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);login?.addEventListener('click',signIn);logout?.addEventListener('click',signOut);syncNow?.addEventListener('click',()=>synchronize({manual:true}));auth.onAuthStateChanged(async current=>{render(current);if(current)await synchronize();else message('端末保存のみ','idle')});window.addEventListener('online',()=>user&&synchronize());window.addEventListener('storage',event=>SYNC_KEYS.has(event.key)&&user&&synchronize());document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&user)synchronize()});window.AnatomyCloudSync={sync:()=>synchronize({manual:true}),getUser:()=>user}}catch(error){console.error(error);message(`Firebase初期化エラー：${error.message||error}`,'error')}
 }
 init();
 })();
