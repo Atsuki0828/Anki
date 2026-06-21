@@ -6,7 +6,8 @@ const GROUPS=[
   {id:'trunk',name:'背部・胸部・腹部',description:'脊柱・胸郭・胸腹部臓器',min:242,max:384},
   {id:'pelvis',name:'骨盤部',description:'骨盤・会陰・生殖器',min:385,max:426},
   {id:'headneck',name:'頭頸部',description:'頭部・頸部・感覚器',min:427,max:510},
-  {id:'cns',name:'中枢神経系',description:'脳神経・脳血管',min:511,max:520}
+  {id:'cns',name:'中枢神経系',description:'脳神経・脳血管',min:511,max:520},
+  {id:'innervation',name:'支配神経',description:'筋肉ごとの支配神経 一問一答',min:1001,max:1152}
 ];
 const LOWER=[
   ['関節・靭帯・足弓',122,140],['寛骨筋・殿部',141,156],['大腿・膝窩',157,179],['下腿・筋膜・支帯',180,202],
@@ -33,7 +34,8 @@ function meta(q){
   else if(major.id==='trunk')sub=rangeLabel(q.id,TRUNK);
   else if(major.id==='pelvis')sub=rangeLabel(q.id,PELVIS);
   else if(major.id==='headneck')sub=rangeLabel(q.id,HEADNECK);
-  else sub=rangeLabel(q.id,CNS);
+  else if(major.id==='cns')sub=rangeLabel(q.id,CNS);
+  else if(major.id==='innervation')sub=q.category||'筋の支配神経';
   return{majorId:major.id,major:major.name,sub};
 }
 function build(questionBank){
