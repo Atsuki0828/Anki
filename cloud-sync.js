@@ -4,13 +4,13 @@
 const STATE_KEY='ulq-state-v1';
 const SETTINGS_KEY='ulq-settings-v1';
 const SESSION_KEY='ulq-active-session-v2';
-const CUSTOM_KEY='ulq-custom-questions-v1';
+const CUSTOM_KEY='ulq-custom-decks-v1';
 const META_KEY='ulq-cloud-meta-v1';
 const CONFIG_KEY='ulq-firebase-config-v1';
 const SYNC_KEYS=new Set([STATE_KEY,SETTINGS_KEY,SESSION_KEY,CUSTOM_KEY]);
 const DEFAULT_STATE={items:{},answered:0,correct:0,streak:0,last:''};
 const DEFAULT_SETTINGS={order:'smart',showInput:true,largeText:false};
-const DEFAULT_CUSTOM={schemaVersion:1,items:[],updatedAt:0};
+const DEFAULT_CUSTOM={schemaVersion:1,decks:[]};
 const nativeSet=Storage.prototype.setItem;
 const nativeRemove=Storage.prototype.removeItem;
 let suspended=false,auth=null,db=null,user=null,syncTimer=null,syncing=false,syncAgain=false;
@@ -29,22 +29,28 @@ const clearConfigBtn=el('cloudClearConfigBtn');
 function parse(value,fallback=null){try{return value?JSON.parse(value):fallback}catch{return fallback}}
 function clone(value){return value==null?value:JSON.parse(JSON.stringify(value))}
 function message(text,state='idle'){if(status){status.textContent=text;status.dataset.state=state}}
-function defaultMeta(){return{schemaVersion:2,itemUpdatedAt:{},stateUpdatedAt:0,settingsUpdatedAt:0,sessionUpdatedAt:0,customUpdatedAt:0,updatedAt:0,lastSuccessfulSyncAt:0}}
+function defaultMeta(){return{schemaVersion:3,itemUpdatedAt:{},stateUpdatedAt:0,settingsUpdatedAt:0,sessionUpdatedAt:0,customUpdatedAt:0,updatedAt:0,lastSuccessfulSyncAt:0}}
 function loadMeta(){const value=parse(localStorage.getItem(META_KEY),{})||{};return{...defaultMeta(),...value,itemUpdatedAt:value.itemUpdatedAt&&typeof value.itemUpdatedAt==='object'?value.itemUpdatedAt:{}}}
 function saveMeta(meta){nativeSet.call(localStorage,META_KEY,JSON.stringify(meta))}
 function normalizeCustom(value){
   const source=value&&typeof value==='object'?value:DEFAULT_CUSTOM;
-  const items=Array.isArray(source.items)?source.items:Array.isArray(value)?value:[];
-  const cleaned=[],seen=new Set();let updatedAt=Number(source.updatedAt)||0;
-  items.forEach(item=>{if(!item||item.id==null||seen.has(String(item.id)))return;seen.add(String(item.id));const copy={...item,id:Number(item.id),question:String(item.question||''),answer:String(item.answer||''),category:String(item.category||'自作'),expected:Math.max(1,Number(item.expected)||1),updatedAt:Number(item.updatedAt)||updatedAt||0};if(item.deleted)copy.deleted=true;if(item.createdAt)copy.createdAt=Number(item.createdAt)||copy.updatedAt;updatedAt=Math.max(updatedAt,copy.updatedAt);cleaned.push(copy)});
-  return{schemaVersion:1,items:cleaned,updatedAt};
+  const decks=Array.isArray(source.decks)?source.decks:[];
+  return{schemaVersion:1,decks:decks.map(deck=>{const id=String(deck.id||'');const questions=Array.isArray(deck.questions)?deck.questions:[];return{id,name:String(deck.name||'無題クイズ'),description:String(deck.description||''),createdAt:Number(deck.createdAt)||0,updatedAt:Number(deck.updatedAt)||0,questions:questions.map(q=>({id:String(q.id||''),question:String(q.question||''),answer:String(q.answer||''),category:String(q.category||'自作'),expected:Math.max(1,Number(q.expected)||1),note:String(q.note||''),custom:true,deckId:id,createdAt:Number(q.createdAt)||0,updatedAt:Number(q.updatedAt)||0})).filter(q=>q.id&&q.question&&q.answer)}}).filter(d=>d.id&&d.name)};
 }
 function mergeCustom(a,b){
-  const left=normalizeCustom(a),right=normalizeCustom(b),map=new Map();
-  [...left.items,...right.items].forEach(item=>{const key=String(item.id),old=map.get(key);if(!old||Number(item.updatedAt||0)>=Number(old.updatedAt||0))map.set(key,item)});
-  const items=[...map.values()].sort((x,y)=>Number(x.id)-Number(y.id));
-  return{schemaVersion:1,items,updatedAt:items.reduce((n,x)=>Math.max(n,Number(x.updatedAt)||0),Math.max(left.updatedAt,right.updatedAt))};
+  const left=normalizeCustom(a),right=normalizeCustom(b),deckMap=new Map();
+  [...left.decks,...right.decks].forEach(deck=>{
+    const old=deckMap.get(deck.id);
+    if(!old){deckMap.set(deck.id,clone(deck));return}
+    const newer=Number(deck.updatedAt||0)>=Number(old.updatedAt||0)?deck:old;
+    const older=newer===deck?old:deck;
+    const qMap=new Map();
+    [...(older.questions||[]),...(newer.questions||[])].forEach(q=>{const prev=qMap.get(q.id);if(!prev||Number(q.updatedAt||0)>=Number(prev.updatedAt||0))qMap.set(q.id,clone(q))});
+    deckMap.set(deck.id,{...clone(newer),questions:[...qMap.values()]});
+  });
+  return{schemaVersion:1,decks:[...deckMap.values()].sort((x,y)=>Number(x.createdAt||0)-Number(y.createdAt||0))};
 }
+function customUpdatedAt(value){return normalizeCustom(value).decks.reduce((n,d)=>Math.max(n,Number(d.updatedAt)||0,...(d.questions||[]).map(q=>Number(q.updatedAt)||0)),0)}
 
 function markMutation(key,oldValue,newValue){
   const now=Date.now(),meta=loadMeta();meta.updatedAt=now;
@@ -67,24 +73,13 @@ function getConfig(){const embedded=window.ANATOMY_FIREBASE_CONFIG;if(validConfi
 function parseConfigText(text){if(/private_key|client_email|service_account/i.test(text))throw new Error('サービスアカウント秘密鍵は入力しないでください。');let value=text.trim().replace(/^\s*(?:const|let|var)\s+firebaseConfig\s*=\s*/i,'').replace(/;\s*$/,'');value=value.replace(/([{,]\s*)([A-Za-z_$][\w$]*)(\s*:)/g,'$1"$2"$3').replace(/'/g,'"');const config=JSON.parse(value);if(!validConfig(config))throw new Error('apiKey、authDomain、projectId、appIdが必要です。');return config;}
 function configureUi(){const stored=parse(localStorage.getItem(CONFIG_KEY),null);if(configInput&&stored)configInput.value=JSON.stringify(stored,null,2);saveConfigBtn?.addEventListener('click',()=>{try{const config=parseConfigText(configInput.value);nativeSet.call(localStorage,CONFIG_KEY,JSON.stringify(config));message('接続設定を保存しました。再読み込みします。','ok');setTimeout(()=>location.reload(),250)}catch(error){message(error.message||String(error),'error')}});clearConfigBtn?.addEventListener('click',()=>{nativeRemove.call(localStorage,CONFIG_KEY);if(configInput)configInput.value='';if(login)login.disabled=true;if(setup)setup.open=true;message('この端末の接続設定を削除しました。','setup')});}
 function render(current){user=current||null;if(login){login.hidden=Boolean(user);login.disabled=!user&&!getConfig()}if(logout)logout.hidden=!user;if(syncNow)syncNow.hidden=!user;if(userBox)userBox.textContent=user?`${user.displayName||'Googleユーザー'} (${user.email||''})`:'未ログイン・端末保存のみ';if(setup)setup.open=!getConfig();}
-function normalize(value={}){const state=value.state&&typeof value.state==='object'?clone(value.state):clone(DEFAULT_STATE);state.items=state.items&&typeof state.items==='object'?state.items:{};const legacy=Number(value.updatedAtClient)||0;const rawMeta=value.meta&&typeof value.meta==='object'?clone(value.meta):{};const meta={...defaultMeta(),...rawMeta,itemUpdatedAt:rawMeta.itemUpdatedAt&&typeof rawMeta.itemUpdatedAt==='object'?rawMeta.itemUpdatedAt:{}};if(!meta.stateUpdatedAt)meta.stateUpdatedAt=legacy;if(!meta.settingsUpdatedAt)meta.settingsUpdatedAt=legacy;if(!meta.sessionUpdatedAt)meta.sessionUpdatedAt=Number(value.session?.updatedAt)||legacy;if(!meta.customUpdatedAt)meta.customUpdatedAt=Number(value.customQuestions?.updatedAt)||legacy;if(!meta.updatedAt)meta.updatedAt=legacy;return{schemaVersion:3,state,settings:value.settings&&typeof value.settings==='object'?clone(value.settings):clone(DEFAULT_SETTINGS),session:value.session&&typeof value.session==='object'?clone(value.session):null,customQuestions:normalizeCustom(value.customQuestions),meta};}
-function localSnapshot(){return normalize({state:parse(localStorage.getItem(STATE_KEY),clone(DEFAULT_STATE)),settings:parse(localStorage.getItem(SETTINGS_KEY),clone(DEFAULT_SETTINGS)),session:parse(localStorage.getItem(SESSION_KEY),null),customQuestions:parse(localStorage.getItem(CUSTOM_KEY),clone(DEFAULT_CUSTOM)),meta:loadMeta()})}
+function normalize(value={}){const state=value.state&&typeof value.state==='object'?clone(value.state):clone(DEFAULT_STATE);state.items=state.items&&typeof state.items==='object'?state.items:{};const legacy=Number(value.updatedAtClient)||0;const rawMeta=value.meta&&typeof value.meta==='object'?clone(value.meta):{};const customDecks=normalizeCustom(value.customDecks);const meta={...defaultMeta(),...rawMeta,itemUpdatedAt:rawMeta.itemUpdatedAt&&typeof rawMeta.itemUpdatedAt==='object'?rawMeta.itemUpdatedAt:{}};if(!meta.stateUpdatedAt)meta.stateUpdatedAt=legacy;if(!meta.settingsUpdatedAt)meta.settingsUpdatedAt=legacy;if(!meta.sessionUpdatedAt)meta.sessionUpdatedAt=Number(value.session?.updatedAt)||legacy;if(!meta.customUpdatedAt)meta.customUpdatedAt=customUpdatedAt(customDecks)||legacy;if(!meta.updatedAt)meta.updatedAt=legacy;return{schemaVersion:4,state,settings:value.settings&&typeof value.settings==='object'?clone(value.settings):clone(DEFAULT_SETTINGS),session:value.session&&typeof value.session==='object'?clone(value.session):null,customDecks,meta};}
+function localSnapshot(){return normalize({state:parse(localStorage.getItem(STATE_KEY),clone(DEFAULT_STATE)),settings:parse(localStorage.getItem(SETTINGS_KEY),clone(DEFAULT_SETTINGS)),session:parse(localStorage.getItem(SESSION_KEY),null),customDecks:parse(localStorage.getItem(CUSTOM_KEY),clone(DEFAULT_CUSTOM)),meta:loadMeta()})}
 function rank(item){if(!item)return[-1,-1,-1,-1];return[Number(item.seen)||0,(Number(item.ok)||0)+(Number(item.ng)||0),Number(item.level)||0,Number(item.due)||0]}
 function prefer(a,b){const x=rank(a),y=rank(b);for(let i=0;i<x.length;i++)if(x[i]!==y[i])return x[i]>y[i]?a:b;return a||b||null}
-function merge(localValue,remoteValue){
-  const local=normalize(localValue),remote=normalize(remoteValue),li=local.state.items||{},ri=remote.state.items||{},items={},itemUpdatedAt={};
-  const ids=new Set([...Object.keys(li),...Object.keys(ri),...Object.keys(local.meta.itemUpdatedAt),...Object.keys(remote.meta.itemUpdatedAt)]);
-  ids.forEach(id=>{const lt=Number(local.meta.itemUpdatedAt[id])||0,rt=Number(remote.meta.itemUpdatedAt[id])||0,lh=Object.prototype.hasOwnProperty.call(li,id),rh=Object.prototype.hasOwnProperty.call(ri,id);let selected=null;if(lt>rt)selected=lh?li[id]:null;else if(rt>lt)selected=rh?ri[id]:null;else if(lh||rh)selected=prefer(li[id],ri[id]);if(selected)items[id]=clone(selected);itemUpdatedAt[id]=Math.max(lt,rt)});
-  const stateSource=Number(local.meta.stateUpdatedAt)>=Number(remote.meta.stateUpdatedAt)?local.state:remote.state;
-  const settings=Number(local.meta.settingsUpdatedAt)>=Number(remote.meta.settingsUpdatedAt)?local.settings:remote.settings;
-  const localSessionTime=Math.max(Number(local.meta.sessionUpdatedAt)||0,Number(local.session?.updatedAt)||0),remoteSessionTime=Math.max(Number(remote.meta.sessionUpdatedAt)||0,Number(remote.session?.updatedAt)||0);
-  const session=localSessionTime>=remoteSessionTime?local.session:remote.session;
-  const customQuestions=mergeCustom(local.customQuestions,remote.customQuestions);
-  const values=Object.values(items);
-  return normalize({state:{items,answered:values.reduce((n,v)=>n+(Number(v.seen)||0),0),correct:values.reduce((n,v)=>n+(Number(v.ok)||0),0),streak:Number(stateSource.streak)||0,last:String(stateSource.last||'')},settings,session,customQuestions,meta:{schemaVersion:3,itemUpdatedAt,stateUpdatedAt:Math.max(Number(local.meta.stateUpdatedAt)||0,Number(remote.meta.stateUpdatedAt)||0),settingsUpdatedAt:Math.max(Number(local.meta.settingsUpdatedAt)||0,Number(remote.meta.settingsUpdatedAt)||0),sessionUpdatedAt:Math.max(Number(local.meta.sessionUpdatedAt)||0,Number(remote.meta.sessionUpdatedAt)||0),customUpdatedAt:Math.max(Number(local.meta.customUpdatedAt)||0,Number(remote.meta.customUpdatedAt)||0,Number(customQuestions.updatedAt)||0),updatedAt:Math.max(Number(local.meta.updatedAt)||0,Number(remote.meta.updatedAt)||0),lastSuccessfulSyncAt:Math.max(Number(local.meta.lastSuccessfulSyncAt)||0,Number(remote.meta.lastSuccessfulSyncAt)||0)}});
-}
+function merge(localValue,remoteValue){const local=normalize(localValue),remote=normalize(remoteValue),li=local.state.items||{},ri=remote.state.items||{},items={},itemUpdatedAt={};const ids=new Set([...Object.keys(li),...Object.keys(ri),...Object.keys(local.meta.itemUpdatedAt),...Object.keys(remote.meta.itemUpdatedAt)]);ids.forEach(id=>{const lt=Number(local.meta.itemUpdatedAt[id])||0,rt=Number(remote.meta.itemUpdatedAt[id])||0,lh=Object.prototype.hasOwnProperty.call(li,id),rh=Object.prototype.hasOwnProperty.call(ri,id);let selected=null;if(lt>rt)selected=lh?li[id]:null;else if(rt>lt)selected=rh?ri[id]:null;else if(lh||rh)selected=prefer(li[id],ri[id]);if(selected)items[id]=clone(selected);itemUpdatedAt[id]=Math.max(lt,rt)});const stateSource=Number(local.meta.stateUpdatedAt)>=Number(remote.meta.stateUpdatedAt)?local.state:remote.state;const settings=Number(local.meta.settingsUpdatedAt)>=Number(remote.meta.settingsUpdatedAt)?local.settings:remote.settings;const localSessionTime=Math.max(Number(local.meta.sessionUpdatedAt)||0,Number(local.session?.updatedAt)||0),remoteSessionTime=Math.max(Number(remote.meta.sessionUpdatedAt)||0,Number(remote.session?.updatedAt)||0);const session=localSessionTime>=remoteSessionTime?local.session:remote.session;const customDecks=mergeCustom(local.customDecks,remote.customDecks);const values=Object.values(items);return normalize({state:{items,answered:values.reduce((n,v)=>n+(Number(v.seen)||0),0),correct:values.reduce((n,v)=>n+(Number(v.ok)||0),0),streak:Number(stateSource.streak)||0,last:String(stateSource.last||'')},settings,session,customDecks,meta:{schemaVersion:4,itemUpdatedAt,stateUpdatedAt:Math.max(Number(local.meta.stateUpdatedAt)||0,Number(remote.meta.stateUpdatedAt)||0),settingsUpdatedAt:Math.max(Number(local.meta.settingsUpdatedAt)||0,Number(remote.meta.settingsUpdatedAt)||0),sessionUpdatedAt:Math.max(Number(local.meta.sessionUpdatedAt)||0,Number(remote.meta.sessionUpdatedAt)||0),customUpdatedAt:Math.max(Number(local.meta.customUpdatedAt)||0,Number(remote.meta.customUpdatedAt)||0,customUpdatedAt(customDecks)||0),updatedAt:Math.max(Number(local.meta.updatedAt)||0,Number(remote.meta.updatedAt)||0),lastSuccessfulSyncAt:Math.max(Number(local.meta.lastSuccessfulSyncAt)||0,Number(remote.meta.lastSuccessfulSyncAt)||0)}});}
 function comparable(value){return JSON.stringify(normalize(value))}
-function applyLocal(value){const data=normalize(value);suspended=true;try{nativeSet.call(localStorage,STATE_KEY,JSON.stringify(data.state));nativeSet.call(localStorage,SETTINGS_KEY,JSON.stringify(data.settings));if(data.session)nativeSet.call(localStorage,SESSION_KEY,JSON.stringify(data.session));else nativeRemove.call(localStorage,SESSION_KEY);nativeSet.call(localStorage,CUSTOM_KEY,JSON.stringify(data.customQuestions));saveMeta(data.meta)}finally{suspended=false}}
+function applyLocal(value){const data=normalize(value);suspended=true;try{nativeSet.call(localStorage,STATE_KEY,JSON.stringify(data.state));nativeSet.call(localStorage,SETTINGS_KEY,JSON.stringify(data.settings));if(data.session)nativeSet.call(localStorage,SESSION_KEY,JSON.stringify(data.session));else nativeRemove.call(localStorage,SESSION_KEY);nativeSet.call(localStorage,CUSTOM_KEY,JSON.stringify(data.customDecks));saveMeta(data.meta)}finally{suspended=false}}
 function ref(){return db.collection('users').doc(user.uid).collection('quiz').doc('progress')}
 function reloadSafely(){const stop=event=>event.stopImmediatePropagation();window.addEventListener('pagehide',stop,{capture:true,once:true});document.addEventListener('visibilitychange',stop,{capture:true,once:true});location.reload()}
 async function synchronize({manual=false}={}){if(!user||!db)return;if(syncing){syncAgain=true;return}syncing=true;message(manual?'同期しています…':'変更を同期しています…','working');try{const local=localSnapshot(),snapshot=await ref().get(),remote=snapshot.exists?normalize(snapshot.data()):null,merged=remote?merge(local,remote):local;const localChanged=comparable(local)!==comparable(merged),remoteChanged=!remote||comparable(remote)!==comparable(merged);if(remoteChanged)await ref().set({...merged,ownerUid:user.uid,updatedAt:firebase.firestore.FieldValue.serverTimestamp()});if(localChanged){applyLocal(merged);message('クラウドの進捗を統合しました。画面を更新します。','ok');setTimeout(reloadSafely,300);return}const now=Date.now(),meta=loadMeta();meta.lastSuccessfulSyncAt=now;saveMeta(meta);message(`同期済み ${new Date(now).toLocaleTimeString('ja-JP',{hour:'2-digit',minute:'2-digit'})}`,'ok')}catch(error){console.error(error);message(friendlyError(error),'error')}finally{syncing=false;if(syncAgain){syncAgain=false;setTimeout(()=>synchronize(),100)}}}
