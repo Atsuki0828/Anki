@@ -4,11 +4,13 @@
 const STATE_KEY='ulq-state-v1';
 const SETTINGS_KEY='ulq-settings-v1';
 const SESSION_KEY='ulq-active-session-v2';
+const CUSTOM_KEY='ulq-custom-questions-v1';
 const META_KEY='ulq-cloud-meta-v1';
 const CONFIG_KEY='ulq-firebase-config-v1';
-const SYNC_KEYS=new Set([STATE_KEY,SETTINGS_KEY,SESSION_KEY]);
+const SYNC_KEYS=new Set([STATE_KEY,SETTINGS_KEY,SESSION_KEY,CUSTOM_KEY]);
 const DEFAULT_STATE={items:{},answered:0,correct:0,streak:0,last:''};
 const DEFAULT_SETTINGS={order:'smart',showInput:true,largeText:false};
+const DEFAULT_CUSTOM={schemaVersion:1,items:[],updatedAt:0};
 const nativeSet=Storage.prototype.setItem;
 const nativeRemove=Storage.prototype.removeItem;
 let suspended=false,auth=null,db=null,user=null,syncTimer=null,syncing=false,syncAgain=false;
@@ -27,70 +29,46 @@ const clearConfigBtn=el('cloudClearConfigBtn');
 function parse(value,fallback=null){try{return value?JSON.parse(value):fallback}catch{return fallback}}
 function clone(value){return value==null?value:JSON.parse(JSON.stringify(value))}
 function message(text,state='idle'){if(status){status.textContent=text;status.dataset.state=state}}
-function defaultMeta(){return{schemaVersion:2,itemUpdatedAt:{},stateUpdatedAt:0,settingsUpdatedAt:0,sessionUpdatedAt:0,updatedAt:0,lastSuccessfulSyncAt:0}}
+function defaultMeta(){return{schemaVersion:2,itemUpdatedAt:{},stateUpdatedAt:0,settingsUpdatedAt:0,sessionUpdatedAt:0,customUpdatedAt:0,updatedAt:0,lastSuccessfulSyncAt:0}}
 function loadMeta(){const value=parse(localStorage.getItem(META_KEY),{})||{};return{...defaultMeta(),...value,itemUpdatedAt:value.itemUpdatedAt&&typeof value.itemUpdatedAt==='object'?value.itemUpdatedAt:{}}}
 function saveMeta(meta){nativeSet.call(localStorage,META_KEY,JSON.stringify(meta))}
+function normalizeCustom(value){
+  const source=value&&typeof value==='object'?value:DEFAULT_CUSTOM;
+  const items=Array.isArray(source.items)?source.items:Array.isArray(value)?value:[];
+  const cleaned=[],seen=new Set();let updatedAt=Number(source.updatedAt)||0;
+  items.forEach(item=>{if(!item||item.id==null||seen.has(String(item.id)))return;seen.add(String(item.id));const copy={...item,id:Number(item.id),question:String(item.question||''),answer:String(item.answer||''),category:String(item.category||'自作'),expected:Math.max(1,Number(item.expected)||1),updatedAt:Number(item.updatedAt)||updatedAt||0};if(item.deleted)copy.deleted=true;if(item.createdAt)copy.createdAt=Number(item.createdAt)||copy.updatedAt;updatedAt=Math.max(updatedAt,copy.updatedAt);cleaned.push(copy)});
+  return{schemaVersion:1,items:cleaned,updatedAt};
+}
+function mergeCustom(a,b){
+  const left=normalizeCustom(a),right=normalizeCustom(b),map=new Map();
+  [...left.items,...right.items].forEach(item=>{const key=String(item.id),old=map.get(key);if(!old||Number(item.updatedAt||0)>=Number(old.updatedAt||0))map.set(key,item)});
+  const items=[...map.values()].sort((x,y)=>Number(x.id)-Number(y.id));
+  return{schemaVersion:1,items,updatedAt:items.reduce((n,x)=>Math.max(n,Number(x.updatedAt)||0),Math.max(left.updatedAt,right.updatedAt))};
+}
 
 function markMutation(key,oldValue,newValue){
   const now=Date.now(),meta=loadMeta();meta.updatedAt=now;
   if(key===STATE_KEY){
     const before=parse(oldValue,DEFAULT_STATE)||DEFAULT_STATE,after=parse(newValue,DEFAULT_STATE)||DEFAULT_STATE;
     const oldItems=before.items||{},newItems=after.items||{};
-    new Set([...Object.keys(oldItems),...Object.keys(newItems)]).forEach(id=>{
-      if(JSON.stringify(oldItems[id]??null)!==JSON.stringify(newItems[id]??null))meta.itemUpdatedAt[id]=now;
-    });
+    new Set([...Object.keys(oldItems),...Object.keys(newItems)]).forEach(id=>{if(JSON.stringify(oldItems[id]??null)!==JSON.stringify(newItems[id]??null))meta.itemUpdatedAt[id]=now});
     meta.stateUpdatedAt=now;
   }else if(key===SETTINGS_KEY)meta.settingsUpdatedAt=now;
   else if(key===SESSION_KEY)meta.sessionUpdatedAt=now;
+  else if(key===CUSTOM_KEY)meta.customUpdatedAt=now;
   saveMeta(meta);scheduleSync();
 }
 
-Storage.prototype.setItem=function(key,value){
-  const oldValue=this===localStorage?this.getItem(key):null;
-  const result=nativeSet.call(this,key,value);
-  if(this===localStorage&&!suspended&&SYNC_KEYS.has(key)&&oldValue!==String(value))markMutation(key,oldValue,String(value));
-  return result;
-};
-Storage.prototype.removeItem=function(key){
-  const oldValue=this===localStorage?this.getItem(key):null;
-  const result=nativeRemove.call(this,key);
-  if(this===localStorage&&!suspended&&SYNC_KEYS.has(key)&&oldValue!==null)markMutation(key,oldValue,null);
-  return result;
-};
+Storage.prototype.setItem=function(key,value){const oldValue=this===localStorage?this.getItem(key):null;const result=nativeSet.call(this,key,value);if(this===localStorage&&!suspended&&SYNC_KEYS.has(key)&&oldValue!==String(value))markMutation(key,oldValue,String(value));return result;};
+Storage.prototype.removeItem=function(key){const oldValue=this===localStorage?this.getItem(key):null;const result=nativeRemove.call(this,key);if(this===localStorage&&!suspended&&SYNC_KEYS.has(key)&&oldValue!==null)markMutation(key,oldValue,null);return result;};
 
 function validConfig(value){return Boolean(value&&typeof value==='object'&&value.apiKey&&value.authDomain&&value.projectId&&value.appId)}
 function getConfig(){const embedded=window.ANATOMY_FIREBASE_CONFIG;if(validConfig(embedded))return embedded;const stored=parse(localStorage.getItem(CONFIG_KEY),null);return validConfig(stored)?stored:null}
-function parseConfigText(text){
-  if(/private_key|client_email|service_account/i.test(text))throw new Error('サービスアカウント秘密鍵は入力しないでください。');
-  let value=text.trim().replace(/^\s*(?:const|let|var)\s+firebaseConfig\s*=\s*/i,'').replace(/;\s*$/,'');
-  value=value.replace(/([{,]\s*)([A-Za-z_$][\w$]*)(\s*:)/g,'$1"$2"$3').replace(/'/g,'"');
-  const config=JSON.parse(value);if(!validConfig(config))throw new Error('apiKey、authDomain、projectId、appIdが必要です。');return config;
-}
-
-function configureUi(){
-  const stored=parse(localStorage.getItem(CONFIG_KEY),null);if(configInput&&stored)configInput.value=JSON.stringify(stored,null,2);
-  saveConfigBtn?.addEventListener('click',()=>{try{const config=parseConfigText(configInput.value);nativeSet.call(localStorage,CONFIG_KEY,JSON.stringify(config));message('接続設定を保存しました。再読み込みします。','ok');setTimeout(()=>location.reload(),250)}catch(error){message(error.message||String(error),'error')}});
-  clearConfigBtn?.addEventListener('click',()=>{nativeRemove.call(localStorage,CONFIG_KEY);if(configInput)configInput.value='';if(login)login.disabled=true;if(setup)setup.open=true;message('この端末の接続設定を削除しました。','setup')});
-}
-
-function render(current){
-  user=current||null;
-  if(login){login.hidden=Boolean(user);login.disabled=!user&&!getConfig()}
-  if(logout)logout.hidden=!user;
-  if(syncNow)syncNow.hidden=!user;
-  if(userBox)userBox.textContent=user?`${user.displayName||'Googleユーザー'} (${user.email||''})`:'未ログイン・端末保存のみ';
-  if(setup)setup.open=!getConfig();
-}
-
-function normalize(value={}){
-  const state=value.state&&typeof value.state==='object'?clone(value.state):clone(DEFAULT_STATE);state.items=state.items&&typeof state.items==='object'?state.items:{};
-  const legacy=Number(value.updatedAtClient)||0;
-  const rawMeta=value.meta&&typeof value.meta==='object'?clone(value.meta):{};
-  const meta={...defaultMeta(),...rawMeta,itemUpdatedAt:rawMeta.itemUpdatedAt&&typeof rawMeta.itemUpdatedAt==='object'?rawMeta.itemUpdatedAt:{}};
-  if(!meta.stateUpdatedAt)meta.stateUpdatedAt=legacy;if(!meta.settingsUpdatedAt)meta.settingsUpdatedAt=legacy;if(!meta.sessionUpdatedAt)meta.sessionUpdatedAt=Number(value.session?.updatedAt)||legacy;if(!meta.updatedAt)meta.updatedAt=legacy;
-  return{schemaVersion:2,state,settings:value.settings&&typeof value.settings==='object'?clone(value.settings):clone(DEFAULT_SETTINGS),session:value.session&&typeof value.session==='object'?clone(value.session):null,meta};
-}
-function localSnapshot(){return normalize({state:parse(localStorage.getItem(STATE_KEY),clone(DEFAULT_STATE)),settings:parse(localStorage.getItem(SETTINGS_KEY),clone(DEFAULT_SETTINGS)),session:parse(localStorage.getItem(SESSION_KEY),null),meta:loadMeta()})}
+function parseConfigText(text){if(/private_key|client_email|service_account/i.test(text))throw new Error('サービスアカウント秘密鍵は入力しないでください。');let value=text.trim().replace(/^\s*(?:const|let|var)\s+firebaseConfig\s*=\s*/i,'').replace(/;\s*$/,'');value=value.replace(/([{,]\s*)([A-Za-z_$][\w$]*)(\s*:)/g,'$1"$2"$3').replace(/'/g,'"');const config=JSON.parse(value);if(!validConfig(config))throw new Error('apiKey、authDomain、projectId、appIdが必要です。');return config;}
+function configureUi(){const stored=parse(localStorage.getItem(CONFIG_KEY),null);if(configInput&&stored)configInput.value=JSON.stringify(stored,null,2);saveConfigBtn?.addEventListener('click',()=>{try{const config=parseConfigText(configInput.value);nativeSet.call(localStorage,CONFIG_KEY,JSON.stringify(config));message('接続設定を保存しました。再読み込みします。','ok');setTimeout(()=>location.reload(),250)}catch(error){message(error.message||String(error),'error')}});clearConfigBtn?.addEventListener('click',()=>{nativeRemove.call(localStorage,CONFIG_KEY);if(configInput)configInput.value='';if(login)login.disabled=true;if(setup)setup.open=true;message('この端末の接続設定を削除しました。','setup')});}
+function render(current){user=current||null;if(login){login.hidden=Boolean(user);login.disabled=!user&&!getConfig()}if(logout)logout.hidden=!user;if(syncNow)syncNow.hidden=!user;if(userBox)userBox.textContent=user?`${user.displayName||'Googleユーザー'} (${user.email||''})`:'未ログイン・端末保存のみ';if(setup)setup.open=!getConfig();}
+function normalize(value={}){const state=value.state&&typeof value.state==='object'?clone(value.state):clone(DEFAULT_STATE);state.items=state.items&&typeof state.items==='object'?state.items:{};const legacy=Number(value.updatedAtClient)||0;const rawMeta=value.meta&&typeof value.meta==='object'?clone(value.meta):{};const meta={...defaultMeta(),...rawMeta,itemUpdatedAt:rawMeta.itemUpdatedAt&&typeof rawMeta.itemUpdatedAt==='object'?rawMeta.itemUpdatedAt:{}};if(!meta.stateUpdatedAt)meta.stateUpdatedAt=legacy;if(!meta.settingsUpdatedAt)meta.settingsUpdatedAt=legacy;if(!meta.sessionUpdatedAt)meta.sessionUpdatedAt=Number(value.session?.updatedAt)||legacy;if(!meta.customUpdatedAt)meta.customUpdatedAt=Number(value.customQuestions?.updatedAt)||legacy;if(!meta.updatedAt)meta.updatedAt=legacy;return{schemaVersion:3,state,settings:value.settings&&typeof value.settings==='object'?clone(value.settings):clone(DEFAULT_SETTINGS),session:value.session&&typeof value.session==='object'?clone(value.session):null,customQuestions:normalizeCustom(value.customQuestions),meta};}
+function localSnapshot(){return normalize({state:parse(localStorage.getItem(STATE_KEY),clone(DEFAULT_STATE)),settings:parse(localStorage.getItem(SETTINGS_KEY),clone(DEFAULT_SETTINGS)),session:parse(localStorage.getItem(SESSION_KEY),null),customQuestions:parse(localStorage.getItem(CUSTOM_KEY),clone(DEFAULT_CUSTOM)),meta:loadMeta()})}
 function rank(item){if(!item)return[-1,-1,-1,-1];return[Number(item.seen)||0,(Number(item.ok)||0)+(Number(item.ng)||0),Number(item.level)||0,Number(item.due)||0]}
 function prefer(a,b){const x=rank(a),y=rank(b);for(let i=0;i<x.length;i++)if(x[i]!==y[i])return x[i]>y[i]?a:b;return a||b||null}
 function merge(localValue,remoteValue){
@@ -101,45 +79,19 @@ function merge(localValue,remoteValue){
   const settings=Number(local.meta.settingsUpdatedAt)>=Number(remote.meta.settingsUpdatedAt)?local.settings:remote.settings;
   const localSessionTime=Math.max(Number(local.meta.sessionUpdatedAt)||0,Number(local.session?.updatedAt)||0),remoteSessionTime=Math.max(Number(remote.meta.sessionUpdatedAt)||0,Number(remote.session?.updatedAt)||0);
   const session=localSessionTime>=remoteSessionTime?local.session:remote.session;
+  const customQuestions=mergeCustom(local.customQuestions,remote.customQuestions);
   const values=Object.values(items);
-  return normalize({state:{items,answered:values.reduce((n,v)=>n+(Number(v.seen)||0),0),correct:values.reduce((n,v)=>n+(Number(v.ok)||0),0),streak:Number(stateSource.streak)||0,last:String(stateSource.last||'')},settings,session,meta:{schemaVersion:2,itemUpdatedAt,stateUpdatedAt:Math.max(Number(local.meta.stateUpdatedAt)||0,Number(remote.meta.stateUpdatedAt)||0),settingsUpdatedAt:Math.max(Number(local.meta.settingsUpdatedAt)||0,Number(remote.meta.settingsUpdatedAt)||0),sessionUpdatedAt:Math.max(Number(local.meta.sessionUpdatedAt)||0,Number(remote.meta.sessionUpdatedAt)||0),updatedAt:Math.max(Number(local.meta.updatedAt)||0,Number(remote.meta.updatedAt)||0),lastSuccessfulSyncAt:Math.max(Number(local.meta.lastSuccessfulSyncAt)||0,Number(remote.meta.lastSuccessfulSyncAt)||0)}});
+  return normalize({state:{items,answered:values.reduce((n,v)=>n+(Number(v.seen)||0),0),correct:values.reduce((n,v)=>n+(Number(v.ok)||0),0),streak:Number(stateSource.streak)||0,last:String(stateSource.last||'')},settings,session,customQuestions,meta:{schemaVersion:3,itemUpdatedAt,stateUpdatedAt:Math.max(Number(local.meta.stateUpdatedAt)||0,Number(remote.meta.stateUpdatedAt)||0),settingsUpdatedAt:Math.max(Number(local.meta.settingsUpdatedAt)||0,Number(remote.meta.settingsUpdatedAt)||0),sessionUpdatedAt:Math.max(Number(local.meta.sessionUpdatedAt)||0,Number(remote.meta.sessionUpdatedAt)||0),customUpdatedAt:Math.max(Number(local.meta.customUpdatedAt)||0,Number(remote.meta.customUpdatedAt)||0,Number(customQuestions.updatedAt)||0),updatedAt:Math.max(Number(local.meta.updatedAt)||0,Number(remote.meta.updatedAt)||0),lastSuccessfulSyncAt:Math.max(Number(local.meta.lastSuccessfulSyncAt)||0,Number(remote.meta.lastSuccessfulSyncAt)||0)}});
 }
 function comparable(value){return JSON.stringify(normalize(value))}
-function applyLocal(value){const data=normalize(value);suspended=true;try{nativeSet.call(localStorage,STATE_KEY,JSON.stringify(data.state));nativeSet.call(localStorage,SETTINGS_KEY,JSON.stringify(data.settings));if(data.session)nativeSet.call(localStorage,SESSION_KEY,JSON.stringify(data.session));else nativeRemove.call(localStorage,SESSION_KEY);saveMeta(data.meta)}finally{suspended=false}}
+function applyLocal(value){const data=normalize(value);suspended=true;try{nativeSet.call(localStorage,STATE_KEY,JSON.stringify(data.state));nativeSet.call(localStorage,SETTINGS_KEY,JSON.stringify(data.settings));if(data.session)nativeSet.call(localStorage,SESSION_KEY,JSON.stringify(data.session));else nativeRemove.call(localStorage,SESSION_KEY);nativeSet.call(localStorage,CUSTOM_KEY,JSON.stringify(data.customQuestions));saveMeta(data.meta)}finally{suspended=false}}
 function ref(){return db.collection('users').doc(user.uid).collection('quiz').doc('progress')}
 function reloadSafely(){const stop=event=>event.stopImmediatePropagation();window.addEventListener('pagehide',stop,{capture:true,once:true});document.addEventListener('visibilitychange',stop,{capture:true,once:true});location.reload()}
-
-async function synchronize({manual=false}={}){
-  if(!user||!db)return;if(syncing){syncAgain=true;return}syncing=true;message(manual?'同期しています…':'変更を同期しています…','working');
-  try{
-    const local=localSnapshot(),snapshot=await ref().get(),remote=snapshot.exists?normalize(snapshot.data()):null,merged=remote?merge(local,remote):local;
-    const localChanged=comparable(local)!==comparable(merged),remoteChanged=!remote||comparable(remote)!==comparable(merged);
-    if(remoteChanged)await ref().set({...merged,ownerUid:user.uid,updatedAt:firebase.firestore.FieldValue.serverTimestamp()});
-    if(localChanged){applyLocal(merged);message('クラウドの進捗を統合しました。画面を更新します。','ok');setTimeout(reloadSafely,300);return}
-    const now=Date.now(),meta=loadMeta();meta.lastSuccessfulSyncAt=now;saveMeta(meta);message(`同期済み ${new Date(now).toLocaleTimeString('ja-JP',{hour:'2-digit',minute:'2-digit'})}`,'ok');
-  }catch(error){console.error(error);message(friendlyError(error),'error')}finally{syncing=false;if(syncAgain){syncAgain=false;setTimeout(()=>synchronize(),100)}}
-}
+async function synchronize({manual=false}={}){if(!user||!db)return;if(syncing){syncAgain=true;return}syncing=true;message(manual?'同期しています…':'変更を同期しています…','working');try{const local=localSnapshot(),snapshot=await ref().get(),remote=snapshot.exists?normalize(snapshot.data()):null,merged=remote?merge(local,remote):local;const localChanged=comparable(local)!==comparable(merged),remoteChanged=!remote||comparable(remote)!==comparable(merged);if(remoteChanged)await ref().set({...merged,ownerUid:user.uid,updatedAt:firebase.firestore.FieldValue.serverTimestamp()});if(localChanged){applyLocal(merged);message('クラウドの進捗を統合しました。画面を更新します。','ok');setTimeout(reloadSafely,300);return}const now=Date.now(),meta=loadMeta();meta.lastSuccessfulSyncAt=now;saveMeta(meta);message(`同期済み ${new Date(now).toLocaleTimeString('ja-JP',{hour:'2-digit',minute:'2-digit'})}`,'ok')}catch(error){console.error(error);message(friendlyError(error),'error')}finally{syncing=false;if(syncAgain){syncAgain=false;setTimeout(()=>synchronize(),100)}}}
 function friendlyError(error){const code=String(error?.code||'');if(code.includes('unauthorized-domain'))return'Firebaseの承認済みドメインに atsuki0828.github.io を追加してください';if(code.includes('operation-not-allowed'))return'FirebaseでGoogleログインを有効にしてください';if(code.includes('permission-denied'))return'Firestoreルールを確認してください';if(code.includes('network-request-failed')||!navigator.onLine)return'オフラインです。オンライン復帰後に同期します';if(code.includes('popup-closed-by-user'))return'ログイン画面が閉じられました';if(code.includes('popup-blocked'))return'ポップアップがブロックされました。Safariのポップアップブロックを一時的に解除してください';return`同期に失敗：${error?.message||error}`}
 function scheduleSync(){if(!user)return;clearTimeout(syncTimer);message('未同期の変更あり','working');syncTimer=setTimeout(()=>synchronize(),1400)}
-async function signIn(){
-  const provider=new firebase.auth.GoogleAuthProvider();
-  provider.setCustomParameters({prompt:'select_account'});
-  message('Googleログインを開いています…','working');
-  try{
-    const result=await auth.signInWithPopup(provider);
-    user=result.user;
-    render(user);
-    await synchronize({manual:true});
-  }catch(error){
-    message(friendlyError(error),'error');
-  }
-}
+async function signIn(){const provider=new firebase.auth.GoogleAuthProvider();provider.setCustomParameters({prompt:'select_account'});message('Googleログインを開いています…','working');try{const result=await auth.signInWithPopup(provider);user=result.user;render(user);await synchronize({manual:true})}catch(error){message(friendlyError(error),'error')}}
 async function signOut(){try{if(user)await synchronize({manual:true});await auth.signOut();render(null);message('端末保存のみ','idle')}catch(error){message(friendlyError(error),'error')}}
-
-async function init(){
-  configureUi();const config=getConfig();if(!config){render(null);message('Firebase接続設定が必要です','setup');if(login)login.disabled=true;return}
-  if(!window.firebase){message('Firebase SDKの読込に失敗しました','error');return}
-  try{if(!firebase.apps.length)firebase.initializeApp(config);auth=firebase.auth();db=firebase.firestore();auth.useDeviceLanguage();await auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);login?.addEventListener('click',signIn);logout?.addEventListener('click',signOut);syncNow?.addEventListener('click',()=>synchronize({manual:true}));auth.onAuthStateChanged(async current=>{render(current);if(current)await synchronize();else message('端末保存のみ','idle')});window.addEventListener('online',()=>user&&synchronize());window.addEventListener('storage',event=>SYNC_KEYS.has(event.key)&&user&&synchronize());document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&user)synchronize()});window.AnatomyCloudSync={sync:()=>synchronize({manual:true}),getUser:()=>user}}catch(error){console.error(error);message(`Firebase初期化エラー：${error.message||error}`,'error')}
-}
+async function init(){configureUi();const config=getConfig();if(!config){render(null);message('Firebase接続設定が必要です','setup');if(login)login.disabled=true;return}if(!window.firebase){message('Firebase SDKの読込に失敗しました','error');return}try{if(!firebase.apps.length)firebase.initializeApp(config);auth=firebase.auth();db=firebase.firestore();auth.useDeviceLanguage();await auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);login?.addEventListener('click',signIn);logout?.addEventListener('click',signOut);syncNow?.addEventListener('click',()=>synchronize({manual:true}));auth.onAuthStateChanged(async current=>{render(current);if(current)await synchronize();else message('端末保存のみ','idle')});window.addEventListener('online',()=>user&&synchronize());window.addEventListener('storage',event=>SYNC_KEYS.has(event.key)&&user&&synchronize());document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&user)synchronize()});window.AnatomyCloudSync={sync:()=>synchronize({manual:true}),getUser:()=>user}}catch(error){console.error(error);message(`Firebase初期化エラー：${error.message||error}`,'error')}}
 init();
 })();
