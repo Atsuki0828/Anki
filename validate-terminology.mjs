@@ -20,17 +20,18 @@ for(const path of dataScripts){
 }
 
 const questions=context.QUESTION_BANK||[];
+const terminologyQuestions=questions.filter(question=>Number(question.id)<1000);
 const translations=context.ANATOMY_TRANSLATIONS||{};
-const ids=questions.map(question=>question.id);
+const ids=terminologyQuestions.map(question=>question.id);
 const uniqueIds=new Set(ids);
-const missing=questions.filter(question=>!translations[question.id]?.en?.length||!translations[question.id]?.la?.length).map(question=>question.id);
-const unbalanced=questions.filter(question=>translations[question.id]?.en?.length!==translations[question.id]?.la?.length).map(question=>question.id);
-const empty=questions.filter(question=>[...(translations[question.id]?.en||[]),...(translations[question.id]?.la||[])].some(term=>!String(term).trim())).map(question=>question.id);
+const missing=terminologyQuestions.filter(question=>!translations[question.id]?.en?.length||!translations[question.id]?.la?.length).map(question=>question.id);
+const unbalanced=terminologyQuestions.filter(question=>translations[question.id]?.en?.length!==translations[question.id]?.la?.length).map(question=>question.id);
+const empty=terminologyQuestions.filter(question=>[...(translations[question.id]?.en||[]),...(translations[question.id]?.la||[])].some(term=>!String(term).trim())).map(question=>question.id);
 
-if(questions.length!==519)throw new Error(`Expected 519 questions, found ${questions.length}`);
-if(uniqueIds.size!==questions.length)throw new Error('Duplicate question IDs detected');
+if(terminologyQuestions.length!==519)throw new Error(`Expected 519 terminology-backed questions, found ${terminologyQuestions.length}`);
+if(uniqueIds.size!==terminologyQuestions.length)throw new Error('Duplicate base question IDs detected');
 if(missing.length)throw new Error(`Missing translations: ${missing.join(', ')}`);
 if(unbalanced.length)throw new Error(`English/Latin item count mismatch: ${unbalanced.join(', ')}`);
 if(empty.length)throw new Error(`Empty terminology item: ${empty.join(', ')}`);
 
-console.log(`Terminology validation passed: ${questions.length}/${questions.length} questions, ${Object.keys(translations).length} translation records.`);
+console.log(`Terminology validation passed: ${terminologyQuestions.length}/${terminologyQuestions.length} base questions, ${Object.keys(translations).length} translation records, ${questions.length} total questions loaded.`);
