@@ -47,6 +47,6 @@ document.getElementById('app').outerHTML = `
     <div id="forceReloadStatus" class="figure-import-status">キャッシュだけを削除して再読み込みします。学習履歴・自作問題は消えません。</div>
     <button type="button" class="danger-btn" id="resetBtn">学習履歴をすべて消去</button>
     <p class="fineprint">日本語回答はアップロード資料に準拠し、その下に英語名・ラテン語名を表示します。資料との表現差や誤記が疑われる項目は「要確認」と表示します。</p>
-    <p class="fineprint">Ver. 2026.06.24-3</p>
+    <p class="fineprint">Ver. 2026.06.24-4</p>
   </form>
 </dialog>`;
