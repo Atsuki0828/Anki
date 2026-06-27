@@ -7,6 +7,7 @@ const SESSION_KEY='ulq-active-session-v2';
 const CUSTOM_KEY='ulq-custom-decks-v1';
 const ACTIVE_KEY='ulq-active-deck-v1';
 const INCLUDE_UNSEEN_KEY='ulq-include-unseen-v1';
+const SEQUENTIAL_KEY='anatomy-sequential-order-v1';
 
 function readJson(key,fallback){
   try{return JSON.parse(localStorage.getItem(key)||JSON.stringify(fallback));}
@@ -46,19 +47,30 @@ function filteredByPool(){
   if(!includeUnseen())list=list.filter(q=>(s.items?.[q.id]?.seen||0)>0);
   return list;
 }
+function countLimit(){
+  const value=document.getElementById('count')?.value||'10';
+  if(value==='all')return Infinity;
+  const number=Number(value);
+  return Number.isFinite(number)&&number>0?number:10;
+}
+function shouldUseSequential(){
+  const checkbox=document.getElementById('sequentialOrder');
+  return checkbox?checkbox.checked:localStorage.getItem(SEQUENTIAL_KEY)==='1';
+}
 function sortAndLimit(list){
   const cfg=readJson(SETTINGS_KEY,{order:'smart'});
   const s=state();
   const current=Date.now();
+  const sequential=shouldUseSequential();
   const score=q=>{
     const item=s.items?.[q.id]||{level:0,due:0,ng:0,seen:0};
     return (!item.seen&&includeUnseen()?1000:0)+(item.due<=current?500:0)+(item.ng||0)*20-(item.level||0)*35+Math.random()*10;
   };
-  if(cfg.order==='number')list.sort((a,b)=>String(a.id).localeCompare(String(b.id),undefined,{numeric:true}));
+  if(sequential||cfg.order==='number')list.sort((a,b)=>String(a.id).localeCompare(String(b.id),undefined,{numeric:true}));
   else if(cfg.order==='random')list.sort(()=>Math.random()-.5);
   else list.sort((a,b)=>score(b)-score(a));
-  const count=document.getElementById('count')?.value||'10';
-  return list.slice(0,count==='all'?list.length:Number(count)||10);
+  const limit=countLimit();
+  return Number.isFinite(limit)?list.slice(0,limit):list;
 }
 function updateSummary(){
   const summary=document.getElementById('selectionSummary');
@@ -66,14 +78,18 @@ function updateSummary(){
   const count=filteredByPool().length;
   summary.textContent=`選択範囲：${count}問${includeUnseen()?'':'（未学習を除外）'}`;
 }
-function startWithCheckbox(event){
-  const checkbox=document.getElementById('includeUnseenCheck');
-  if(!checkbox||checkbox.checked)return;
+function startWithCurrentConditions(event){
+  const begin=document.getElementById('begin');
+  if(!begin||event.currentTarget!==begin)return;
   event.preventDefault();
   event.stopImmediatePropagation();
   const deck=activeDeck();
   const queue=sortAndLimit(filteredByPool());
-  if(!queue.length){alert('条件に合う学習済み問題がありません');return;}
+  if(!queue.length){alert(includeUnseen()?'条件に合う問題がありません':'条件に合う学習済み問題がありません');return;}
+  const countValue=document.getElementById('count')?.value||'10';
+  const sequential=shouldUseSequential();
+  localStorage.setItem(SEQUENTIAL_KEY,sequential?'1':'0');
+  sessionStorage.setItem('anatomy-sequential-session-v1',sequential?'1':'0');
   const session={
     deckId:deck.id||localStorage.getItem(ACTIVE_KEY)||'anatomy',
     queueIds:queue.map(q=>q.id),
@@ -84,9 +100,10 @@ function startWithCheckbox(event){
       major:document.getElementById('major')?.value||'all',
       sub:document.getElementById('sub')?.value||'all',
       pool:poolValue(),
-      includeUnseen:false,
-      count:document.getElementById('count')?.value||'10',
-      mode:document.getElementById('mode')?.value||'recall'
+      includeUnseen:includeUnseen(),
+      count:countValue,
+      mode:document.getElementById('mode')?.value||'recall',
+      sequential
     },
     history:[],
     stage:'question',
@@ -123,13 +140,19 @@ function enhance(){
   if(!pool)return;
   removeUnseenOptions(pool);
   addCheckbox(pool);
-  if(pool.dataset.unseenCheckboxReady)return;
-  pool.dataset.unseenCheckboxReady='1';
-  pool.addEventListener('change',updateSummary);
-  document.getElementById('major')?.addEventListener('change',()=>setTimeout(updateSummary));
-  document.getElementById('sub')?.addEventListener('change',()=>setTimeout(updateSummary));
-  document.getElementById('count')?.addEventListener('change',updateSummary);
-  document.getElementById('begin')?.addEventListener('click',startWithCheckbox,true);
+  const begin=document.getElementById('begin');
+  if(!begin)return;
+  if(!pool.dataset.unseenCheckboxReady){
+    pool.dataset.unseenCheckboxReady='1';
+    pool.addEventListener('change',updateSummary);
+    document.getElementById('major')?.addEventListener('change',()=>setTimeout(updateSummary));
+    document.getElementById('sub')?.addEventListener('change',()=>setTimeout(updateSummary));
+    document.getElementById('count')?.addEventListener('change',updateSummary);
+  }
+  if(!begin.dataset.countFixReady){
+    begin.addEventListener('click',startWithCurrentConditions,true);
+    begin.dataset.countFixReady='1';
+  }
   updateSummary();
 }
 
