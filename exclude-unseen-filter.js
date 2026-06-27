@@ -79,6 +79,12 @@ function updateSummary(){
   const text=`選択範囲：${count}問${includeUnseen()?'':'（未学習を除外）'}`;
   if(summary.textContent!==text)summary.textContent=text;
 }
+function reloadWithoutOldSessionSave(){
+  const stop=event=>event.stopImmediatePropagation();
+  window.addEventListener('pagehide',stop,{capture:true,once:true});
+  document.addEventListener('visibilitychange',stop,{capture:true,once:true});
+  location.reload();
+}
 function startWithCurrentConditions(event){
   const begin=document.getElementById('begin');
   if(!begin||event.currentTarget!==begin)return;
@@ -113,7 +119,7 @@ function startWithCurrentConditions(event){
     updatedAt:Date.now()
   };
   localStorage.setItem(SESSION_KEY,JSON.stringify(session));
-  location.reload();
+  reloadWithoutOldSessionSave();
 }
 function removeUnseenOptions(pool){
   [...pool.options].forEach(option=>{
