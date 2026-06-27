@@ -2,7 +2,7 @@ document.getElementById('app').outerHTML = `
 <div id="app" class="app-shell">
   <header class="topbar">
     <button class="icon-btn" id="homeBtn" aria-label="ホーム">⌂</button>
-    <div class="brand"><div class="brand-mark">AN</div><div><strong>解剖学クイズ</strong><span>全519問・日英羅対訳</span></div></div>
+    <div class="brand"><div class="brand-mark">AN</div><div><strong>反復暗記アプリ</strong><span>解剖学クイズ・自作問題</span></div></div>
     <button class="icon-btn" id="settingsBtn" aria-label="設定">⚙</button>
   </header>
   <main id="main"></main>
@@ -45,5 +45,6 @@ document.getElementById('app').outerHTML = `
     </section>
     <button type="button" class="danger-btn" id="resetBtn">学習履歴をすべて消去</button>
     <p class="fineprint">日本語回答はアップロード資料に準拠し、その下に英語名・ラテン語名を表示します。資料との表現差や誤記が疑われる項目は「要確認」と表示します。</p>
+    <p class="fineprint">Ver. 2026.06.24-2</p>
   </form>
 </dialog>`;
