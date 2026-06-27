@@ -14,7 +14,7 @@ const dayMs=86400000;
 const minuteMs=60000;
 const intervals={
   good:[0,1,3,7,14,30,60,120,240,365],
-  easy:[0,2,7,14,30,60,120,240,365,540]
+  easy:[0,2,3,7,14,30,60,120,240,365]
 };
 
 function readJson(key,fallback){
@@ -35,7 +35,7 @@ function intervalFor(grade,stateItem){
   if(grade==='again')return 10*minuteMs;
   if(grade==='hard')return dayMs;
   if(grade==='good')return (intervals.good[Math.min(level,intervals.good.length-1)]||365)*dayMs;
-  if(grade==='easy')return (intervals.easy[Math.min(level,intervals.easy.length-1)]||540)*dayMs;
+  if(grade==='easy')return (intervals.easy[Math.min(level,intervals.easy.length-1)]||365)*dayMs;
   return null;
 }
 function applyScientificDue(questionId,grade){
