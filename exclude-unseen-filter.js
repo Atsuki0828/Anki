@@ -76,7 +76,8 @@ function updateSummary(){
   const summary=document.getElementById('selectionSummary');
   if(!summary)return;
   const count=filteredByPool().length;
-  summary.textContent=`選択範囲：${count}問${includeUnseen()?'':'（未学習を除外）'}`;
+  const text=`選択範囲：${count}問${includeUnseen()?'':'（未学習を除外）'}`;
+  if(summary.textContent!==text)summary.textContent=text;
 }
 function startWithCurrentConditions(event){
   const begin=document.getElementById('begin');
@@ -156,6 +157,6 @@ function enhance(){
   updateSummary();
 }
 
-new MutationObserver(enhance).observe(document.documentElement,{childList:true,subtree:true});
+new MutationObserver(enhance).observe(document.getElementById('main')||document.body,{childList:true,subtree:true});
 enhance();
 })();
